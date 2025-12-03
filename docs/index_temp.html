@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="iMotion-LLM: Instruction-Conditioned Trajectory Generation">
+  <meta name="description"
+        content="iMotion-LLM: Instruction-Conditioned Trajectory Generation">
   <meta name="keywords" content="Autonomous Driving, Trajectory Prediction, LLM, Motion Planning, Instruction Following">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>iMotion-LLM</title>
@@ -68,7 +69,7 @@
               </span>
 
               <span class="link-block">
-                <a href="https://github.com/Vision-CAIR/iMotion-LLM" class="external-link button is-normal is-rounded is-dark">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code</span>
                 </a>
@@ -77,14 +78,14 @@
               <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fa fa-database"></i></span>
-                  <span>Datasets (Coming Soon)</span>
+                  <span>Datasets</span>
                 </a>
               </span>
 
               <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fa fa-cube"></i></span>
-                  <span>Model (Coming Soon)</span>
+                  <span>Model</span>
                 </a>
               </span>
 
@@ -97,7 +98,7 @@
   </div>
 </section>
 
-<!-- Teaser Placeholder -->
+<!-- Teaser -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -117,7 +118,28 @@
         <div class="content has-text-justified">
 
 <p>
-We introduce <b>iMotion-LLM</b>, a large language model (LLM) integrated with trajectory prediction modules for interactive motion generation. Unlike conventional approaches, it generates feasible, safety-aligned trajectories based on textual instructions, enabling adaptable and context-aware driving behavior. It combines an encoder-decoder multimodal trajectory prediction model with a pre-trained LLM fine-tuned using LoRA, projecting scene features into the LLM input space and mapping special tokens to a trajectory decoder for text-based interaction and interpretable driving. To support this framework, we introduce two datasets: 1) <b>InstructWaymo</b>, an extension of the Waymo Open Motion Dataset with direction-based motion instructions, and 2) <b>Open-Vocabulary InstructNuPlan</b>, which features safety-aligned instruction-caption pairs and corresponding safe trajectory scenarios. Our experiments validate that instruction conditioning enables trajectory generation that follows the intended condition. iMotion-LLM demonstrates strong contextual comprehension, achieving 84\% average accuracy in direction feasibility detection and 96\% average accuracy in safety evaluation of open-vocabulary instructions. This work lays the foundation for text-guided motion generation in autonomous driving, supporting simulated data generation, model interpretability, and robust safety alignment testing for trajectory generation models.
+We introduce <b>iMotion-LLM</b>, a large language model integrated with trajectory prediction
+modules for instruction-conditioned motion generation. Unlike conventional approaches,
+iMotion-LLM generates feasible, safety-aligned trajectories from natural-language instructions,
+enabling context-aware driving behavior. It combines an encoder-decoder trajectory model
+with a pre-trained LLM fine-tuned using LoRA, projecting scene features into the LLM input
+space and mapping special tokens to a trajectory decoder for interpretable text-driven control.
+</p>
+
+<p>
+To support this framework, we introduce two datasets: <b>InstructWaymo</b>, an extension of
+the Waymo Open Motion Dataset with direction-based motion instructions, and
+<b>Open-Vocabulary InstructNuPlan</b>, containing safety-oriented instruction–caption pairs and
+associated safe trajectory scenarios. Experiments show that instruction conditioning enables
+trajectory generation aligned with intended behaviors.
+</p>
+
+<p>
+iMotion-LLM demonstrates strong contextual understanding, achieving <b>84% direction
+feasibility accuracy</b> and <b>96% safety evaluation accuracy</b>. Our work establishes a foundation
+for text-guided motion planning in autonomous driving and supports simulated data generation,
+interpretability, and robust safety alignment testing. Code, datasets, and pretrained models
+will be released publicly.
 </p>
 
         </div>
@@ -126,16 +148,31 @@ We introduce <b>iMotion-LLM</b>, a large language model (LLM) integrated with tr
   </div>
 </section>
 
-<!-- Coming Soon -->
+<!-- Method -->
 <section class="section">
-  <div class="container is-max-desktop has-text-centered">
-    <h2 class="title is-2">🚧 Coming Soon</h2>
-    <p class="is-size-4">
-      Full project page with figures, method, results, demos, datasets,
-      and interactive examples will be released soon.
-    </p>
-    <br>
-    <img src="static/images/coming_soon_placeholder.png" width="50%" style="opacity:0.6;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Method Overview</h2>
+        <img src="static/images/placeholder_method.jpg" width="90%">
+        <p class="subtitle has-text-centered"><i>(Placeholder method figure — replace with your real diagram)</i></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <img src="static/images/placeholder_results.jpg" width="90%">
+        <p class="subtitle"><i>(Placeholder results table/figure)</i></p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -159,7 +196,14 @@ We introduce <b>iMotion-LLM</b>, a large language model (LLM) integrated with tr
   <div class="container is-max-desktop content">
     <h2 class="title">Acknowledgement</h2>
     <p>
-      This website template is adapted from
-      <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
-      licensed under a
-      <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons BY-SA 4.0 L
+      This website template is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+      licensed under a <a rel="license"
+      href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
+      International License</a>.
+    </p>
+  </div>
+</section>
+
+</body>
+</html>
