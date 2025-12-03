@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="iMotion-LLM: Instruction-Conditioned Trajectory Generation">
+  <meta name="keywords" content="Autonomous Driving, Trajectory Prediction, LLM, Motion Planning, Instruction Following">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iMotion-LLM</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <!-- Title -->
+          <h1 class="title is-1 publication-title">iMotion-LLM</h1>
+          <h2 class="title is-2 publication-title">Instruction-Conditioned Trajectory Generation</h2>
+
+          <!-- Authors -->
+          <div class="is-size-5">
+            <span class="author-block">Abdulwahab Felemban</span>,
+            <span class="author-block">Nussair Hroub</span>,
+            <span class="author-block">Jian Ding</span>,
+            <span class="author-block">Eslam Abdelrahman</span>,
+            <span class="author-block">Xiaoqian Shen</span>,
+            <span class="author-block">Mohamed Abdullah*</span>,
+            <span class="author-block">Mohamed Elhoseiny</span>
+          </div>
+
+          <!-- Affiliations -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><b style="color:#008AD7;">▸</b> King Abdullah University of Science and Technology (KAUST)</span>
+            <span class="author-block"><b style="color:#03953b;">▸</b> Meta Reality Labs*</span>
+          </div>
+
+          <!-- Links -->
+          <br>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>Paper (Coming Soon)</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fa fa-database"></i></span>
+                  <span>Datasets</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fa fa-cube"></i></span>
+                  <span>Model</span>
+                </a>
+              </span>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <img src="static/images/placeholder_teaser.jpg" alt="Teaser Figure (Placeholder)">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-centered">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+
+<p>
+We introduce <b>iMotion-LLM</b>, a large language model integrated with trajectory prediction
+modules for instruction-conditioned motion generation. Unlike conventional approaches,
+iMotion-LLM generates feasible, safety-aligned trajectories from natural-language instructions,
+enabling context-aware driving behavior. It combines an encoder-decoder trajectory model
+with a pre-trained LLM fine-tuned using LoRA, projecting scene features into the LLM input
+space and mapping special tokens to a trajectory decoder for interpretable text-driven control.
+</p>
+
+<p>
+To support this framework, we introduce two datasets: <b>InstructWaymo</b>, an extension of
+the Waymo Open Motion Dataset with direction-based motion instructions, and
+<b>Open-Vocabulary InstructNuPlan</b>, containing safety-oriented instruction–caption pairs and
+associated safe trajectory scenarios. Experiments show that instruction conditioning enables
+trajectory generation aligned with intended behaviors.
+</p>
+
+<p>
+iMotion-LLM demonstrates strong contextual understanding, achieving <b>84% direction
+feasibility accuracy</b> and <b>96% safety evaluation accuracy</b>. Our work establishes a foundation
+for text-guided motion planning in autonomous driving and supports simulated data generation,
+interpretability, and robust safety alignment testing. Code, datasets, and pretrained models
+will be released publicly.
+</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Method Overview</h2>
+        <img src="static/images/placeholder_method.jpg" width="90%">
+        <p class="subtitle has-text-centered"><i>(Placeholder method figure — replace with your real diagram)</i></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <img src="static/images/placeholder_results.jpg" width="90%">
+        <p class="subtitle"><i>(Placeholder results table/figure)</i></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+ <div class="container is-max-desktop content">
+   <h2 class="title">BibTeX</h2>
+   <pre><code>
+@inproceedings{felemban2026imotionllm,
+  title={iMotion-LLM: Instruction-Conditioned Trajectory Generation},
+  author={Felemban, Abdulwahab and Hroub, Nussair and Ding, Jian and Abdelrahman, Eslam and Shen, Xiaoqian and Abdullah, Mohamed and Elhoseiny, Mohamed},
+  booktitle={WACV},
+  year={2026}
+}
+   </code></pre>
+ </div>
+</section>
+
+<!-- Acknowledgement -->
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgement</h2>
+    <p>
+      This website template is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+      licensed under a <a rel="license"
+      href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
+      International License</a>.
+    </p>
+  </div>
+</section>
+
+</body>
+</html>
