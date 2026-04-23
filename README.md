@@ -83,6 +83,7 @@ iMotion-LLM/
 - [Migration checklist](MIGRATION_CHECKLIST.md)
 - [Task list](TASKS.md)
 - [Incoming source inventory](migration/SOURCE_INVENTORY.md)
+- [Source audit: iMotion-LLM-ICLR](migration/SOURCE_AUDIT_IMOTION_LLM_ICLR.md)
 - [Paper refactoring requirements](migration/PAPER_REFACTORING_REQUIREMENTS.md)
 - [Paper experiment scope](docs/paper_scope.md)
 

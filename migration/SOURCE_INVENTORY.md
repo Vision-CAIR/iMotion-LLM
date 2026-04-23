@@ -8,15 +8,20 @@ These paths already exist on this machine and should not be edited in place as p
 
 | Path | Status | Notes |
 | --- | --- | --- |
+| `/home/felembaa/projects/iMotion-LLM-ICLR` | protected | Primary source repo identified during audit. Dirty working tree; read-only for migration. |
+| `/ibex/project/c2278/felembaa/projects/iMotion-LLM-Jan` | protected | Secondary snapshot/reference copy with similar structure plus logs/artifacts. |
+| `/home/felembaa/projects/iMotion-LLM-old` | protected | Older precursor repo; reference only if needed. |
 | `/ibex/project/c2278/felembaa/projects/iMotion-LLM-Jan/run_ibex/iMotion-LLM` | protected | Existing local copy discovered during bootstrap. Use only as reference if needed. |
 
 ## Incoming Sources To Audit
 
-Add each source once it is provided.
+Primary candidate sources have now been identified.
 
 | Source Path / Repo | Suspected Contents | Audit Status | Migration Target | Notes |
 | --- | --- | --- | --- | --- |
-| Pending user-provided source | Unknown | waiting | TBD | Awaiting legacy code locations/files. |
+| `/home/felembaa/projects/iMotion-LLM-ICLR` | Main iMotion-LLM working repo with `trajgpt`, `gameformer`, `instructions`, `mtr`, configs, and run scripts | audited | primary | Best candidate for migration. Refer to `migration/SOURCE_AUDIT_IMOTION_LLM_ICLR.md`. |
+| `/ibex/project/c2278/felembaa/projects/iMotion-LLM-Jan` | Snapshot/mirror of the project with overlapping code plus logs, figures, examples, and packed experiment state | partially audited | secondary | Useful to recover missing files or compare variants, but not the first source to migrate from. |
+| `/home/felembaa/projects/iMotion-LLM-old` | Older precursor with similar layout | identified | tertiary | Use only when code is missing from `iMotion-LLM-ICLR`. |
 
 ## Audit Rules
 
@@ -24,3 +29,4 @@ Add each source once it is provided.
 - Copy only the relevant iMotion-LLM components into this repository.
 - Preserve attribution to upstream parent projects where code is inherited or adapted.
 - Track anything missing for paper reproduction in `MIGRATION_CHECKLIST.md`.
+- Prefer `iMotion-LLM-ICLR` as the migration baseline unless a needed file exists only in a secondary source.
