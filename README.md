@@ -37,9 +37,15 @@ Supported code areas now in the repo:
 
 - `instructions/` for direction and instruction utilities
 - `gameformer/` for conditional trajectory backbones and preprocessing
-- `trajgpt/` for the MiniGPT-4 based iMotion-LLM code
+- `trajgpt/` for the migrated iMotion-LLM runtime code
 - `mtr/` for the Motion Transformer baseline
 - `tools/eval/` for evaluation helpers preserved from the working tree
+
+Supported public runtime note:
+
+- use `scripts/` and `configs/release/` as the supported entry surface
+- release configs now use the public model architecture name `imotion_llm`
+- legacy `minigpt4` module names are still present internally for backward compatibility
 
 ## Installation
 
@@ -59,6 +65,9 @@ Full setup notes:
 - [Installation](docs/setup/installation.md)
 - [Data and checkpoints](docs/setup/data_and_checkpoints.md)
 - [Running](docs/setup/running.md)
+- [Release audit](docs/release/REPO_AUDIT.md)
+- [Upload manifest](docs/release/HUGGINGFACE_UPLOAD_MANIFEST.md)
+- [Paper reproducibility checklist](docs/release/PAPER_REPRODUCIBILITY_CHECKLIST.md)
 
 ## Quick Start
 

@@ -1,8 +1,14 @@
 # src/imotion_llm
 
-Destination package for cleaned iMotion-LLM code after migration.
+Reserved destination package for a future fully cleaned iMotion-LLM library surface.
 
-Planned contents:
+Current status:
+
+- the supported public runtime is still driven from `trajgpt/`
+- public model aliases now exist for the release surface
+- deeper package-level migration into `src/imotion_llm` is still pending
+
+Planned long-term contents:
 
 - model modules
 - training code

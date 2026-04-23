@@ -318,8 +318,8 @@ class RunnerBase:
                     collate_fns.append(getattr(dataset, "collater", None))
 
             if getattr(self.config.model_cfg, "mtr", False):
-                from train import mtr_imotion_collator
-                collate_fns[0] = mtr_imotion_collator
+                from train import imotion_mtr_collator
+                collate_fns[0] = imotion_mtr_collator
                 dataloaders = self.create_loaders(
                     datasets=datasets,
                     num_workers=self.config.run_cfg.num_workers,

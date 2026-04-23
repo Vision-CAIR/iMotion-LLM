@@ -59,7 +59,7 @@ model:
   freeze_gf_dec: False
   act: True
   motion_act: False
-  arch: gameformer_gpt
+  arch: imotion_llm
   end_sym: </s>
   lora_target_modules: all
   low_resource: True

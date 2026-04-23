@@ -1,28 +1,12 @@
-# TrajGPT
+# TrajGPT Legacy Note
 
+This directory is a preserved migrated runtime subtree from the original internal project history.
 
-## Getting Started
-### Installation
+For the supported public setup, use the top-level repository entrypoints instead:
 
-**1. Prepare the code and the environment**
+- [README.md](../README.md)
+- [docs/setup/installation.md](../docs/setup/installation.md)
+- [docs/setup/running.md](../docs/setup/running.md)
+- [scripts/README.md](../scripts/README.md)
 
-Git clone our repository, creating a python environment and activate it via the following command
-
-There might be some missing libraries that needs to be updated, sklearn version needs to be updated also
-```bash
-git clone https://github.com/WahabF/trajgpt.git
-cd trajgpt
-conda env create -f environment.yml
-conda activate minigpt4
-```
-
-Make sure to edit the paths in 
-[trajgpt/train_configs/debug.yaml](trajgpt/train_configs/debug.yaml)
-and
-[trajgpt/train_configs/train.yaml](trajgpt/train_configs/train.yaml)
-
-### Training
-
-```bash
-torchrun --nproc-per-node NUM_GPU train.py --cfg-path train_configs/train.yaml
-```
+The historical instructions that previously lived in this file referenced old repository names and non-public config paths, so they were removed to avoid sending users to dead or misleading entrypoints.

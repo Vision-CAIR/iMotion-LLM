@@ -90,7 +90,8 @@ model:
   auto_txt_formatter: True
 
 run:
-  output_dir: outputs/imotion_nuplan/llama2_7b
+  output_dir: outputs/imotion_nuplan/eval
+  eval_dir: checkpoints/imotion_llm/nuplan/checkpoint_last.pth
   amp: False
   batch_size_eval: 32
   device: cuda
@@ -115,13 +116,12 @@ run:
   didnt_work_repeat: 0
   r: 32
   lora_alpha: 16
-  eval_dir: ""
-  job_name: imotion_nuplan_release
+  job_name: imotion_nuplan_eval
   wandb_log: False
   save_model: False
   distributed: False
-  evaluate: False
-  evaluate_only: False
+  evaluate: True
+  evaluate_only: True
   save_every: 5000
   max_grad_norm: 10.0
   warmup_ratio: 0.1

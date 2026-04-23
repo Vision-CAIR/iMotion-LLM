@@ -1,0 +1,3 @@
+model:
+  arch: imotion_llm
+  llama_model: "meta-llama/Llama-2-7b-hf"

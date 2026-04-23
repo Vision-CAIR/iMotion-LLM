@@ -15,6 +15,7 @@ Supported entrypoints:
 - `imotion_waymo_train.yaml`
 - `imotion_waymo_eval.yaml`
 - `imotion_nuplan_train.yaml`
+- `imotion_nuplan_eval.yaml`
 - `mtr_waymo_act.yaml`
 
 The original legacy experiment YAMLs are preserved under `trajgpt/` for traceability and paper archaeology.

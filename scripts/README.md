@@ -16,6 +16,7 @@ Main entrypoints:
 - `train_imotion_waymo.sh`
 - `eval_imotion_waymo.sh`
 - `train_imotion_nuplan.sh`
+- `eval_imotion_nuplan.sh`
 - `train_mtr_waymo.sh`
 - `eval_mtr_waymo.sh`
 - `preprocess_waymo_gameformer.sh`

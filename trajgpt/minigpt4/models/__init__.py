@@ -12,7 +12,7 @@ from omegaconf import OmegaConf
 from minigpt4.common.registry import registry
 from minigpt4.models.base_model import BaseModel
 from minigpt4.models.blip2 import Blip2Base
-from minigpt4.models.mini_gpt4 import MiniGPT4
+from minigpt4.models.mini_gpt4 import IMotionLLMModel, MiniGPT4
 from minigpt4.processors.base_processor import BaseProcessor
 
 
@@ -20,6 +20,7 @@ __all__ = [
     "load_model",
     "BaseModel",
     "Blip2Base",
+    "IMotionLLMModel",
     "MiniGPT4",
 ]
 

@@ -35,7 +35,8 @@ checkpoints/
 │   ├── waymo/cgf_l1/epochs_29.pth
 │   └── nuplan/cgf_l1/epochs_29.pth
 ├── imotion_llm/
-│   └── waymo/checkpoint_last.pth
+│   ├── waymo/checkpoint_last.pth
+│   └── nuplan/checkpoint_last.pth
 └── mtr/
     └── waymo/checkpoint_epoch_15.pth
 ```
@@ -95,11 +96,13 @@ Suggested placement if you are copying checkpoints from an older internal machin
 mkdir -p checkpoints/gameformer/waymo/cgf_l1
 mkdir -p checkpoints/gameformer/nuplan/cgf_l1
 mkdir -p checkpoints/imotion_llm/waymo
+mkdir -p checkpoints/imotion_llm/nuplan
 mkdir -p checkpoints/mtr/waymo
 
 cp /path/to/old/gameformer_waymo_epoch_29.pth checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth
 cp /path/to/old/gameformer_nuplan_epoch_29.pth checkpoints/gameformer/nuplan/cgf_l1/epochs_29.pth
 cp /path/to/old/imotion_waymo_checkpoint.pth checkpoints/imotion_llm/waymo/checkpoint_last.pth
+cp /path/to/old/imotion_nuplan_checkpoint.pth checkpoints/imotion_llm/nuplan/checkpoint_last.pth
 cp /path/to/old/mtr_checkpoint_epoch_15.pth checkpoints/mtr/waymo/checkpoint_epoch_15.pth
 ```
 

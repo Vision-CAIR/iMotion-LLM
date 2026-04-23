@@ -27,14 +27,13 @@ from transformers.trainer_utils import get_last_checkpoint
 
 try:
     from mtr.utils import common_utils
-    from minigpt4.models.mini_gpt4_mtr_dev import MiniGPT4 as Model_mtr
+    from minigpt4.models.imotion_llm import IMotionLLMMTRModel
     print("✅ mtr module loaded successfully.")
 except ImportError:
     print("❌ mtr model is not supported (module not found).")
 
 
-
-def mtr_imotion_collator(batch_list, convert_to_bfloat16=False):
+def imotion_mtr_collator(batch_list, convert_to_bfloat16=False):
     """
     Combines general_data_collator and collate_batch_mtr into a unified function.
     
@@ -101,6 +100,10 @@ def mtr_imotion_collator(batch_list, convert_to_bfloat16=False):
     
     batch_dict = {'batch_size': batch_size, 'input_dict': input_dict, 'batch_sample_count': batch_sample_count}
     return batch_dict
+
+
+# Backward-compatible alias for preserved legacy imports.
+mtr_imotion_collator = imotion_mtr_collator
 
 
 def collate_batch_mtr(batch_list):
@@ -231,7 +234,7 @@ import bitsandbytes
 from trl import SFTConfig, SFTTrainer
 from peft import LoraConfig
 from minigpt4 import imotion_sft_trainer
-from minigpt4.models.mini_gpt4 import MiniGPT4 as Model
+from minigpt4.models.imotion_llm import IMotionLLMModel
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from torch.nn.parallel.scatter_gather import Scatter, _is_namedtuple
 
@@ -522,9 +525,9 @@ def main():
     datasets = task.build_datasets(cfg)
 
     if cfg.model_cfg.get("mtr", False):
-        model = Model_mtr(cfg)
+        model = IMotionLLMMTRModel(cfg)
     else:
-        model = Model(cfg)
+        model = IMotionLLMModel(cfg)
     
 
     
@@ -634,7 +637,7 @@ def main():
         # train_dataset=None,
         args=sft_training_args,
         peft_config=loraconfig,
-        data_collator=general_data_collator if not cfg.model_cfg.get("mtr", False) else mtr_imotion_collator,
+        data_collator=general_data_collator if not cfg.model_cfg.get("mtr", False) else imotion_mtr_collator,
         # pretraining=True,
         # non_llm_trainable_modules=non_llm_trainable_modules,
         donot_prepare_model_for_kbit_training= cfg.run_cfg.get("donot_prepare_model_for_kbit_training", True),

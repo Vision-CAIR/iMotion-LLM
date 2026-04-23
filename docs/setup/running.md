@@ -73,7 +73,17 @@ bash scripts/train_imotion_nuplan.sh \
   run.output_dir=outputs/imotion_nuplan/my_run
 ```
 
-## 7. Train / Evaluate MTR
+## 7. Evaluate An Existing iMotion-LLM NuPlan Checkpoint
+
+```bash
+bash scripts/eval_imotion_nuplan.sh \
+  --options \
+  model.llama_model=meta-llama/Llama-2-7b-hf \
+  model.gf_encoder_path=checkpoints/gameformer/nuplan/cgf_l1/epochs_29.pth \
+  run.eval_dir=checkpoints/imotion_llm/nuplan/checkpoint_last.pth
+```
+
+## 8. Train / Evaluate MTR
 
 ```bash
 bash scripts/train_mtr_waymo.sh

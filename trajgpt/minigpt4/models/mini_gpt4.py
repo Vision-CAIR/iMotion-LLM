@@ -103,14 +103,16 @@ class BinaryClassificationHead(nn.Module):
 ##############################
 ##############################
 ##############################
+@registry.register_model("imotion_llm")
 @registry.register_model("gameformer_gpt")
-class MiniGPT4(Blip2Base):
+class IMotionLLMModel(Blip2Base):
     """
     BLIP2 GPT-LLAMA model.
     """
 
     PRETRAINED_MODEL_CONFIG_DICT = {
         "pretrain_vicuna": "configs/models/minigpt4.yaml",
+        "release": "configs/models/imotion_llm.yaml",
     }
 
     def __init__(self, cfg):
@@ -2902,3 +2904,7 @@ class MiniGPT4(Blip2Base):
             text_out.append(self.llama_tokenizer.decode(output_sequences[i][:first_token_idx]))
         output_embeddings = torch.stack(output_embeddings)
         return text_out, output_embeddings
+
+
+# Backward-compatible alias preserved for older internal imports.
+MiniGPT4 = IMotionLLMModel
