@@ -1,0 +1,33 @@
+{
+    "waiting_for_pedestrian_to_cross":{
+        "safe": {
+            "not_moving": "Not move at all; the vehicle should stay stationary, waiting because a pedestrian is crossing.", 
+            "stopping": "Stop; the vehicle should reduce its speed and come to a complete stop because a pedestrian is crossing.",
+            "wait_then_move": "Wait (remain stopped) then move after ensuring the pedestrian has finished crossing and it's safe to proceed.",
+            "slowing_down": "Slow down, preparing to stop because a pedestrian is crossing.",
+            "slowdown_then_speedup": "Slow down to observe a potential pedestrian crossing, then proceed to speed up as it becomes safe to."
+        },
+        
+        "unsafe": {
+            "not_moving": "Move, proceed, or cross.",
+            "stopping": "Not stop; keep moving or not reduce speed.",
+            "wait_then_move": "Move immediately without waiting or move fast.",
+            "slowing_down": "Speed up; not reduce speed or prepare to stop.",
+            "slowdown_then_speedup": "Not slow down initially approaching the crosswalk."
+        }
+    },
+    "traversing_crosswalk": {
+        "safe": {
+            "not_moving": "Not move at all; the vehicle should stay stationary, waiting because a pedestrian is crossing.", 
+            "stopping": "Stop; the vehicle should reduce its speed and come to a complete stop.",
+            "wait_then_move": "Should first wait before traversing the crosswalk, then can move.",
+            "slowing_down": "Slow down approaching the crosswalk and observe for pedestrians or prepare to turn or traverse.",
+            "speeding_up": "Can traverse the crosswalk, and can speed up.",
+            "slowdown_then_speedup": "Can traverse the crosswalk but should first slow down then it can speed up.",
+            "speedup_then_slowdown": "Can traverse the crosswalk.",
+            "maintaining_speed": "Can traverse the crosswalk while maintaining current speed.",
+            "slow_down_observe": "Slow down as you approach the crosswalk and observe for pedestrians.",
+            "yield_if_necessary": "Be prepared to yield to pedestrians if any are present."
+        }
+    }
+}

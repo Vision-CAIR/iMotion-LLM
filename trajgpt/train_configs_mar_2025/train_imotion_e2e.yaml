@@ -1,0 +1,153 @@
+datasets:
+  traj_align:
+    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training/*'
+    
+    filelabel: waymo_interactive
+    processor:
+      train:
+        name: traj_train
+        num_agents: 2
+        obs_len: 11
+        obs_pred_split_type: Fixed
+        pred_len: 80
+        traj_len: 91
+        act: True
+        act_json: False
+        template_select: 0
+        # contrastive: True 
+        contrastive: False
+        random_select: False
+        random_drop: False
+        of_samples : False
+        num_classes: 5
+  
+  traj_align_valid:
+    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation/*'
+    filelabel: waymo_interactive
+    processor:
+      valid:
+        name: "traj_eval"
+        traj_len: 91
+        obs_len: 11
+        pred_len: 80
+        num_agents: 2
+        obs_pred_split_type: Fixed
+        act: True
+        template_select: 0
+        new_eval: true
+        # new_eval_mode: pred_only
+        new_eval_mode: gt1
+        agents_instructed: 0
+        num_classes: 5
+    
+model:
+  lisa_like: True
+  use_llama2_template: False
+  smpl_instruct: True
+  very_smpl_turn: False
+  recon_loss_adapter: False
+  recon_loss_llm: False
+  img_token_num: 2
+  output_crossattn: False
+  gf_token_num: 114
+  freeze_gf: False
+  freeze_gf_enc: False
+  freeze_gf_dec: False
+  act: true
+  motion_act: False
+
+  arch: gameformer_gpt
+  end_sym: </s>
+  lora_target_modules: all # 'all' or 'not_all', all will include extra projection layers but not all the layer
+  low_resource: True
+  max_txt_len: 550
+  llama_model: "meta-llama/Llama-2-7b-hf"
+  lora: False
+  quant: 8
+  rollouts: 6
+  lora_bias: false
+  gameformer_enc: true
+  neighbors_to_predict: 0
+  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/epochs_29.pth'
+  gf_level: 1 # decoder levels
+  num_direction_classes: 5
+  gf_encoder_layers: 6
+  gf_act_enc: False
+  gf_act_dec: True
+  full_map : false
+  caption: True
+  eval_only: False
+  new_optimizer: False
+  # act_kv: True
+  act_kv: False
+  use_flash_attention: False
+  late_fusion: False
+run:
+  
+  amp: False
+  
+  batch_size_eval: 32
+  
+  device: cuda
+  dist_url: env://
+  iters_per_epoch: 100000 #4000 #640 #3262 #Adjust this
+  
+  accum_grad_iters: 0
+  
+  warmup_steps: 12500
+  evaluate_min_epoch: 0
+  log_freq: 10
+  lr_sched: linear_warmup_cosine_lr #check constant
+  max_epoch: 80
+  num_eval_figs: 0
+  
+  
+  seed: 42
+  task: image_text_pretrain
+  
+  train_splits: train
+  
+  
+  
+  
+  
+  weight_decay: 0.0
+  world_size: 4
+  num_workers: 4
+  
+  
+
+  init_lr: 1e-5
+  warmup_lr: 1e-6
+  min_lr: 1e-6
+  didnt_work_repeat: 0 
+
+
+  output_dir: /ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e #Adjust this
+  eval_dir: '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e/checkpoint-6726'
+  job_name: 'imotion_e2e'
+  
+  wandb_log: False
+  save_model: False
+  distributed: False
+
+  evaluate: false
+  evaluate_only: false
+  save_every: 5000
+  max_grad_norm: 10.0
+  r: 8
+  lora_alpha: 16
+  warmup_ratio: 0.1
+  lora_dropout: 0.05
+  batch_size_train: 16
+  epochs: 0.25
+  gradient_checkpointing: False
+  gradient_accumulation_steps: 1
+  # gradient_checkpointing: True
+  # trainer:
+  #   temp: "temp"
+  # quant_new: 8
+  quant_new: 4
+  donot_prepare_model_for_kbit_training: False
+  scale_projection: True
+  

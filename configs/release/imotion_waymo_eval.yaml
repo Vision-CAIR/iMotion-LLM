@@ -1,0 +1,131 @@
+datasets:
+  traj_align:
+    dataset_path: data/processed/waymo/gameformer/train/*
+    filelabel: waymo_interactive
+    processor:
+      train:
+        name: traj_train
+        num_agents: 2
+        obs_len: 11
+        obs_pred_split_type: Fixed
+        pred_len: 80
+        traj_len: 91
+        act: True
+        act_json: False
+        template_select: 0
+        contrastive: True
+        random_select: False
+        random_drop: False
+        of_samples: False
+        num_classes: 5
+
+  traj_align_valid:
+    dataset_path: data/processed/waymo/gameformer/val/*
+    filelabel: waymo_interactive
+    processor:
+      valid:
+        name: traj_eval
+        num_agents: 2
+        obs_len: 11
+        obs_pred_split_type: Fixed
+        pred_len: 80
+        traj_len: 91
+        act: True
+        act_json: False
+        template_select: 0
+        contrastive: True
+        random_select: False
+        random_drop: False
+        of_samples: False
+        new_eval: True
+        new_eval_mode: gt1
+        agents_instructed: 0
+        num_classes: 5
+
+model:
+  no_sys_prompt: True
+  lisa_like: True
+  use_llama2_template: False
+  smpl_instruct: True
+  very_smpl_turn: False
+  recon_loss_adapter: False
+  recon_loss_llm: False
+  img_token_num: 2
+  output_crossattn: False
+  gf_token_num: 114
+  freeze_gf: False
+  freeze_gf_enc: True
+  freeze_gf_dec: False
+  act: True
+  motion_act: False
+  arch: gameformer_gpt
+  end_sym: </s>
+  lora_target_modules: all
+  low_resource: True
+  max_txt_len: 550
+  lora: False
+  quant: 8
+  rollouts: 6
+  lora_bias: False
+  gameformer_enc: True
+  neighbors_to_predict: 0
+  gf_encoder_path: checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth
+  gf_level: 1
+  num_direction_classes: 5
+  gf_encoder_layers: 6
+  gf_act_enc: False
+  gf_act_dec: True
+  full_map: False
+  caption: True
+  eval_only: False
+  new_optimizer: False
+  act_kv: False
+  use_flash_attention: False
+  late_fusion: False
+  llama_model: meta-llama/Llama-2-7b-hf
+  auto_txt_formatter: True
+
+run:
+  output_dir: outputs/imotion_waymo/eval
+  eval_dir: checkpoints/imotion_llm/waymo/checkpoint_last.pth
+  amp: False
+  batch_size_eval: 32
+  device: cuda
+  dist_url: env://
+  iters_per_epoch: 100000
+  accum_grad_iters: 0
+  warmup_steps: 12500
+  evaluate_min_epoch: 0
+  log_freq: 10
+  lr_sched: linear_warmup_cosine_lr
+  max_epoch: 80
+  num_eval_figs: 0
+  seed: 42
+  task: image_text_pretrain
+  train_splits: train
+  weight_decay: 0.0
+  world_size: 1
+  num_workers: 4
+  warmup_lr: 1e-6
+  min_lr: 1e-6
+  didnt_work_repeat: 0
+  r: 32
+  lora_alpha: 16
+  init_lr: 1e-4
+  job_name: imotion_waymo_eval
+  wandb_log: False
+  save_model: False
+  distributed: False
+  evaluate: True
+  evaluate_only: True
+  save_every: 5000
+  max_grad_norm: 10.0
+  warmup_ratio: 0.1
+  lora_dropout: 0.05
+  batch_size_train: 4
+  epochs: 1.0
+  gradient_checkpointing: False
+  gradient_accumulation_steps: 1
+  quant_new: 4
+  donot_prepare_model_for_kbit_training: False
+  scale_projection: True

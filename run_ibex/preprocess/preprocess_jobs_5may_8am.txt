@@ -1,0 +1,12 @@
+JOBID   PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+
+33590418     batch validset felembaa PD       0:00      1 (None)
+33590417     batch trainset felembaa PD       0:00      1 (Priority)
+33590416     batch trainset felembaa PD       0:00      1 (Priority)
+33590415     batch trainset felembaa PD       0:00      1 (Priority)
+33590414     batch trainset felembaa PD       0:00      1 (Priority)
+33590413     batch trainset felembaa PD       0:00      1 (Priority)
+33590412     batch trainset felembaa PD       0:00      1 (Priority)
+33590411     batch trainset felembaa PD       0:00      1 (Priority)
+33590410     batch trainset felembaa PD       0:00      1 (Priority)
+33590408     batch trainset felembaa  R       0:49      1 cn506-13-l

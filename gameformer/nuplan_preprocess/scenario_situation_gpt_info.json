@@ -1,0 +1,304 @@
+{
+    "waiting_for_pedestrian_to_cross":{
+        "safe": {
+            "not_moving": "Not move at all; the vehicle should stay stationary, waiting because a pedestrian is crossing.", 
+            "stopping": "Stop; the vehicle should reduce its speed and come to a complete stop because a pedestrian is crossing.",
+            "wait_then_move": "Wait (remain stopped) then move after ensuring the pedestrian has finished crossing and it's safe to proceed.",
+            "slowing_down": "Slow down, preparing to stop because a pedestrian is crossing.",
+            "slowdown_then_speedup": "Slow down to observe a potential pedestrian crossing, then proceed to speed up as it becomes safe to."
+        },
+        "unsafe": {
+            "not_moving": "any movement.", 
+            "stopping": "Not stopping or not reducing speed to stop.",
+            "wait_then_move": "Not waiting before moving.",
+            "slowing_down": "Not slowing down.",
+            "slowdown_then_speedup": "Not slowing down before speeding up."
+        }
+    },
+    "traversing_crosswalk": {
+        "safe": {
+            "not_moving": "Do not move; the vehicle should remain stationary while preparing to traverse.", 
+            "stopping": "Stop; the vehicle should reduce speed and come to a complete stop at the crosswalk.",
+            "wait_then_move": "First wait before traversing the crosswalk, then proceed.",
+            "slowing_down": "Slow down when approaching the crosswalk in preparation to traverse.",
+            "speeding_up": "Traverse the crosswalk and can accelerate.",
+            "slowdown_then_speedup": "Traverse the crosswalk, but first slow down before speeding up.",
+            "speedup_then_slowdown": "Traverse the crosswalk while adjusting speed as necessary.",
+            "maintaining_speed": "Traverse the crosswalk while maintaining current speed."
+        },
+        "unsafe": {
+            "not_moving":"Do any movement other than remaining stopped at the crosswalk",
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop at the crosswalk.",
+            "wait_then_move": "Proceed through the crosswalk without waiting; the vehicle does not pause before moving.",
+            "slowing_down": "Not slowing down when approaching the crosswalk; maintain or increase speed.",
+            "speeding_up": "Stopping or slowing down to stop, as the vehicle should move to avoid blocking the road.",
+            "slowdown_then_speedup": "Traverse the crosswalk by aggressive speeding up without slowing down first.",
+            "speedup_then_slowdown": "Traverse the crosswalk with sudden or erratic speed changes of aggressive deceleration or stopping.",
+            "maintaining_speed": "Traverse the crosswalk while increasing the speed significantly (aggressive acceleration) or decreasing it significantly (aggressive deceleration) or stopping."
+        }
+    },
+    "accelerating_at_crosswalk": {
+        "safe": {
+            "not_moving": "Do not move; the vehicle should remain stationary while preparing to traverse.", 
+            "stopping": "Stop; the vehicle should reduce speed and come to a complete stop at the crosswalk.",
+            "wait_then_move": "First wait before traversing the crosswalk, then proceed.",
+            "slowing_down": "Slow down when approaching the crosswalk in preparation to traverse.",
+            "speeding_up": "Traverse the crosswalk and can accelerate.",
+            "slowdown_then_speedup": "Traverse the crosswalk, but first slow down before speeding up.",
+            "speedup_then_slowdown": "Traverse the crosswalk while adjusting speed as necessary.",
+            "maintaining_speed": "Traverse the crosswalk while maintaining current speed."
+        },
+        "unsafe": {
+            "not_moving":"Do any movement other than remaining stopped at the crosswalk",
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop at the crosswalk.",
+            "wait_then_move": "Proceed through the crosswalk without waiting; the vehicle does not pause before moving.",
+            "slowing_down": "Not slowing down when approaching the crosswalk; maintain or increase speed.",
+            "speeding_up": "Stopping or slowing down to stop, as the vehicle should move to avoid blocking the road.",
+            "slowdown_then_speedup": "Traverse the crosswalk by aggressive speeding up without slowing down first.",
+            "speedup_then_slowdown": "Traverse the crosswalk with sudden or erratic speed changes of aggressive deceleration or stopping.",
+            "maintaining_speed": "Traverse the crosswalk while increasing the speed significantly (aggressive acceleration) or decreasing it significantly (aggressive deceleration) or stopping."
+        }
+    },
+    "traversing_intersection": {
+        "safe": {
+            "not_moving": "Do not move; the vehicle should remain stationary while preparing to traverse.", 
+            "stopping": "Stop; the vehicle should reduce speed and come to a complete stop at the intersection.",
+            "wait_then_move": "First wait before traversing the intersection, then proceed.",
+            "slowing_down": "Slow down when approaching the intersection in preparation to traverse.",
+            "speeding_up": "Traverse the intersection and can accelerate.",
+            "slowdown_then_speedup": "Traverse the intersection, but first slow down before speeding up.",
+            "speedup_then_slowdown": "Traverse the intersection while adjusting speed as necessary.",
+            "maintaining_speed": "Traverse the intersection while maintaining current speed."
+        },
+        "unsafe": {
+            "not_moving":"Do any movement other than remaining stopped at the intersection.",
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop at the intersection.",
+            "wait_then_move": "Proceed through the intersection without waiting; the vehicle does not pause before moving.",
+            "slowing_down": "Not slowing down when approaching the intersection; maintain or increase speed.",
+            "speeding_up": "Stopping or slowing down to stop, as the vehicle should move to avoid blocking the road.",
+            "slowdown_then_speedup": "Traverse the intersection by aggressive speeding up without slowing down first.",
+            "speedup_then_slowdown": "Traverse the intersection with sudden or erratic speed changes of aggressive deceleration or stopping.",
+            "maintaining_speed": "Traverse the intersection while increasing the speed significantly (aggressive acceleration) or decreasing it significantly (aggressive deceleration) or stopping."
+        }
+    },
+    "behind_bike": {
+        "safe": {
+            "not_moving": "Do not move; the vehicle should remain stationary to avoid hitting the cyclist in front of the vehicle.", 
+            "stopping": "Stop; the vehicle should reduce speed and come to a complete stop to avoid hitting the cyclist in front of the vehicle.",
+            "wait_then_move": "First wait stopped for the cyclist in front of the vehicle until become safe then can proceed.",
+            "slowing_down": "Slow down as there is a cyclist in front of the vehicle that it need to avoid.",
+            "speeding_up": "Can speed up as the cyclist is in a safe distance in front of the vehicle.",
+            "slowdown_then_speedup": "Slow down paying attention to the cyclist in front of the vehicle then can speed up.",
+            "speedup_then_slowdown": "Even though it can speed up at first, but later it should slow down paying attention to the cyclist in front of the vehicle.",
+            "maintaining_speed": "Maintaining speed paying attention to the cyclist in front of the vehicle."
+        },
+        "unsafe": {
+            "not_moving": "Do any movement other than remaining stopped behind the cyclist in front.", 
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop behind the cyclist in front.",
+            "wait_then_move": "Proceeding without waiting for the cyclist in front, because it should first wait but then it can proceed.",
+            "slowing_down": "Not slowing down, maintaining speed or speeding up.",
+            "speeding_up": "Extreme speed up to unsafe speed, or slowing down extremely or stopping where it could block the road.",
+            "slowdown_then_speedup": "Proceeding to speed up aggressively, where it should first slow down or maintain reasonable speed then it can speed up.",
+            "speedup_then_slowdown": "Even though it can speed up at first, it is unsafe to not slow down later. So speeding up aggressively could be unsafe to the cyclist in front.",
+            "maintaining_speed": "Increasing speed as there is a cyclist in front, or slowing down to stop as it can block the road."
+        }
+    },
+    "behind_long_vehicle": {
+        "safe": {
+            "not_moving": "Do not move; the vehicle should remain stationary to avoid hitting the vehicle in front.", 
+            "stopping": "Stop; the vehicle should reduce speed and come to a complete stop paying attention to the vehicle in front.",
+            "wait_then_move": "First wait stopped for the vehicle in front until become safe then can proceed.",
+            "slowing_down": "Slow down as there is a vehicle in front.",
+            "speeding_up": "Can speed up as the vehicle in front is in a safe distance.",
+            "slowdown_then_speedup": "Slow down paying attention to the vehicle in front then can speed up.",
+            "speedup_then_slowdown": "Even though it can speed up at first, but later it should slow down paying attention to the vehicle in front.",
+            "maintaining_speed": "Maintaining speed paying attention to the vehicle in front."
+        },
+        "unsafe": {
+            "not_moving": "Do any movement other than remaining stopped behind the vehicle in front.", 
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop behind the vehicle in front.",
+            "wait_then_move": "Proceeding without waiting for the vehicle in front, because it should first wait but then it can proceed.",
+            "slowing_down": "Not slowing down, maintaining speed or speeding up as there is a vehicle in front",
+            "speeding_up": "Extreme speed up to unsafe speed, or slowing down extremely or stopping where it could block the road.",
+            "slowdown_then_speedup": "Proceeding to speed up aggressively, where it should first slow down or maintain reasonable speed then it can speed up.",
+            "speedup_then_slowdown": "Even though it can speed up at first, it is unsafe to not slow down later. So speeding up aggressively could be unsafe hitting the vehicle in front.",
+            "maintaining_speed": "Increasing speed as there is a vehicle in front, or slowing down to stop as it can block the road."
+        }
+    },
+    "following_lane_with_lead": {
+        "safe": {
+            "not_moving": "Do not move; the vehicle should remain stationary to avoid hitting the vehicle in front.", 
+            "stopping": "Stop; the vehicle should reduce speed and come to a complete stop paying attention to the vehicle in front.",
+            "wait_then_move": "First wait stopped then move following the lead vehicle.",
+            "slowing_down": "Slow down paying attention and following the lead vehicle.",
+            "speeding_up": "Can speed up following the lead vehicle in front as it is in a safe distance.",
+            "slowdown_then_speedup": "Slow down paying attention and following the lead vehicle in front then can speed up.",
+            "speedup_then_slowdown": "Even though it can speed up at first, but later it should slow down or be prepared to slow down paying attention and following the lead vehicle in front.",
+            "maintaining_speed": "Maintaining speed paying attention and following the lead vehicle in front."
+        },
+        "unsafe": {
+            "not_moving": "Do any movement other than remaining stopped behind the vehicle in front.", 
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop behind the vehicle in front.",
+            "wait_then_move": "Proceeding without waiting for the vehicle in front, because it should first wait but then it can proceed following the lead vehicle.",
+            "slowing_down": "Not slowing down, maintaining speed or speeding up as there is a vehicle in front.",
+            "speeding_up": "Extreme speed up to unsafe speed, or slowing down extremely or stopping where it could block the road.",
+            "slowdown_then_speedup": "Proceeding to speed up aggressively, where it should first slow down or maintain reasonable speed then it can speed up following the lead vehicle.",
+            "speedup_then_slowdown": "Even though it can speed up at first, it is unsafe to not slow down later. So speeding up aggressively could be unsafe hitting the vehicle in front.",
+            "maintaining_speed": "Increasing speed as there is a vehicle in front, or slowing down to stop as it can block the road."
+        }
+    },
+    "following_lane_without_lead": {
+        "safe": {
+            "not_moving": "Do not move; the vehicle should remain stationary in its lane even though there is no lead vehicle.", 
+            "stopping": "Stop; the vehicle should reduce speed and come to a complete stop following the lane.",
+            "wait_then_move": "First wait stopped then move following the lane safely with no lead vehicle.",
+            "slowing_down": "Slow down paying attention and following the lane even though there is no lead vehicle.",
+            "speeding_up": "Can speed up following the lane as it is safe with no lead vehicle.",
+            "slowdown_then_speedup": "Slow down paying attention and following the lane then can speed up as there is no lead vehicle.",
+            "speedup_then_slowdown": "Even though it can speed up at first, but later it should slow down or be prepared to slow down paying attention even though there is no lead vehicle.",
+            "maintaining_speed": "Maintaining speed and there is no lead vehicle."
+        },
+        "unsafe": {
+            "not_moving": "Nothing clear of what is unsafe here.", 
+            "stopping": "Nothing clear of what is unsafe here.",
+            "wait_then_move": "Nothing clear of what is unsafe here, but maybe it should move to avoid blocking the road.",
+            "slowing_down": "Nothing clear of what is unsafe here, but maybe it should move even if slowing down to avoid blocking the road.",
+            "speeding_up": "Extreme speed up to unsafe speed, or slowing down extremely or stopping where it could block the road.",
+            "slowdown_then_speedup": "Nothing clear of what is unsafe here, but maybe it should move even if slowing down to avoid blocking the road.",
+            "speedup_then_slowdown": "Nothing clear of what is unsafe here, but maybe it should move even if slowing down to avoid blocking the road.",
+            "maintaining_speed": "Nothing clear of what is unsafe here, but maybe it should move even if slowing down to avoid blocking the road, or extreme speed up or slow down can be unsafe."
+        }
+    },
+    "following_lane_with_slow_lead": {
+        "safe": {
+            "not_moving": "Do not move; the vehicle should remain stationary to avoid hitting the vehicle in front.", 
+            "stopping": "Stop; the vehicle should reduce speed and come to a complete stop paying attention to the slow vehicle in front.",
+            "wait_then_move": "First wait stopped then move following the slow lead vehicle.",
+            "slowing_down": "Slow down paying attention and following the slow lead vehicle.",
+            "speeding_up": "Can speed up following the slow lead vehicle in front as it is in a safe distance.",
+            "slowdown_then_speedup": "Slow down paying attention and following the slow lead vehicle in front then can speed up.",
+            "speedup_then_slowdown": "Even though it can speed up at first, but later it should slow down or be prepared to slow down paying attention and following the slow lead vehicle in front.",
+            "maintaining_speed": "Maintaining speed paying attention and following the slow lead vehicle in front."
+        },
+        "unsafe": {
+            "not_moving": "Do any movement other than remaining stopped behind the vehicle in front.", 
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop behind the vehicle in front.",
+            "wait_then_move": "Proceeding without waiting for the slow vehicle in front, because it should first wait but then it can proceed following the lead vehicle.",
+            "slowing_down": "Not slowing down, maintaining speed or speeding up as there is a slow vehicle in front.",
+            "speeding_up": "Extreme speed behind the slow lead vehicle, or slowing down extremely or stopping where it could block the road.",
+            "slowdown_then_speedup": "Proceeding to speed up aggressively, where it should first slow down or maintain reasonable speed then it can speed up because the slow lead vehicle.",
+            "speedup_then_slowdown": "Even though it can speed up at first, it is unsafe to not slow down later for the slow lead vehicle. So speeding up aggressively could be unsafe hitting the vehicle in front.",
+            "maintaining_speed": "Increasing speed as there is a slow lead vehicle in front, or slowing down to stop as it can block the road."
+        }
+    },
+    "stopping_with_lead": {
+        "safe": {
+            "not_moving": "Do not move; the vehicle should remain stationary to avoid hitting the vehicle in front.", 
+            "stopping": "Stop; the vehicle should reduce speed and come to a complete stop paying attention to the vehicle in front.",
+            "wait_then_move": "First wait stopped then move following the lead vehicle.",
+            "slowing_down": "Slow down paying attention and following the lead vehicle.",
+            "speeding_up": "Can speed up following the lead vehicle in front as it is in a safe distance.",
+            "slowdown_then_speedup": "Slow down paying attention and following the lead vehicle in front then can speed up.",
+            "speedup_then_slowdown": "Even though it can speed up at first, but later it should slow down or be prepared to slow down paying attention and following the lead vehicle in front.",
+            "maintaining_speed": "Maintaining speed paying attention and following the lead vehicle in front."
+        },
+        "unsafe": {
+            "not_moving": "Do any movement other than remaining stopped behind the vehicle in front.", 
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop behind the vehicle in front.",
+            "wait_then_move": "Proceeding without waiting for the vehicle in front, because it should first wait but then it can proceed following the lead vehicle.",
+            "slowing_down": "Not slowing down, maintaining speed or speeding up as there is a vehicle in front.",
+            "speeding_up": "Extreme speed up to unsafe speed, or slowing down extremely or stopping where it could block the road.",
+            "slowdown_then_speedup": "Proceeding to speed up aggressively, where it should first slow down or maintain reasonable speed then it can speed up following the lead vehicle.",
+            "speedup_then_slowdown": "Even though it can speed up at first, it is unsafe to not slow down later. So speeding up aggressively could be unsafe hitting the vehicle in front.",
+            "maintaining_speed": "Increasing speed as there is a vehicle in front, or slowing down to stop as it can block the road."
+        }
+    },
+    "starting_protected_cross_turn": {
+        "safe": {
+            "not_moving": "Not move be be prepared to start a protected cross turn.", 
+            "stopping": "Stop; preparing to start a protected cross turn.",
+            "wait_then_move": "Wait then safely start a protected cross turn.",
+            "slowing_down": "Slow down starting a protected cross turn.",
+            "speeding_up": "Can speed up taking a protected cross turn.",
+            "slowdown_then_speedup": "Traverse the protected cross turn, but first slow down before speeding up.",
+            "speedup_then_slowdown": "Traverse protected cross turn while adjusting speed as necessary.",
+            "maintaining_speed": "Maintaining safe speed taking the protected cross turn."
+        },
+        "unsafe": {
+            "not_moving":"Do any movement other than remaining stopped at the protected cross turn",
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop at the protected cross turn.",
+            "wait_then_move": "Proceed through the protected cross turn without waiting; the vehicle does not pause before moving.",
+            "slowing_down": "Not slowing down when approaching the protected cross turn; maintain or increase speed.",
+            "speeding_up": "Stopping or slowing down to stop, as the vehicle should move to avoid blocking the road.",
+            "slowdown_then_speedup": "Traverse the protected cross turn by aggressive speeding up without slowing down first.",
+            "speedup_then_slowdown": "Traverse the protected cross turn with sudden or erratic speed changes of aggressive deceleration or stopping or aggressive speed up not preparing to slow down.",
+            "maintaining_speed": "Traverse the protected cross turn while increasing the speed or decreasing it significantly (aggressive deceleration) or stopping."
+        }
+    },
+    "starting_protected_noncross_turn": {
+        "safe": {
+            "not_moving": "Not move be prepared to start a protected non-cross turn.", 
+            "stopping": "Stop; preparing to start a protected non-cross turn.",
+            "wait_then_move": "Wait then safely start a protected non-cross turn.",
+            "slowing_down": "Slow down starting a protected non-cross turn.",
+            "speeding_up": "Can speed up taking a protected non-cross turn.",
+            "slowdown_then_speedup": "Traverse the protected non-cross turn, but first slow down before speeding up.",
+            "speedup_then_slowdown": "Traverse protected non-cross turn while adjusting speed as necessary.",
+            "maintaining_speed": "Maintaining safe speed taking the protected non-cross turn."
+        },
+        "unsafe": {
+            "not_moving":"Do any movement other than remaining stopped at the protected non-cross turn",
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop at the protected non-cross turn.",
+            "wait_then_move": "Proceed through the protected non-cross turn without waiting; the vehicle does not pause before moving.",
+            "slowing_down": "Not slowing down when approaching the protected non-cross turn; maintain or increase speed.",
+            "speeding_up": "Stopping or slowing down to stop, as the vehicle should move to avoid blocking the road.",
+            "slowdown_then_speedup": "Traverse the protected non-cross turn by aggressive speeding up without slowing down first.",
+            "speedup_then_slowdown": "Traverse the protected non-cross turn with sudden or erratic speed changes of aggressive deceleration or stopping or aggressive speed up not preparing to slow down.",
+            "maintaining_speed": "Traverse the protected non-cross turn while increasing the speed or decreasing it significantly (aggressive deceleration) or stopping."
+        }
+    },
+    "starting_unprotected_cross_turn": {
+        "safe": {
+            "not_moving": "Not move be prepared to start an unprotected cross turn.", 
+            "stopping": "Stop; preparing to start an unprotected cross turn.",
+            "wait_then_move": "Wait then safely start an unprotected cross turn.",
+            "slowing_down": "Slow down starting an unprotected cross turn.",
+            "speeding_up": "Can speed up taking an unprotected cross turn.",
+            "slowdown_then_speedup": "Traverse the unprotected cross turn, but first slow down before speeding up.",
+            "speedup_then_slowdown": "Traverse an unprotected cross turn while adjusting speed as necessary.",
+            "maintaining_speed": "Maintaining safe speed taking the unprotected cross turn."
+        },
+        "unsafe": {
+            "not_moving":"Do any movement other than remaining stopped at the unprotected cross turn",
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop at the unprotected cross turn.",
+            "wait_then_move": "Proceed through the unprotected cross turn without waiting; the vehicle does not pause before moving.",
+            "slowing_down": "Not slowing down when approaching the unprotected cross turn; maintain or increase speed.",
+            "speeding_up": "Stopping or slowing down to stop, as the vehicle should move to avoid blocking the road at the unprotected cross turn.",
+            "slowdown_then_speedup": "Traverse the unprotected cross turn by aggressive speeding up without slowing down first.",
+            "speedup_then_slowdown": "Traverse the unprotected cross turn with sudden or erratic speed changes of aggressive deceleration or stopping or aggressive speed up not preparing to slow down.",
+            "maintaining_speed": "Traverse the unprotected cross turn while increasing the speed or decreasing it significantly (aggressive deceleration) or stopping."
+        }
+    },
+    "starting_unprotected_noncross_turn": {
+        "safe": {
+            "not_moving": "Not move be prepared to start an unprotected non-cross turn.", 
+            "stopping": "Stop; preparing to start an unprotected non-cross turn.",
+            "wait_then_move": "Wait then safely start an unprotected non-cross turn.",
+            "slowing_down": "Slow down starting an unprotected non-cross turn.",
+            "speeding_up": "Can speed up taking an unprotected non-cross turn.",
+            "slowdown_then_speedup": "Traverse the unprotected non-cross turn, but first slow down before speeding up.",
+            "speedup_then_slowdown": "Traverse an unprotected non-cross turn while adjusting speed as necessary.",
+            "maintaining_speed": "Maintaining safe speed taking the unprotected non-cross turn."
+        },
+        "unsafe": {
+            "not_moving":"Do any movement other than remaining stopped at the unprotected non-cross turn",
+            "stopping": "Do not stop; the vehicle does not reduce speed and does not come to a complete stop at the unprotected non-cross turn.",
+            "wait_then_move": "Proceed through the unprotected non-cross turn without waiting; the vehicle does not pause before moving.",
+            "slowing_down": "Not slowing down when approaching the unprotected non-cross turn; maintain or increase speed.",
+            "speeding_up": "Stopping or slowing down to stop, as the vehicle should move to avoid blocking the road at the unprotected non-cross turn.",
+            "slowdown_then_speedup": "Traverse the unprotected non-cross turn by aggressive speeding up without slowing down first.",
+            "speedup_then_slowdown": "Traverse the unprotected non-cross turn with sudden or erratic speed changes of aggressive deceleration or stopping or aggressive speed up not preparing to slow down.",
+            "maintaining_speed": "Traverse the unprotected non-cross turn while increasing the speed or decreasing it significantly (aggressive deceleration) or stopping."
+        }
+    }
+}

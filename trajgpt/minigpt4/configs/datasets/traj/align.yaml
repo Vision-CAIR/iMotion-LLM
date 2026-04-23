@@ -1,0 +1,36 @@
+datasets:
+  traj_align:
+    split: train
+    data_type: trajectories
+    build_info:
+      # storage: /ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/aug7/
+      # storage: /ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/traj_1d_169anchors/
+      # storage: /ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/traj_14jul_01/
+      # storage: /home/felembaa/datasets/waymo/training_interactive_processed3/*
+      # storage: /ibex/user/felembaa/waymo_dataset/training_interactive_processed3/*
+      # storage: /ibex/user/felembaa/waymo_dataset/training_interactive_gameformer/*
+      # storage: /ibex/user/felembaa/waymo_dataset/training_interactive_gameformer/*
+      
+  traj_align_valid:
+    split: valid
+    data_type: trajectories
+    build_info:
+      # storage: /ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/aug7/
+      # storage: /ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/traj_1d_169anchors/
+      # storage: /ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/traj_14jul_01/
+      # storage: /home/felembaa/datasets/waymo/validation_interactive_processed3/*
+      # storage: /ibex/user/felembaa/waymo_dataset/training_interactive_processed3/*
+      # storage: /ibex/user/felembaa/waymo_dataset/validation_interactive_processed3/*
+      # storage: /ibex/user/felembaa/waymo_dataset/validation_interactive_gameformer/*
+      # storage: /ibex/user/felembaa/waymo_dataset/validation_interactive_gameformer_1k/*
+      # storage: /ibex/user/felembaa/waymo_dataset/training_interactive_gameformer_10k/*
+
+  # traj_align_kw61078:
+  #   split: train
+  #   data_type: trajectories
+  #   build_info:
+  #     # storage: /ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/aug7/
+  #     # storage: /ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/traj_1d_169anchors/
+  #     # storage: /ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/traj_14jul_01/
+  #     storage: /home/felembaa/datasets/waymo/training_interactive_processed3/*
+  #     # storage: /ibex/user/felembaa/waymo_dataset/training_interactive_processed3/*

@@ -1,0 +1,124 @@
+{
+    "waiting_for_pedestrian_to_cross":{
+        "safe": {
+            "not_moving": "Not move at all; the vehicle should stay stationary, waiting because a pedestrian is crossing.", 
+            "stopping": "Stop; the vehicle should reduce its speed and come to a complete stop because a pedestrian is crossing.",
+            "wait_then_move": "Wait (remain stopped) then move after ensuring the pedestrian has finished crossing and it's safe to proceed.",
+            "slowing_down_preparing_to_stop": "Slow down, preparing to stop because a pedestrian is crossing.",
+            "slowdown_then_speedup": "Slow down to observe a potential pedestrian crossing, then proceed to speed up as it becomes safe to."
+        },
+        
+        "safe_example": {
+            "not_moving": {
+                "with_context": "Wait at the crosswalk until the pedestrian has crossed.",
+                "without_context": "Stay stationary."
+            },
+            "stopping": {
+                "with_context": "Stop to allow the pedestrian to cross.",
+                "without_context": "Slow down and come to a complete stop."
+            },
+            "wait_then_move": {
+                "with_context": "Wait for the pedestrian to cross, then proceed.",
+                "without_context": "Wait before moving forward."
+            },
+            "slowing_down_preparing_to_stop": {
+                "with_context": "Slow down approaching the crosswalk where the pedestrian is crossing.",
+                "without_context": "Reduce speed and prepare to stop."
+            },
+            "slowdown_then_speedup": {
+                "with_context": "Slow down to observe the pedestrian crossing, then accelerate gently once it's clear.",
+                "without_context": "Slow down, then accelerate gently."
+            }
+            
+        },
+        "unsafe": {
+            "not_moving": "Move, proceed, or cross.",
+            "stopping": "Not stop; keep moving or not reduce speed.",
+            "wait_then_move": "Move immediately without waiting or move fast.",
+            "slowing_down_preparing_to_stop": "Speed up; not reduce speed or prepare to stop.",
+            "slowdown_then_speedup": "Not slow down initially approaching the crosswalk."
+        },
+        "unsafe_example": {
+            "not_moving": {
+                "with_context": "Proceed forward in the crosswalk.",
+                "without_context": "Proceed forward."
+            },
+            "stopping": {
+                "with_context": "Maintain your speed or speed up at the crosswalk.",
+                "without_context": "Maintain your current speed or speed up."
+            },
+            "wait_then_move": {
+                "with_context": "Move immediately at the crosswalk.",
+                "without_context": "Move immediately."
+            },
+            "slowing_down_preparing_to_stop": {
+                "with_context": "Do not reduce speed or increase it as you approach the crosswalk.",
+                "without_context": "Maintain your speed or increase it."
+            },
+            "slowdown_then_speedup": {
+                "with_context": "Do not slow down at the crosswalk; keep your speed.",
+                "without_context": "Do not slow down; keep your current speed."
+            }
+        }
+    },
+    "traversing_crosswalk": {
+        "safe": {
+            "maintain_safe_speed": "Proceed through the crosswalk at a safe speed, being prepared to stop if necessary.",
+            "proceed_with_caution": "Move through the crosswalk cautiously, observing for any pedestrians.",
+            "be_vigilant": "Maintain awareness of surroundings while traversing the crosswalk.",
+            "slow_down_observe": "Slow down as you approach the crosswalk and observe for pedestrians.",
+            "yield_if_necessary": "Be prepared to yield to pedestrians if any are present."
+        },
+        "safe_example": {
+            "maintain_safe_speed": {
+                "with_context": "Proceed through the crosswalk at a safe speed, watching for pedestrians.",
+                "without_context": "Maintain a safe speed while crossing."
+            },
+            "proceed_with_caution": {
+                "with_context": "Carefully proceed through the crosswalk, being alert for pedestrians.",
+                "without_context": "Proceed cautiously."
+            },
+            "be_vigilant": {
+                "with_context": "Stay alert for pedestrians while traversing the crosswalk.",
+                "without_context": "Remain vigilant while driving."
+            },
+            "slow_down_observe": {
+                "with_context": "Slow down as you approach the crosswalk and look for pedestrians.",
+                "without_context": "Reduce speed and observe surroundings."
+            },
+            "yield_if_necessary": {
+                "with_context": "Be ready to stop if pedestrians are in the crosswalk.",
+                "without_context": "Be prepared to yield if necessary."
+            }
+        },
+        "unsafe": {
+            "speeding": "Proceed through the crosswalk at a high speed.",
+            "not_paying_attention": "Not paying attention to potential pedestrians while crossing.",
+            "accelerating": "Accelerate through the crosswalk.",
+            "ignoring_pedestrians": "Ignore any pedestrians who may be near the crosswalk.",
+            "no_slow_down": "Do not slow down when approaching the crosswalk."
+        },
+        "unsafe_example": {
+            "speeding": {
+                "with_context": "Speed through the crosswalk without looking for pedestrians.",
+                "without_context": "Drive quickly through the crosswalk."
+            },
+            "not_paying_attention": {
+                "with_context": "Cross the crosswalk without observing for pedestrians.",
+                "without_context": "Proceed without paying attention."
+            },
+            "accelerating": {
+                "with_context": "Accelerate while traversing the crosswalk regardless of surroundings.",
+                "without_context": "Increase speed while crossing."
+            },
+            "ignoring_pedestrians": {
+                "with_context": "Ignore any pedestrians near the crosswalk and proceed without caution.",
+                "without_context": "Proceed without considering others."
+            },
+            "no_slow_down": {
+                "with_context": "Do not reduce speed when approaching the crosswalk, even if pedestrians are present.",
+                "without_context": "Maintain speed without slowing down."
+            }
+        }
+    }
+}

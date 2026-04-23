@@ -1,0 +1,7 @@
+conda activate /ibex/project/c2278/felembaa/envs/imotion
+python /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train.py --cfg-path /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_dec/eval/eval_base_27dec.yaml \
+--options \
+run.output_dir=/ibex/project/c2278/felembaa/models/imotion/dec/template_27dec_alwyasGT \
+run.distributed=False \
+run.resume_ckpt_path=/ibex/project/c2278/felembaa/models/imotion/dec/template_27dec_alwyasGT/checkpoint_1.pth \
+model.resume_ckpt_path=/ibex/project/c2278/felembaa/models/imotion/dec/template_27dec_alwyasGT/checkpoint_1.pth

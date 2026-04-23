@@ -1,0 +1,37 @@
+waymo-open-dataset-tf-2-11-0
+torch
+torchaudio
+torchvision
+huggingface-hub
+matplotlib
+psutil
+iopath
+pyyaml
+regex
+tokenizers
+tqdm
+transformers
+timm
+webdataset
+omegaconf
+opencv-python
+decord
+peft
+sentence-transformers
+gradio
+accelerate
+bitsandbytes
+scikit-image
+visual-genome
+wandb
+pillow
+pandas
+shapely
+numpy
+sentencepiece
+
+# cuda-nvcc -c nvidia
+
+# pip install flash-attn --no-build-isolation
+# waymo-open-dataset-tf-2-11-0 # not compatible with some of the versions of what is installed above
+# export CUDA_HOME=$CONDA_PREFIX

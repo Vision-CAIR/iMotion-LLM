@@ -1,0 +1,138 @@
+datasets:
+  traj_align:
+    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul/*'
+    filelabel: waymo_interactive
+    processor:
+      train:
+        name: traj_train
+        num_agents: 2
+        obs_len: 11
+        obs_pred_split_type: Fixed
+        pred_len: 80
+        traj_len: 91
+        act: True
+        act_json: False
+        template_select: 3
+        contrastive: True
+        random_select: False
+        two_agent: False
+  
+  traj_align_valid:
+    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_3jul/*'
+    processor:
+      valid:
+        name: "traj_eval"
+        traj_len: 91
+        obs_len: 11
+        pred_len: 80
+        num_agents: 2
+        obs_pred_split_type: Fixed
+        act: True
+        act_json: False
+        template_select: 3
+        contrastive: false
+        positive_notgt: false
+        new_eval: True
+        new_eval_mode: 'pos1'
+        two_agent: False
+        agents_instructed: '1'
+    
+model:
+  smpl_instruct: True
+  very_smpl_turn: False
+  recon_loss_adapter: False
+  recon_loss_llm: False
+  img_token_num: 229
+  # img_token_num: 357
+  # img_token_num: 186 #94
+  output_crossattn: False
+
+  # output_crossattn: True
+  # img_token_num: 16
+  # gf_token_num: 356
+  gf_token_num: 228
+  # gf_token_num: 184 # 92
+  freeze_gf: true
+  freeze_gf_enc: true
+  act: true
+  motion_act: False
+
+  arch: gameformer_gpt
+  end_sym: </s>
+  lora_target_modules: all # 'all' or 'not_all', all will include extra projection layers but not all the layer
+  low_resource: true
+  max_txt_len: 550
+  llama_model: "meta-llama/Llama-2-7b-hf"
+  # llama_model: "meta-llama/Llama-2-13b-hf"
+  # llama_model: "meta-llama/Meta-Llama-3-8B"
+  lora: true
+  lora_dropout: 0.05
+  # lora_r: 512
+  # lora_alpha: 64
+  lora_r: 8
+  lora_alpha: 16
+  quant: 4
+  rollouts: 6
+  lora_bias: false
+  gameformer_enc: true
+  # gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
+  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata/epochs_29.pth'
+  gf_encoder_layers: 6
+  gf_level: 6
+  gf_act_enc: False
+  gf_act_dec: true
+  full_map : false
+  caption: true
+  two_agent: false
+  
+run:
+  resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/jul_m03_imotion_act_contrastive_small_smallPretrain/checkpoint_last.pth"
+  # best_agg_metric: 1000
+  # best_epoch: 1.704
+  
+  amp: false
+  batch_size_train: 24
+  # batch_size_train: 2
+  batch_size_eval: 12
+  device: cuda
+  dist_url: env://
+  iters_per_epoch: 4000 #4000 #640 #3262 #Adjust this
+  # eval_iters_per_epoch: 8
+  warmup_steps: 100
+  evaluate_min_epoch: 0
+  log_freq: 1
+  lr_sched: linear_warmup_cosine_lr #check constant
+  max_epoch: 90
+  num_eval_figs: 0
+  contrastive_act: false
+  
+  seed: 42
+  task: image_text_pretrain
+  # task: None
+  train_splits: train
+  # valid_splits: valid
+  
+  
+  
+  # warmup_steps: 25
+  # weight_decay: 0.01
+  weight_decay: 0.0
+  world_size: 4
+  num_workers: 4
+  # world_size: 0
+  # num_workers: 0
+  
+  init_lr: 1e-4
+  # init_lr: 1e-5
+  warmup_lr: 1e-6
+  min_lr: 1e-6
+  didnt_work_repeat: 0 
+  # num_eval_batches: 8
+  output_dir: /ibex/project/c2278/felembaa/models/imotion/jul_m03_imotion_act_contrastive_small_smallPretrain #Adjust this
+  job_name: 'jul_m03_imotion_act_contrastive_small_smallPretrain'
+  
+  wandb_log: false
+  save_model: false
+  distributed: false
+  evaluate: true
+  evaluate_only: true

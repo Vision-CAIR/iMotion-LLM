@@ -1,0 +1,87 @@
+gpt_safe_template = f"""I want you to help me collect a dataset related to autonomous driving.
+
+I will give you a scenario, and I want you to provide safe instructions that could be fed to the vehicle in natural form. Imagine the vehicle as a human driver or an AI agent that can understand you.
+
+- Scenario Description: {scenario_type}.
+- What is safe: {what_safe_to_do}
+- Overall Trajectory Description: {main_driving_behaviour} (should be used).
+- Overall Trajectory Description In Two Steps: {driving_behaviour}.
+
+Provide 5 safe instructions examples with the following guidelines:
+- Instructions must strictly match the Overall Trajectory Description, and what is safe.
+- The instruction should be based on or derived from motion (speed, acceleration, directions).
+- Do not mention the steering wheel, the brake, or the gas padel.
+- Exclude any actions not directly related to vehicle motion (e.g., gear shifting, signaling).
+- Avoid including reasoning about why we want the vehicle to follow the instructions.
+- Mention speed (in km/h) in two examples only.
+- Make some of the instructions abstract and some with slightly more detail
+- Provide two versions for each safe instruction:
+  1. Without Context: Focus solely on vehicle motion.
+  2. With Context: Reference scenario elements (crosswalk).
+- Respond only with a JSON of the following format:
+```json
+[
+  {{
+    "instructions": [
+      {{
+        "category": "Without Context",
+        "instruction": ...,
+        "safe": true
+      }},
+      {{
+        "category": "With Context",
+        "instruction": ...,
+        "safe": true
+      }}
+    ]
+  }},
+  ...
+]
+```
+"""
+
+gpt_unsafe_template = f"""I want you to help me collect a dataset related to autonomous driving.
+
+I will give you a scenario, and I want you to provide unsafe instructions that could be fed to the vehicle in natural form. Imagine the vehicle as a human driver or an AI agent that can understand you.
+
+- Scenario Description: {scenario_type}.
+- What is safe: {what_safe_to_do}
+- Overall Trajectory Description (safe): {driving_behaviour}.
+- What is unsafe: {what_unsafe_to_do}
+
+
+Provide 5 unsafe instructions examples with the following guidelines:
+- Unsafe instructions must subtly contradict the Overall Trajectory Description and what is safe.
+- Unsafe instructions must align with what is unsafe.
+- If safe to cross, stopping mid is unsafe (because it will be in the middle of the road).
+- Do not suggest any action that clearly appears dangerous or reckless without knowing the scenario information.
+- Base instructions on motion (speed, acceleration, direction).
+- Exclude actions unrelated to motion (e.g., gear shifting, signaling, steering wheel, brakes, gas pedal).
+- Avoid terms like "abruptly", "suddenly", "ignore", "drastically", "regardless", "despite", or similar words that make instructions clearly unsafe directly from the text.
+- The vehicle cannot be instructed to take a reverse.
+- Avoid including reasoning about why we want the vehicle to follow the instructions.
+- Mention speed (in km/h) in two examples only.
+- Provide two instruction versions:
+  1. Without Context: Focus on motion only.
+  2. With Context: Include scenario elements (crosswalk).
+- Use the following JSON format for responses:
+```json
+[
+  {{
+    "instructions": [
+      {{
+        "category": "Without Context",
+        "instruction": ...,
+        "safe": false
+      }},
+      {{
+        "category": "With Context",
+        "instruction": ...,
+        "safe": false
+      }}
+    ]
+  }},
+  ...
+]
+```
+"""

@@ -3,8 +3,8 @@
 Official repository for the paper
 [`iMotion-LLM: Instruction-Conditioned Trajectory Generation`](https://arxiv.org/abs/2406.06211).
 
-This repository is the clean migration target for the public release of the paper code.
-The existing project website under `docs/` has been preserved, and the codebase is being rebuilt here in a structured, reproducible form.
+This repository is the cleaned public migration of the original research codebase used for the paper.
+The release keeps the original project website under `docs/`, preserves legacy experiment assets for traceability, and adds a supported public surface for environment setup, preprocessing, training, evaluation, and checkpoint loading.
 
 ## Overview
 
@@ -27,52 +27,82 @@ Project links:
 
 Current repository status:
 
-- `docs/` website is available
-- repo structure for clean migration is available
-- paper-to-code migration specs and TODO tracking are available
-- executable research code is not migrated yet
+- migrated code from the protected `iMotion-LLM-ICLR` source is now present in this public repo
+- public release configs are available under `configs/release/`
+- supported helper scripts are available under `scripts/`
+- setup, data, checkpoint, and running docs are available under `docs/setup/`
+- legacy experiment folders are preserved for paper traceability
 
-What is planned for this repo:
+Supported code areas now in the repo:
 
-- `InstructWaymo` preprocessing and instruction generation
-- `Open-Vocabulary InstructNuPlan` generation and evaluation
-- `GameFormer`, `C-GameFormer`, `MTR`, `C-MTR`, and `iMotion-LLM` components
-- training, evaluation, and ablation scripts
-- reproducibility documentation for the paper experiments
+- `instructions/` for direction and instruction utilities
+- `gameformer/` for conditional trajectory backbones and preprocessing
+- `trajgpt/` for the MiniGPT-4 based iMotion-LLM code
+- `mtr/` for the Motion Transformer baseline
+- `tools/eval/` for evaluation helpers preserved from the working tree
 
 ## Installation
 
-The full dependency stack will be finalized after the legacy code is migrated and cleaned.
-For now, use a clean Python environment for development and repo intake.
+Recommended quick start:
 
 ```bash
 git clone https://github.com/Vision-CAIR/iMotion-LLM.git
 cd iMotion-LLM
 
-conda create -n imotion-llm python=3.10 -y
+conda env create -f environment.yml
 conda activate imotion-llm
-
-pip install --upgrade pip
+pip install -e ./mtr
 ```
 
-Once the code migration is complete, this section will be updated with:
+Full setup notes:
 
-- package requirements
-- editable install instructions
-- dataset preparation dependencies
-- training and evaluation commands
+- [Installation](docs/setup/installation.md)
+- [Data and checkpoints](docs/setup/data_and_checkpoints.md)
+- [Running](docs/setup/running.md)
+
+## Quick Start
+
+Train GameFormer:
+
+```bash
+bash scripts/train_gameformer_waymo.sh --act --act_dec --level 1
+```
+
+Train iMotion-LLM on Waymo:
+
+```bash
+bash scripts/train_imotion_waymo.sh \
+  --options \
+  model.llama_model=meta-llama/Llama-2-7b-hf \
+  model.gf_encoder_path=checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth
+```
+
+Evaluate an existing iMotion-LLM checkpoint:
+
+```bash
+bash scripts/eval_imotion_waymo.sh \
+  --options \
+  model.llama_model=meta-llama/Llama-2-7b-hf \
+  model.gf_encoder_path=checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth \
+  run.eval_dir=checkpoints/imotion_llm/waymo/checkpoint_last.pth
+```
 
 ## Repository Structure
 
 ```text
 iMotion-LLM/
-├── configs/         # experiment and runtime configs
-├── data/            # dataset layout docs only
+├── configs/         # public release configs and config notes
+├── data/            # expected dataset layout
 ├── docs/            # project website and supporting docs
 ├── experiments/     # experiment manifests and result notes
 ├── migration/       # migration audit docs and source inventory
-├── scripts/         # preprocessing, training, and evaluation entrypoints
-├── src/imotion_llm/ # cleaned Python package for migrated code
+├── scripts/         # public helper entrypoints
+├── gameformer/      # migrated GameFormer / C-GameFormer code
+├── instructions/    # migrated instruction logic
+├── mtr/             # migrated MTR baseline code
+├── tools/           # evaluation helpers
+├── trajgpt/         # migrated iMotion-LLM / MiniGPT-4 adaptation
+├── src/imotion_llm/ # future cleaned package surface
 ├── MIGRATION_CHECKLIST.md
 ├── TASKS.md
 └── README.md
@@ -86,6 +116,9 @@ iMotion-LLM/
 - [Source audit: iMotion-LLM-ICLR](migration/SOURCE_AUDIT_IMOTION_LLM_ICLR.md)
 - [Paper refactoring requirements](migration/PAPER_REFACTORING_REQUIREMENTS.md)
 - [Paper experiment scope](docs/paper_scope.md)
+- [Installation](docs/setup/installation.md)
+- [Data and checkpoints](docs/setup/data_and_checkpoints.md)
+- [Running](docs/setup/running.md)
 
 ## TODO
 
@@ -94,28 +127,32 @@ High-priority TODOs for the repo:
 - [x] Initialize a clean public repository without touching older local copies
 - [x] Preserve the existing project website under `docs/`
 - [x] Extract paper requirements into a migration checklist
-- [ ] Intake and audit all legacy iMotion-LLM source locations
-- [ ] Migrate `InstructWaymo` preprocessing and direction-feasibility logic
-- [ ] Migrate `Open-Vocabulary InstructNuPlan` generation and validation code
-- [ ] Migrate conditional baselines and core `iMotion-LLM` modules
-- [ ] Reconstruct training, evaluation, and ablation configs for the paper
-- [ ] Add reproducible install, training, and evaluation instructions
+- [x] Intake and audit all legacy iMotion-LLM source locations
+- [x] Migrate the main legacy working tree into this public repo
+- [x] Remove critical hard-coded local paths from supported entrypoints
+- [x] Add release configs for Waymo, nuPlan, and MTR
+- [x] Add reproducible install, training, and evaluation instructions
+- [ ] Prune unsupported duplicate legacy experiment files more aggressively
+- [ ] Upload or link public research checkpoints
+- [ ] Add paper-table specific reproduction manifests and verified outputs
 
 ## Availability Checklist
 
 Available now:
 
 - project website assets in `docs/`
-- clean repo layout for migration
-- tracking docs for missing and recovered components
+- migrated working code from the protected source repo
+- release configs in `configs/release/`
+- helper scripts in `scripts/`
+- setup/data/checkpoint/run documentation
+- MTR, GameFormer, iMotion-LLM, and instruction code trees
 
 Still missing:
 
-- executable model code
-- dataset preprocessing scripts
-- evaluation scripts
-- experiment configs
-- pretrained checkpoint instructions
+- bundled public research checkpoints
+- polished per-table reproduction manifests
+- deeper cleanup of archival duplicate experiment files
+- verification on fresh machines and non-local datasets
 
 ## Migration Note
 
@@ -123,7 +160,7 @@ An older local copy already exists on this machine and is treated as protected r
 
 - `/ibex/project/c2278/felembaa/projects/iMotion-LLM-Jan/run_ibex/iMotion-LLM`
 
-Cleanup and refactoring work should happen in this repository only.
+Cleanup and refactoring work happen in this repository only.
 
 ## Acknowledgment
 

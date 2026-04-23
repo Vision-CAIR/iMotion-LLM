@@ -1,0 +1,14 @@
+name: imotion-llm
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pip:
+      - -r requirements/base.txt
+      - -r requirements/mtr.txt

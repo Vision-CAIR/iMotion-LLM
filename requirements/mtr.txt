@@ -1,0 +1,8 @@
+easydict
+numpy
+pyyaml
+scikit-image
+shapely
+tensorboardX
+tqdm
+waymo-open-dataset-tf-2-11-0

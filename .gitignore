@@ -18,6 +18,15 @@ outputs/
 logs/
 wandb/
 checkpoints/
+build/
+dist/
+*.egg-info/
+.cache/
+*.so
+*.out
+*.err
+wandb/
+dcgm/
 
 # Data staging
 data/raw/

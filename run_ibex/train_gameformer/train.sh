@@ -1,0 +1,173 @@
+#!/usr/bin/env bash
+#SBATCH --time=12:00:00
+#SBATCH --nodes=1
+#SBATCH --gpus-per-node=4
+##SBATCH --constraint=a100
+#SBATCH --constraint=v100
+#SBATCH --mem=100GB
+#SBATCH --cpus-per-gpu=4
+#SBATCH --partition=batch
+#SBATCH --output=/home/felembaa/logs/%j.out
+#SBATCH --error=/home/felembaa/errs/%j.err
+##SBATCH --mail-user=abdulwahab.felemban@kaust.edu.sa
+#SBATCH --mail-type=ALL
+##SBATCH --exclude=gpu101-02-l
+#SBATCH --job-name=cgf3_2a
+##SBATCH --account=conf-icl-2025.09.24-elhosemh
+
+source ~/miniconda3/bin/activate gameformer
+
+read LOWERPORT UPPERPORT < /proc/sys/net/ipv4/ip_local_port_range
+while :
+do
+        PORT="`shuf -i $LOWERPORT-$UPPERPORT -n 1`"
+        ss -lpn | grep -q ":$PORT " || break
+done
+
+
+#### 17 sep, 2-agent experiments, instructing both agents, note we use random drop
+torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train_2agent_instructBoth.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/sep14_2025_2a/training --save_model /ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/cgf_l3_2agent_instructBoth --name cgf_l3_2agent_instructBoth --load_dir '' --wandb --neighbors_to_predict 1 --act_dec --num_act_classes 5
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train_2agent_instructBoth.py --distributed --workers 8 --batch_size 64 --level 1 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/sep14_2025_2a/training --save_model /ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/cgf_l1_2agent_instructBoth --name cgf_l1_2agent_instructBoth --load_dir '' --wandb --neighbors_to_predict 1 --act_dec --num_act_classes 5
+
+## 14 sep, 2-agent experiments, only instructing the ego vehice
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train_2agent_egoInstruct.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/cgf_l3_2agent_egoInstruct --name cgf_l3_2agent_egoInstruct --load_dir '' --wandb --neighbors_to_predict 1 --act_dec --num_act_classes 5
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train_2agent_egoInstruct.py --distributed --workers 8 --batch_size 64 --level 1 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/cgf_l1_2agent_egoInstruct --name cgf_l1_2agent_egoInstruct --load_dir '' --wandb --neighbors_to_predict 1 --act_dec --num_act_classes 5
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train_2agent_egoInstruct.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/gf_l3_2agent_egoInstruct --name gf_l3_2agent_egoInstruct --load_dir '' --wandb --neighbors_to_predict 1 --num_act_classes 5
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train_2agent_egoInstruct.py --distributed --workers 8 --batch_size 64 --level 1 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/gf_l1_2agent_egoInstruct --name gf_l1_2agent_egoInstruct --load_dir '' --wandb --neighbors_to_predict 1 --num_act_classes 5
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train_2agent_egoInstruct.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/gf_l3_3agent_egoInstruct --name gf_l3_3agent_egoInstruct --load_dir '' --wandb --neighbors_to_predict 2 --act_dec --num_act_classes 5
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train_2agent_egoInstruct.py --distributed --workers 8 --batch_size 64 --level 1 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/gf_l1_3agent_egoInstruct --name gf_l1_3agent_egoInstruct --load_dir '' --wandb --neighbors_to_predict 2 --act_dec --num_act_classes 5
+
+## 18 Feb 2025
+# # GF
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf --name gf_feb_18_2025 --load_dir '' --wandb --neighbors_to_predict 0 --num_act_classes 5
+# # CGF
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf --name cgf_feb_18_2025 --load_dir '' --wandb --neighbors_to_predict 0 --act_dec --num_act_classes 5
+
+# # GF, level 1
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 1 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf_l1 --name gf_l1_feb_18_2025 --load_dir '' --wandb --neighbors_to_predict 0 --num_act_classes 5
+# # CGF, level 1
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 1 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1 --name cgf_l1_feb_18_2025 --load_dir '' --wandb --neighbors_to_predict 0 --act_dec --num_act_classes 5
+
+# GF, level 5
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 5 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf_l5 --name gf_l5_feb_18_2025 --load_dir '' --wandb --neighbors_to_predict 0 --num_act_classes 5
+
+# # CGF, level 5
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 5 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training --save_model /ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l5 --name cgf_l5_feb_18_2025 --load_dir '' --wandb --neighbors_to_predict 0 --act_dec --num_act_classes 5
+
+# 29 nov
+
+# GF
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov --save_model /ibex/project/c2278/felembaa/models/gameformer/gf_1a_29nov_newData --name gf_1a_29nov_newData --load_dir '' --wandb --neighbors_to_predict 0
+# CGF - Act files only
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData --name cgf_1a_29nov_newData --act_dec --load_dir '' --wandb --neighbors_to_predict 0 --files_with_act_only --no_random_drop_act
+# CGF - Act files only - kv acts
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData_kvact --name cgf_1a_29nov_newData_kvact --act_kv --load_dir '' --wandb --neighbors_to_predict 0 --files_with_act_only --no_random_drop_act
+# CGF - All files
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData_alldata_randDrop --name cgf_1a_29nov_newData_alldata_randDrop --act_dec --load_dir '' --wandb --neighbors_to_predict 0
+# CGF - Act file only & random drip
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData_randDrop --name cgf_1a_29nov_newData_randDrop --act_dec --load_dir '' --wandb --neighbors_to_predict 0 --files_with_act_only
+
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug --save_model /ibex/project/c2278/felembaa/models/gameformer/gf_23aug --name gf_22aug --load_dir '' --wandb
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_23aug --name cgf_23aug --act_dec --load_dir '' --wandb
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_1a_28nov --name cgf_1a_28nov --act_dec --load_dir '' --wandb --neighbors_to_predict 0
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_1a_28nov_noRandDrop --name cgf_1a_28nov_noRandDrop --act_dec --load_dir '' --wandb --neighbors_to_predict 0 --no_random_drop_act
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_1a_28nov_noRandDrop_withActOnly --name cgf_1a_28nov_noRandDrop_withActOnly --act_dec --load_dir '' --wandb --neighbors_to_predict 0 --no_random_drop_act --files_with_act_only
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_1a_28nov_withActOnly_newData --name cgf_1a_28nov_withActOnly_newData --act_dec --load_dir '' --wandb --neighbors_to_predict 0 --files_with_act_only
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_1a_28nov_noRandDrop_withActOnly_newData --name cgf_1a_28nov_noRandDrop_withActOnly_newData --act_dec --load_dir '' --wandb --neighbors_to_predict 0 --no_random_drop_act --files_with_act_only
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug --save_model /ibex/project/c2278/felembaa/models/gameformer/gf_1a_28nov --name gf_1a_28nov --load_dir '' --wandb --neighbors_to_predict 0
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 8 --batch_size 64 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --lr_steps '15,18,21,24,27' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug --save_model /ibex/project/c2278/felembaa/models/gameformer/gf_1a_28nov --name gf_1a_28nov --load_dir '' --wandb --neighbors_to_predict 0
+
+
+
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} \
+# --nproc-per-node 4 \
+# /home/felembaa/projects/gameformer_p/interaction_prediction/train.py \
+# --wandb \
+# --distributed \
+# --workers 8 \
+# --batch_size 64 \
+# --level 6 \
+# --modalities 6 \
+# --encoder_layers 6 \
+# --future_len 80 \
+# --learning_rate 1e-4 \
+# --subsample False \
+# --lr_steps '18,21,24,27,30' \
+# --training_epochs 30 \
+# --name gf_15feb_01 \
+# --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 \
+# --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 \
+# --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl0/ \
+# --load_dir ''
+# --load_dir /ibex/user/felembaa/gameformer_models/gf_15feb_02/epochs_last.pth \
+# --gmm \
+#/ibex/project/c2253/felembaa/waymo_dataset/training_interactive_original_20
+
+
+# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl0/ --name gf_4mar_lvl0 --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 0 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl6_act/ --name gf_4mar_lvl6_act --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
+
+# act decoder only
+# torchrun --nproc-per-node 4 /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_5may_fullmap/ --name gf_5may_fullmap --load_dir '' --wandb --distributed --workers 4 --batch_size 150 --level 3 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '10,15,21,24,27,30' --training_epochs 40 --train_set /ibex/project/c2253/felembaa/waymo/gameformer/training_5may_fullmap_small --valid_set /ibex/project/c2253/felembaa/waymo/gameformer/validation_5may_fullmap_small
+
+# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl6_actdec_valid/ --name gf_4mar_lvl6_actdec_valid --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '10,15,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
+# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl6_actdec_valid/ --name gf_4mar_lvl6_actdec_valid --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
+
+# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl6_actdec_act_valid/ --name gf_4mar_lvl6_actdec_act_valid --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '10,15,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl0_3m/ --name gf_4mar_lvl0_3m --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 0 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/training_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
+
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl6_3m_act/ --name gf_4mar_lvl6_3m_act --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/training_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
+
+### 7 May
+## temp
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --save_model /ibex/user/felembaa/gameformer_models/temp/ --name temp --load_dir '' --wandb --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 2.8e-4 --lr_steps '20,22,24,26,28' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_validation_5may_fullmap_val --valid_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_validation_5may_fullmap_val
+## base
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --save_model /ibex/user/felembaa/gameformer_models/gf_7may_base_smalldata/ --name gf_7may_base_smalldata --load_dir '' --wandb --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 2.8e-4 --lr_steps '20,22,24,26,28' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_training_5may_fullmap --valid_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_validation_5may_fullmap_val
+## full_map
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --full_map --save_model /ibex/user/felembaa/gameformer_models/gf_7may_fullmap_smalldata/ --name gf_7may_fullmap_smalldata --load_dir '' --wandb --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 2.8e-4 --lr_steps '20,22,24,26,28' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_training_5may_fullmap --valid_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_validation_5may_fullmap_val
+## act_dec + full_map
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --act_dec --full_map --save_model /ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/ --name gf_7may_fullmap_act_smalldata --load_dir '' --wandb --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 2.8e-4 --lr_steps '20,22,24,26,28' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_training_5may_fullmap --valid_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_validation_5may_fullmap_val
+## act_dec
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_7may_act_smalldata/ --name gf_7may_act_smalldata --load_dir '' --wandb --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 2.8e-4 --lr_steps '20,22,24,26,28' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_training_5may_fullmap --valid_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/small_validation_5may_fullmap_val
+
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 2.8e-4 --lr_steps '20,22,24,26,28' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_15may_fullmap_fulldata #--save_model /ibex/user/felembaa/gameformer_models/gf_7may_act_smalldata/ --name gf_7may_act_smalldata --load_dir '' --wandb --act_dec
+# torchrun --nproc-per-node 4 /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 2.8e-4 --lr_steps '20,22,24,26,28' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_15may_fullmap_fulldata
+
+
+# torchrun --nproc-per-node 4 /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_full_1jul --save_model /ibex/user/felembaa/gameformer_models/cgf_2jul_fulldata/ --name cgf_2jul_fulldata --load_dir '' --wandb --act_dec
+## Tue, 2 Jul 2024
+# cgf, full data
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_full_3jul --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/ --name cgf_7jul_fulldata_res1 --load_dir '' --wandb --act_dec
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_full_3jul --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/ --name cgf_7jul_fulldata_res5 --load_dir /ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/epochs_26.pth --wandb --act_dec
+# gf, full data
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_full_3jul --save_model /ibex/project/c2278/felembaa/models/gameformer/gf_7jul_fulldata/ --name gf_7jul_fulldata --load_dir '' --wandb #--act_dec
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_full_3jul --save_model /ibex/project/c2278/felembaa/models/gameformer/gf_7jul_fulldata/ --name gf_7jul_fulldata_res4 --load_dir /ibex/project/c2278/felembaa/models/gameformer/gf_7jul_fulldata/epochs_15.pth --wandb #--act_dec
+# # cgf, small data
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata/ --name cgf_2jul_smalldata --load_dir '' --wandb --act_dec
+
+# # gf, small data
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul --save_model /ibex/project/c2278/felembaa/models/gameformer/gf_2jul_smalldata/ --name gf_2jul_smalldata --load_dir '' --wandb #--act_dec
+# # cgf, small data full map
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata_fullmap/ --name cgf_2jul_smalldata_fullmap --load_dir '' --wandb --act_dec --full_map
+# gf, small data full map
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul --save_model /ibex/project/c2278/felembaa/models/gameformer/gf_2jul_smalldata_fullmap/ --name gf_2jul_smalldata_fullmap --load_dir '' --wandb --full_map
+
+## Tue, 11 Jul 2024
+# # cgf, small data, 2 agents
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --two_agents --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_11jul_smalldata_2agent/ --name cgf_11jul_smalldata_2agent --load_dir '' --wandb --act_dec
+# # cgf, small data full map, 2 agents
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --full_map --two_agents --distributed --workers 4 --batch_size 128 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_11jul_smalldata_2agent_fullmap/ --name cgf_11jul_smalldata_2agent_fullmap --load_dir '' --wandb --act_dec
+
+
+# 2 aug
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_2aug_smalldata_simpleModel/ --name cgf_2aug_smalldata_simpleModel --load_dir '' --wandb --act_dec --simple_model --neighbors_to_predict 0
+# torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --distributed --workers 4 --batch_size 128 --level 3 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul --save_model /ibex/project/c2278/felembaa/models/gameformer/gf_2aug_smalldata_simpleModel/ --name gf_2aug_smalldata_simpleModel --load_dir '' --wandb --simple_model --neighbors_to_predict 0

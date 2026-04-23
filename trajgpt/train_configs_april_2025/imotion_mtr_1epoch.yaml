@@ -1,0 +1,176 @@
+datasets:
+  traj_align:
+    mtr: True
+    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training/*'
+    filelabel: waymo_interactive
+    processor:
+      train:
+        name: traj_train
+        num_agents: 2
+        obs_len: 11
+        obs_pred_split_type: Fixed
+        pred_len: 80
+        traj_len: 91
+        act: True
+        act_json: False
+        template_select: 0
+        contrastive: True 
+        # contrastive: False
+        random_select: False
+        random_drop: False
+        of_samples : False
+        num_classes: 5
+        debug: False
+        weighted_sampling: True
+  
+  traj_align_valid:
+    mtr: True
+    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation/*'
+    filelabel: waymo_interactive
+    processor:
+      valid:
+        name: "traj_eval"
+        traj_len: 91
+        obs_len: 11
+        pred_len: 80
+        num_agents: 2
+        obs_pred_split_type: Fixed
+        act: True
+        template_select: 0
+        new_eval: true
+        # new_eval_mode: pred_only
+        new_eval_mode: pos1
+        agents_instructed: 0
+        num_classes: 5
+    
+model:
+  no_sys_prompt: True
+  lisa_like: True
+  use_llama2_template: False
+  smpl_instruct: True
+  very_smpl_turn: False
+  recon_loss_adapter: False
+  recon_loss_llm: False
+  # img_token_num: 1
+  # img_token_num: 3
+  img_token_num: 2
+  # img_token_num: 357
+  # img_token_num: 186 #94
+  output_crossattn: False
+
+  # output_crossattn: True
+  # img_token_num: 16
+  # gf_token_num: 356
+  # gf_token_num: 228
+  gf_token_num: 114
+  # gf_token_num: 184 # 92
+  # freeze_gf: True
+  # freeze_gf_enc: True
+  # freeze_gf_dec: True
+  freeze_gf: False
+  freeze_gf_enc: False
+  freeze_gf_dec: False
+  act: true
+  motion_act: False
+
+  arch: gameformer_gpt
+  end_sym: </s>
+  lora_target_modules: all # 'all' or 'not_all', all will include extra projection layers but not all the layer
+  low_resource: True
+  max_txt_len: 550
+  # llama_model: "meta-llama/Llama-3.2-1B"
+  # llama_model: "ahxt/LiteLlama-460M-1T"
+  lora: False
+  # lora_dropout: 0.05
+  # lora_r: 512
+  # lora_alpha: 64
+  # lora_r: 32
+  # lora_alpha: 64
+  # lora_r: 64
+  # lora_alpha: 16
+  quant: 8
+  rollouts: 6
+  lora_bias: false
+  gameformer_enc: true
+  # gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
+  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData_kvact/epochs_29.pth'
+  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/epochs_29.pth'
+  neighbors_to_predict: 0
+  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/epochs_29.pth'
+  gf_encoder_path: ''
+  gf_level: 1 # decoder levels
+  num_direction_classes: 5
+  gf_encoder_layers: 6
+  gf_act_enc: False
+  gf_act_dec: True
+  full_map : false
+  caption: True
+  eval_only: False
+  new_optimizer: False
+  # act_kv: True
+  act_kv: False
+  use_flash_attention: False
+  late_fusion: False
+  llama_model: "meta-llama/Llama-2-7b-hf"
+  auto_txt_formatter: True
+  # resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/dec/template_31dec/checkpoint_last.pth"
+  mtr: True
+  attention_input_adapter: True
+  attention_input_adapter_numQ: 114
+run:
+  eval_dir: /ibex/project/c2278/felembaa/models/imotion/apr_2025/mtr/imotion_mtr_1epoch/checkpoint-13452
+  # eval_dir: ''
+  output_dir: /ibex/project/c2278/felembaa/models/imotion/apr_2025/mtr/imotion_mtr_1epoch #Adjust this
+  amp: False
+  
+  batch_size_eval: 32
+  
+  device: cuda
+  dist_url: env://
+  iters_per_epoch: 100000 #4000 #640 #3262 #Adjust this
+  
+  accum_grad_iters: 0
+  
+  warmup_steps: 12500
+  evaluate_min_epoch: 0
+  log_freq: 10
+  lr_sched: linear_warmup_cosine_lr #check constant
+  max_epoch: 80
+  num_eval_figs: 0
+  
+  seed: 42
+  task: image_text_pretrain
+  
+  train_splits: train
+  
+  weight_decay: 0.0
+  world_size: 4
+  num_workers: 4
+
+  warmup_lr: 1e-6
+  min_lr: 1e-6
+  didnt_work_repeat: 0
+  r: 32
+  lora_alpha: 16
+  init_lr: 1e-4
+  job_name: ''
+  wandb_log: False
+  save_model: False
+  distributed: False
+  evaluate: false
+  evaluate_only: false
+  save_every: 6726
+  max_grad_norm: 10.0
+  warmup_ratio: 0.1
+  lora_dropout: 0.05
+  batch_size_train: 16
+  epochs: 1
+  gradient_checkpointing: False
+  gradient_accumulation_steps: 1
+  # gradient_checkpointing: True
+  # trainer:
+  #   temp: "temp"
+  # quant_new: 8
+  quant_new: 4
+  donot_prepare_model_for_kbit_training: False
+  scale_projection: True

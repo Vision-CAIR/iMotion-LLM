@@ -1,0 +1,212 @@
+datasets:
+  traj_align:
+    dataset_path: '/ibex/project/c2278/felembaa/datasets/nuplan/gpt_prompt_14types/*'
+    filelabel: waymo_interactive
+    processor:
+      train:
+        name: traj_train
+        num_agents: 2
+        obs_len: 11
+        obs_pred_split_type: Fixed
+        pred_len: 80
+        traj_len: 91
+        act: True
+        act_json: False
+        template_select: 0
+        contrastive: True 
+        random_select: False
+        random_drop: False
+        of_samples : False
+        nuplan_complex: True
+  
+  traj_align_valid:
+    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep/*'
+    filelabel: waymo_interactive
+    processor:
+      valid:
+        name: "traj_eval"
+        traj_len: 91
+        obs_len: 11
+        pred_len: 80
+        num_agents: 2
+        obs_pred_split_type: Fixed
+        act: True
+        template_select: 0
+        new_eval: true
+        # new_eval_mode: pred_only
+        new_eval_mode: gt1
+        agents_instructed: 0
+    
+model:
+  lisa_like: True
+  use_llama2_template: False
+  smpl_instruct: True
+  very_smpl_turn: False
+  recon_loss_adapter: False
+  recon_loss_llm: False
+  # img_token_num: 1
+  # img_token_num: 3
+  img_token_num: 2
+  # img_token_num: 357
+  # img_token_num: 186 #94
+  output_crossattn: False
+
+  # output_crossattn: True
+  # img_token_num: 16
+  # gf_token_num: 356
+  # gf_token_num: 228
+  gf_token_num: 114
+  # gf_token_num: 184 # 92
+  freeze_gf: True
+  freeze_gf_enc: True
+  freeze_gf_dec: True
+  # freeze_gf: False
+  # freeze_gf_enc: False
+  # freeze_gf_dec: False
+  act: true
+  motion_act: False
+
+  arch: gameformer_gpt
+  end_sym: </s>
+  lora_target_modules: all # 'all' or 'not_all', all will include extra projection layers but not all the layer
+  low_resource: True
+  max_txt_len: 550
+  llama_model: "meta-llama/Llama-2-7b-hf"
+  # llama_model: "meta-llama/Llama-3.2-1B"
+  # llama_model: "ahxt/LiteLlama-460M-1T"
+  lora: False
+  # lora_dropout: 0.05
+  # lora_r: 512
+  # lora_alpha: 64
+  # lora_r: 32
+  # lora_alpha: 64
+  # lora_r: 64
+  # lora_alpha: 16
+  quant: 8
+  rollouts: 6
+  lora_bias: false
+  gameformer_enc: true
+  # gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
+  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData_kvact/epochs_29.pth'
+  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/epochs_29.pth'
+  neighbors_to_predict: 0
+  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/epochs_29.pth'
+  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/epochs_29.pth'
+  gf_encoder_layers: 6
+  gf_act_enc: False
+  gf_act_dec: True
+  full_map : false
+  caption: True
+  eval_only: False
+  new_optimizer: False
+  # act_kv: True
+  act_kv: False
+  use_flash_attention: False
+  late_fusion: False
+  # resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/dec/template_31dec/checkpoint_last.pth"
+run:
+  # resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/dec/template_31dec/checkpoint_last.pth"
+  # best_agg_metric: 1000
+  # best_epoch: 1.704
+  
+  amp: False
+  # batch_size_train: 100
+  # batch_size_train: 64
+  
+  # batch_size_train: 32
+  # batch_size_train: 2
+  batch_size_eval: 32
+  # batch_size_eval: 64
+  # batch_size_eval: 1
+  device: cuda
+  dist_url: env://
+  iters_per_epoch: 100000 #4000 #640 #3262 #Adjust this
+  # iters_per_epoch: 20 #4000 #640 #3262 #Adjust this
+  accum_grad_iters: 0
+  # eval_iters_per_epoch: 8
+  # warmup_steps: 780
+  # warmup_steps: 1000
+  # warmup_steps: 3125
+  warmup_steps: 12500
+  evaluate_min_epoch: 0
+  log_freq: 10
+  lr_sched: linear_warmup_cosine_lr #check constant
+  max_epoch: 80
+  num_eval_figs: 0
+  
+  
+  seed: 42
+  task: image_text_pretrain
+  # task: None
+  train_splits: train
+  # valid_splits: valid
+  
+  
+  
+  # warmup_steps: 25
+  # weight_decay: 0.01
+  weight_decay: 0.0
+  world_size: 4
+  num_workers: 4
+  # world_size: 0
+  # num_workers: 0
+  
+  # init_lr: 1e-4
+  init_lr: 1e-5
+  warmup_lr: 1e-6
+  min_lr: 1e-6
+  didnt_work_repeat: 0 
+  # num_eval_batches: 8
+  # output_dir: /ibex/project/c2278/felembaa/models/imotion/dec/template_31dec #Adjust this
+  # job_name: 'template_31dec'
+
+  output_dir: /ibex/project/c2278/cvpr_rebuttal/complex/r8_finetuned #Adjust this
+  pretrained_llm_dir: "/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-14128"
+  # resume_ckpt_path: False
+  # resume_ckpt_path: "/ibex/project/c2278/cvpr_rebuttal/imotion08_r8"
+  eval_dir: ''
+  job_name: 'temp'
+  
+  wandb_log: False
+  save_model: False
+  distributed: False
+  # distributed: true
+  # wandb_log: true
+  # save_model: true
+
+  evaluate: false
+  evaluate_only: false
+  save_every: 1800
+  max_grad_norm: 10.0
+  # max_grad_norm: 1.0
+  # r: 32
+  # lora_alpha: 64
+  r: 8
+  lora_alpha: 16
+  # r: 16
+  # lora_alpha: 32
+  # r: 32
+  # lora_alpha: 64
+  # warmup_ratio: 0.1
+  warmup_ratio: 0.05
+  # warmup_ratio: 0.0
+  lora_dropout: 0.0
+  # lora_dropout: 0.1
+  # batch_size_train: 16
+  # batch_size_train: 24
+  # batch_size_train: 64
+  # batch_size_train: 32
+  # batch_size_train: 24
+  batch_size_train: 16
+  epochs: 4
+  gradient_checkpointing: False
+  # gradient_accumulation_steps: 4
+  gradient_accumulation_steps: 1
+  # gradient_checkpointing: True
+  # trainer:
+  #   temp: "temp"
+  # quant_new: 8
+  quant_new: 4
+  donot_prepare_model_for_kbit_training: False
+  scale_projection: True
+  

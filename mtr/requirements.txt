@@ -1,0 +1,12 @@
+# torch --index-url https://download.pytorch.org/whl/cu118
+numpy
+# tensorboardX
+easydict
+pyyaml
+scikit-image
+tqdm
+waymo-open-dataset-tf-2-11-0
+shapely
+
+## additional things needs to be installed, you also might need to install tensorflow
+# pip install --upgrade typing-extensions

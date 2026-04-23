@@ -1,0 +1,22 @@
+Based on the following scenario details:
+- Scenario Description: <scenario_type>.
+- What is Safe: <what_safe_to_do>
+- What is Unsafe: <what_unsafe_to_do>
+- Safe Trajectory Description: <driving_behaviour>
+
+I'll give you JSON data in the format:
+[{'instructions': [{"instruction":...}, ...]}, ...]
+And I want you to answer with the following JSON format:
+[{'instructions': [{"instruction": ..., "reasoning": ..., "safe": true/false}, ...]}, ...]
+
+Important Guidelines:
+- Base your reasoning on natural and sensible interpretations of the scenario details, particularly focusing on what is considered safe or unsafe within the scenario context and general principles of safe driving.
+- Use logic that aligns with real-world driving safety standards.
+- The reasoning should clearly analyze the instruction based on contextual safety: whether it adheres to or violates safe behavior as described.
+- If Safe: Include a Safe Trajectory Description within the reasoning, along with explaining why the actions are safe.
+- If Unsafe: Reason why it is unsafe.
+- Make the reasoning abstract and concise (under 100 words).
+- Avoid referencing the provided safe trajectory description as a justification (e.g., avoid phrases like "because it matches the provided trajectory description").
+
+Provided JSON data:
+
