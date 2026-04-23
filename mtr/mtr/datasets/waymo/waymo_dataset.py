@@ -21,6 +21,8 @@ import json
 from evaluate_pkl_data_utils import get_act_util
 from gameformer.utils.data_utils import agent_norm
 
+REPO_ROOT = Path(__file__).resolve().parents[4]
+
 
 class WaymoDataset(DatasetTemplate):
     def __init__(self, dataset_cfg, training=True, logger=None, fliter_gf_based=False):
@@ -39,16 +41,26 @@ class WaymoDataset(DatasetTemplate):
         self.new_eval_mode = None
         if 'eval_mode' in self.dataset_cfg:
             self.new_eval_mode = self.dataset_cfg.eval_mode
-            mapping_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/gf_mtr_mapping_test/gf_templatellm_maps/'
-            mapping_dir += f"{self.new_eval_mode}.json"
-            with open(mapping_dir, "r") as f:
+            default_mapping_dir = self.data_root.parent / "gameformer" / "gf_mtr_mapping" / "gf_templatellm_maps"
+            mapping_dir = Path(
+                os.environ.get(
+                    "IMOTION_LLM_MTR_EVAL_MAPPING_DIR",
+                    str(default_mapping_dir),
+                )
+            )
+            with open(mapping_dir / f"{self.new_eval_mode}.json", "r") as f:
                 test_mapping = json.load(f)
             self.selected_data_indexed = self.test_filter_infos_based_on_gf_data(test_mapping)
             print(f'Total scenes after gameformer prompt filters: {len(self.selected_data_indexed)}')
 
-            mapping_dir2 = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/'
-            mapping_dir2 += f"meta_{self.new_eval_mode}.json"
-            with open(mapping_dir2, "r") as f:
+            default_meta_dir = self.data_root.parent / "gameformer" / "validation_eval_meta"
+            meta_dir = Path(
+                os.environ.get(
+                    "IMOTION_LLM_MTR_EVAL_META_DIR",
+                    str(default_meta_dir),
+                )
+            )
+            with open(meta_dir / f"meta_{self.new_eval_mode}.json", "r") as f:
                 self.meta_eval = json.load(f)
 
     def test_filter_infos_based_on_gf_data(self, test_mapping, debug=False):
@@ -101,9 +113,14 @@ class WaymoDataset(DatasetTemplate):
     def filter_infos_based_on_gf_data(self, debug=False):
         # print('loading prompts gameformer mapping jsons')
         # Define the directory containing JSON files
-        json_dir = "/ibex/project/c2278/felembaa/datasets/waymo/gameformer/gf_mtr_mapping/gf_templatellm_maps/"
+        json_dir = Path(
+            os.environ.get(
+                "IMOTION_LLM_MTR_TRAIN_MAPPING_DIR",
+                str(self.data_root.parent / "gameformer" / "gf_mtr_mapping" / "gf_templatellm_maps"),
+            )
+        )
         # Find all JSON files in the directory
-        json_files = glob.glob(os.path.join(json_dir, "*.json"))
+        json_files = glob.glob(str(json_dir / "*.json"))
         # Iterate through all JSON files in the directory
         for json_file in json_files:
             with open(json_file, 'r') as file:
@@ -816,6 +833,5 @@ if __name__ == '__main__':
     except:
         yaml_config = yaml.safe_load(open(args.cfg_file))
     dataset_cfg = EasyDict(yaml_config)
-
 
 

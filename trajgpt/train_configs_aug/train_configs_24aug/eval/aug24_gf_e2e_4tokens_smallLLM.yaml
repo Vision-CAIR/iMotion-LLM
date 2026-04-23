@@ -1,6 +1,6 @@
 datasets:
   traj_align:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/training_23aug/*'
     filelabel: waymo_interactive
     processor:
       train:
@@ -17,7 +17,7 @@ datasets:
         random_select: False
   
   traj_align_valid:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_23aug/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/validation_23aug/*'
     filelabel: waymo_interactive
     processor:
       valid:
@@ -71,8 +71,8 @@ model:
   rollouts: 6
   lora_bias: false
   gameformer_enc: true
-  # gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
-  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/epochs_29.pth'
+  # gf_encoder_path: '<internal_user_root>/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
+  gf_encoder_path: '<internal_model_root>/gameformer/gf_23aug/epochs_29.pth'
   gf_encoder_layers: 6
   gf_act_enc: False
   gf_act_dec: False
@@ -81,7 +81,7 @@ model:
   new_optimizer: False  #***********************
   
 run:
-  resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/aug24_gf_e2e_4tokens_smallLLM/checkpoint_80.pth"
+  resume_ckpt_path: "<internal_model_root>/imotion/aug24_gf_e2e_4tokens_smallLLM/checkpoint_80.pth"
   best_agg_metric: 1000
   best_epoch: 1.704
   
@@ -124,7 +124,7 @@ run:
   min_lr: 1e-6
   didnt_work_repeat: 0 
   # num_eval_batches: 8
-  output_dir: /ibex/project/c2278/felembaa/models/imotion/aug24_gf_e2e_4tokens_smallLLM/checkpoint_80_gt1
+  output_dir: <internal_model_root>/imotion/aug24_gf_e2e_4tokens_smallLLM/checkpoint_80_gt1
   job_name: 'aug24_gf_e2e_4tokens_smallLLM_checkpoint_80_gt1'
   
   wandb_log: false

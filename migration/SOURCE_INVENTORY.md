@@ -8,10 +8,10 @@ These paths already exist on this machine and should not be edited in place as p
 
 | Path | Status | Notes |
 | --- | --- | --- |
-| `/home/felembaa/projects/iMotion-LLM-ICLR` | protected | Primary source repo identified during audit. Dirty working tree; read-only for migration. |
-| `/ibex/project/c2278/felembaa/projects/iMotion-LLM-Jan` | protected | Secondary snapshot/reference copy with similar structure plus logs/artifacts. |
-| `/home/felembaa/projects/iMotion-LLM-old` | protected | Older precursor repo; reference only if needed. |
-| `/ibex/project/c2278/felembaa/projects/iMotion-LLM-Jan/run_ibex/iMotion-LLM` | protected | Existing local copy discovered during bootstrap. Use only as reference if needed. |
+| `<legacy_repo_root>` | protected | Primary source repo identified during audit. Dirty working tree; read-only for migration. |
+| `<legacy_snapshot_repo>` | protected | Secondary snapshot/reference copy with similar structure plus logs/artifacts. |
+| `<legacy_old_repo>` | protected | Older precursor repo; reference only if needed. |
+| `<legacy_snapshot_repo>/run_ibex/iMotion-LLM` | protected | Existing local copy discovered during bootstrap. Use only as reference if needed. |
 
 ## Incoming Sources To Audit
 
@@ -19,9 +19,9 @@ Primary candidate sources have now been identified.
 
 | Source Path / Repo | Suspected Contents | Audit Status | Migration Target | Notes |
 | --- | --- | --- | --- | --- |
-| `/home/felembaa/projects/iMotion-LLM-ICLR` | Main iMotion-LLM working repo with `trajgpt`, `gameformer`, `instructions`, `mtr`, configs, and run scripts | audited | primary | Best candidate for migration. Refer to `migration/SOURCE_AUDIT_IMOTION_LLM_ICLR.md`. |
-| `/ibex/project/c2278/felembaa/projects/iMotion-LLM-Jan` | Snapshot/mirror of the project with overlapping code plus logs, figures, examples, and packed experiment state | partially audited | secondary | Useful to recover missing files or compare variants, but not the first source to migrate from. |
-| `/home/felembaa/projects/iMotion-LLM-old` | Older precursor with similar layout | identified | tertiary | Use only when code is missing from `iMotion-LLM-ICLR`. |
+| `<legacy_repo_root>` | Main iMotion-LLM working repo with `trajgpt`, `gameformer`, `instructions`, `mtr`, configs, and run scripts | audited | primary | Best candidate for migration. Refer to `migration/SOURCE_AUDIT_IMOTION_LLM_ICLR.md`. |
+| `<legacy_snapshot_repo>` | Snapshot/mirror of the project with overlapping code plus logs, figures, examples, and packed experiment state | partially audited | secondary | Useful to recover missing files or compare variants, but not the first source to migrate from. |
+| `<legacy_old_repo>` | Older precursor with similar layout | identified | tertiary | Use only when code is missing from `iMotion-LLM-ICLR`. |
 
 ## Audit Rules
 

@@ -151,7 +151,7 @@ model_name = 'mar16_04_8c_base'
 # model_name = 'mar16_04_8c_base_cllm_v2'
 conditional_model = False
 epoch = 100
-root_dir = '/ibex/user/felembaa/llm_models/cgf/'
+root_dir = '<internal_user_root>/llm_models/cgf/'
 data_dir = root_dir+model_name+f'/eval{epoch}/data/*'
 data_list = glob.glob(data_dir)
 print(f'Number of found files: {len(data_list)}')

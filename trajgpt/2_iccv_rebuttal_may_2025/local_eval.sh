@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# nohup bash /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/2_iccv_rebuttal_may_2025/local_eval.sh > /home/felembaa/projects/iMotion-LLM-ICLR/nohup/eval2.log 2>&1 &
+# nohup bash <legacy_repo_root>/trajgpt/2_iccv_rebuttal_may_2025/local_eval.sh > <legacy_repo_root>/nohup/eval2.log 2>&1 &
 
 
-CONFIG_DIR="/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/2_iccv_rebuttal_may_2025/complex"
-MODELS_DIR="/ibex/project/c2278/felembaa/models/imotion/2_iccv_rebuttal_may_2025/complex"
+CONFIG_DIR="<legacy_repo_root>/trajgpt/2_iccv_rebuttal_may_2025/complex"
+MODELS_DIR="<internal_model_root>/imotion/2_iccv_rebuttal_may_2025/complex"
 
 CHECKPOINT="checkpoint-7194"
 NUM_GPUS=1
@@ -39,7 +39,7 @@ CONFIGS=(
 MODES=("safe_with_context" "safe_no_context" "unsafe_with_context" "unsafe_no_context")
 
 # Activate conda environment
-source ~/miniconda3/bin/activate /ibex/project/c2253/felembaa/envs/imotion_mtr03
+source ~/miniconda3/bin/activate <internal_env_root>/imotion_mtr03
 
 for CONFIG in "${CONFIGS[@]}"; do
     for MODE in "${MODES[@]}"; do
@@ -50,7 +50,7 @@ for CONFIG in "${CONFIGS[@]}"; do
         echo "Running Evaluation Mode: ${MODE} for ${CONFIG}"
 
         if [ ${NUM_GPUS} -eq 1 ]; then
-            python /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/eval.py \
+            python <legacy_repo_root>/trajgpt/eval.py \
                 --cfg-path ${CONFIG_PATH} \
                 --options run.eval_dir=${EVAL_DIR} run.distributed=False run.batch_size_eval=${BATCH_SIZE} datasets.traj_align_valid.processor.valid.new_eval_mode=${MODE}
         else
@@ -66,7 +66,7 @@ for CONFIG in "${CONFIGS[@]}"; do
             # PORT=$(python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
             
             CUDA_LAUNCH_BLOCKING=1 TORCH_DISTRIBUTED_DEBUG=DETAIL torchrun --nproc_per_node=${NUM_GPUS} --nnodes=1 --master_port=${PORT} \
-                /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/eval.py \
+                <legacy_repo_root>/trajgpt/eval.py \
                 --cfg-path ${CONFIG_PATH} \
                 --options run.eval_dir=${EVAL_DIR} run.distributed=True run.batch_size_eval=${BATCH_SIZE} datasets.traj_align_valid.processor.valid.new_eval_mode=${MODE}
         fi
@@ -84,8 +84,8 @@ echo "All evaluations completed!"
 
 # ########################################################################################################
 
-CONFIG_DIR="/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/2_iccv_rebuttal_may_2025"
-MODELS_DIR="/ibex/project/c2278/felembaa/models/imotion/2_iccv_rebuttal_may_2025"
+CONFIG_DIR="<legacy_repo_root>/trajgpt/2_iccv_rebuttal_may_2025"
+MODELS_DIR="<internal_model_root>/imotion/2_iccv_rebuttal_may_2025"
 
 CHECKPOINT="checkpoint-6726"
 NUM_GPUS=1
@@ -115,7 +115,7 @@ MODES=("gt1" "pos1" "neg1")
 # MODES=("safe_with_context" "safe_no_context" "unsafe_with_context" "unsafe_no_context")
 
 # Activate conda environment
-source ~/miniconda3/bin/activate /ibex/project/c2253/felembaa/envs/imotion_mtr03
+source ~/miniconda3/bin/activate <internal_env_root>/imotion_mtr03
 
 for CONFIG in "${CONFIGS[@]}"; do
     for MODE in "${MODES[@]}"; do
@@ -126,7 +126,7 @@ for CONFIG in "${CONFIGS[@]}"; do
         echo "Running Evaluation Mode: ${MODE} for ${CONFIG}"
 
         if [ ${NUM_GPUS} -eq 1 ]; then
-            python /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/eval.py \
+            python <legacy_repo_root>/trajgpt/eval.py \
                 --cfg-path ${CONFIG_PATH} \
                 --options run.eval_dir=${EVAL_DIR} run.distributed=False run.batch_size_eval=${BATCH_SIZE} datasets.traj_align_valid.processor.valid.new_eval_mode=${MODE}
         else
@@ -142,7 +142,7 @@ for CONFIG in "${CONFIGS[@]}"; do
             # PORT=$(python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
             
             CUDA_LAUNCH_BLOCKING=1 TORCH_DISTRIBUTED_DEBUG=DETAIL torchrun --nproc_per_node=${NUM_GPUS} --nnodes=1 --master_port=${PORT} \
-                /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/eval.py \
+                <legacy_repo_root>/trajgpt/eval.py \
                 --cfg-path ${CONFIG_PATH} \
                 --options run.eval_dir=${EVAL_DIR} run.distributed=True run.batch_size_eval=${BATCH_SIZE} datasets.traj_align_valid.processor.valid.new_eval_mode=${MODE}
         fi
@@ -160,8 +160,8 @@ echo "All evaluations completed!"
 
 # ########################################################################################################
 
-CONFIG_DIR="/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/2_iccv_rebuttal_may_2025/llms"
-MODELS_DIR="/ibex/project/c2278/felembaa/models/imotion/2_iccv_rebuttal_may_2025/llms"
+CONFIG_DIR="<legacy_repo_root>/trajgpt/2_iccv_rebuttal_may_2025/llms"
+MODELS_DIR="<internal_model_root>/imotion/2_iccv_rebuttal_may_2025/llms"
 
 CHECKPOINT="checkpoint-6726"
 NUM_GPUS=1
@@ -188,7 +188,7 @@ MODES=("gt1" "pos1" "neg1")
 # MODES=("safe_with_context" "safe_no_context" "unsafe_with_context" "unsafe_no_context")
 
 # Activate conda environment
-source ~/miniconda3/bin/activate /ibex/project/c2253/felembaa/envs/imotion_mtr03
+source ~/miniconda3/bin/activate <internal_env_root>/imotion_mtr03
 
 for CONFIG in "${CONFIGS[@]}"; do
     for MODE in "${MODES[@]}"; do
@@ -199,7 +199,7 @@ for CONFIG in "${CONFIGS[@]}"; do
         echo "Running Evaluation Mode: ${MODE} for ${CONFIG}"
 
         if [ ${NUM_GPUS} -eq 1 ]; then
-            python /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/eval.py \
+            python <legacy_repo_root>/trajgpt/eval.py \
                 --cfg-path ${CONFIG_PATH} \
                 --options run.eval_dir=${EVAL_DIR} run.distributed=False run.batch_size_eval=${BATCH_SIZE} datasets.traj_align_valid.processor.valid.new_eval_mode=${MODE}
         else
@@ -215,7 +215,7 @@ for CONFIG in "${CONFIGS[@]}"; do
             # PORT=$(python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
             
             CUDA_LAUNCH_BLOCKING=1 TORCH_DISTRIBUTED_DEBUG=DETAIL torchrun --nproc_per_node=${NUM_GPUS} --nnodes=1 --master_port=${PORT} \
-                /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/eval.py \
+                <legacy_repo_root>/trajgpt/eval.py \
                 --cfg-path ${CONFIG_PATH} \
                 --options run.eval_dir=${EVAL_DIR} run.distributed=True run.batch_size_eval=${BATCH_SIZE} datasets.traj_align_valid.processor.valid.new_eval_mode=${MODE}
         fi

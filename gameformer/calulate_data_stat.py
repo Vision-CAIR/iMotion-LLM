@@ -2,7 +2,7 @@ import torch
 import sys
 sys.path.append('.')
 sys.path.append('..')
-sys.path.append('/home/felembaa/projects/iMotion-LLM-ICLR')
+sys.path.append('<legacy_repo_root>')
 sys.path.append('...')
 import csv
 import argparse
@@ -27,7 +27,7 @@ from tqdm import tqdm
 print("************* ******** ****************")
 print("************* OLD DATA ****************")
 
-# train_set = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug'
+# train_set = '<internal_dataset_root>/waymo/gameformer/training_23aug'
 # train_dataset = DrivingData(train_set+'/*', act=True, full_map=False, ego_act_only=True, nuplan=False, random_drop_act=False, files_with_act_only=True)
 # train_dataloader = DataLoader(train_dataset, batch_size=1000, num_workers=10)
 # directions_stat_overall = {i:0 for i in range(8)}
@@ -50,7 +50,7 @@ print("************* OLD DATA ****************")
 print()
 print("************* ******** ****************")
 print("************* NEW DATA ****************")
-train_set = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov'
+train_set = '<internal_dataset_root>/waymo/gameformer/training_28nov'
 train_dataset = DrivingData(train_set+'/*', act=True, full_map=False, ego_act_only=True, nuplan=False, random_drop_act=False, files_with_act_only=True)
 train_dataloader = DataLoader(train_dataset, batch_size=1000, num_workers=10)
 directions_stat_overall = {i:0 for i in range(8)}

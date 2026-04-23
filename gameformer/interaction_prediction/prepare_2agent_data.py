@@ -1,6 +1,6 @@
 ## This code takes an already preprocessed data, and search for agent pairs in order to augment the data
 # The goal, is to have a template description for both the ego and the interactive agents
-# This can be searched using the file names in /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_full_3jul
+# This can be searched using the file names in <internal_dataset_root>/waymo/gameformer/training_full_3jul
 # Since we are using the small data for finetuning the LLM, the small data should be also augmented not the training_full_3jul
 ## Dirs to augment
 # > training_full_3jul
@@ -32,7 +32,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import shutil
 
-root_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/'
+root_dir = '<internal_dataset_root>/waymo/gameformer/'
 
 train_dir_full = 'training_full_3jul'
 train_dir_small = 'training_small_1jul'

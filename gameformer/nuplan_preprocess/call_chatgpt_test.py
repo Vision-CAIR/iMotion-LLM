@@ -129,7 +129,7 @@ def main():
     parser.add_argument('--processes', type=int, help='number of workers', default=1)
     args = parser.parse_args()
 
-    root_dir_ = "/ibex/project/c2278/felembaa/datasets/nuplan/test_gpt_prompt_14types/*"
+    root_dir_ = "<internal_dataset_root>/nuplan/test_gpt_prompt_14types/*"
     root_dirs_ = glob.glob(root_dir_)
     root_dir = root_dirs_[args.type_select]+'/gpt'  # Select the directory
     save_dir = root_dir + '_data_101124'

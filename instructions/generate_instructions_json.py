@@ -11,9 +11,14 @@ from direction_instructions import DirectionClassifier
 from tqdm import tqdm
 import sys
 import os
+from pathlib import Path
 import matplotlib.pyplot as plt
-# Add the project path to the system path for importing project-specific modules
-sys.path.append('/home/felembaa/projects/iMotion-LLM-ICLR/gameformer')
+REPO_ROOT = Path(__file__).resolve().parents[1]
+GAMEFORMER_ROOT = REPO_ROOT / "gameformer"
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+if str(GAMEFORMER_ROOT) not in sys.path:
+    sys.path.insert(0, str(GAMEFORMER_ROOT))
 from utils.inter_pred_utils import DrivingData
 import json
 
@@ -113,13 +118,13 @@ def process_batch(batch, output_dir, direction_classifier):
             #     json.dump(json_data, file)
 
 if __name__ == '__main__':
+    default_data_dir = str(REPO_ROOT / "data" / "processed" / "waymo" / "gameformer" / "train")
+    default_json_dir = str(REPO_ROOT / "outputs" / "instruction_json")
 
     parser = argparse.ArgumentParser(description="Process driving data in parallel.")
     parser.add_argument("--mp", type=bool, required=False, help="use multiprocessing", default=False)
-    parser.add_argument("--data_dir", type=bool, required=False, help="", default='/ibex/project/c2253/felembaa/waymo_dataset/training_interactive_32_full_14mar/')
-    # parser.add_argument("--save_dir", type=bool, required=False, help="", default='/ibex/project/c2253/felembaa/waymo_dataset/instructions_samples/direction/')
-    parser.add_argument("--save_dir_json", type=bool, required=False, help="", default='/ibex/project/c2253/felembaa/waymo_dataset/instructions_json/')
-    # '/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_32_small_13mar/'
+    parser.add_argument("--data_dir", type=str, required=False, help="", default=default_data_dir)
+    parser.add_argument("--save_dir_json", type=str, required=False, help="", default=default_json_dir)
     args = parser.parse_args()
     data_dir = args.data_dir
     save_dir_json = args.save_dir_json

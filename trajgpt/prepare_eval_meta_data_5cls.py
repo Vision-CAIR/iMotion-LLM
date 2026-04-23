@@ -1,6 +1,6 @@
 ## This code takes an already preprocessed data, and search for agent pairs in order to augment the data
 # The goal, is to have a template description for both the ego and the interactive agents
-# This can be searched using the file names in /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_full_3jul
+# This can be searched using the file names in <internal_dataset_root>/waymo/gameformer/training_full_3jul
 # Since we are using the small data for finetuning the LLM, the small data should be also augmented not the training_full_3jul
 ## Dirs to augment
 # > training_full_3jul
@@ -10,7 +10,7 @@
 # >
 import sys
 sys.path.append(".")
-sys.path.append("/home/felembaa/projects/iMotion-LLM-ICLR/")
+sys.path.append("<legacy_repo_root>/")
 import os
 import torch
 import logging
@@ -37,7 +37,7 @@ import shutil
 from minigpt4.datasets.datasets.traj_dataset import TrajAlignDataset
 from torch.utils.data import DataLoader
 from collections import Counter
-# /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/minigpt4/datasets/datasets/traj_dataset.py
+# <legacy_repo_root>/trajgpt/minigpt4/datasets/datasets/traj_dataset.py
 
 def convert_to_serializable(obj):
     if isinstance(obj, np.int64):
@@ -52,11 +52,11 @@ def convert_to_serializable(obj):
         return [convert_to_serializable(i) for i in obj]
     return obj
 
-# root_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/'
-# root_dir = '/ibex/project/c2278/felembaa/datasets/nuplan/test/'
+# root_dir = '<internal_dataset_root>/waymo/gameformer/'
+# root_dir = '<internal_dataset_root>/nuplan/test/'
 
-# root_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/'
-root_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/'
+# root_dir = '<internal_dataset_root>/waymo/gameformer/feb16_2025/'
+root_dir = '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/'
 valid_dir = 'validation'
 
 # train_dir_full = 'training_full_3jul'

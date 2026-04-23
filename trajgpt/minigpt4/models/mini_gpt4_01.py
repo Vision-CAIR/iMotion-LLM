@@ -250,7 +250,7 @@ class MiniGPT4(Blip2Base):
         
         # if 'Llama-2' in llama_model:
         self.llama2=True
-        with open('/home/felembaa/projects/TrajGPT-1/prompts/input_8.txt', 'r') as f:
+        with open('<legacy_trajgpt_repo>/prompts/input_8.txt', 'r') as f:
             input_ = f.read()
         prompt_template = '[INST] <<SYS>>\nYou are a helpful motion tokens prediction assistant. Your answers should be abstract and accurate without explanation. Please ensure that your answer is based on all of the provided initial motion tokens of all of the agents.\n<</SYS>>\n\n{}[/INST] '
         self.prompt_list = [prompt_template.format(input_)]

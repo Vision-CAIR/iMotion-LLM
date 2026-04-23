@@ -2,7 +2,7 @@ import torch
 import glob
 import sys
 sys.path.append("..")
-sys.path.append("/home/felembaa/projects/gameformer_p/")
+sys.path.append("<legacy_gameformer_repo>/")
 import argparse
 from multiprocessing import Pool
 import tensorflow as tf
@@ -1159,7 +1159,7 @@ class DataProcess(object):
         # self.save_dir_json = f"{self.save_dir[:-1]}_json/"
         # os.makedirs(self.save_dir_json, exist_ok=True)
 
-        data_files_list = self.data_files if target_scene_folder=='' else ['/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive/' + target_scene_folder]
+        data_files_list = self.data_files if target_scene_folder=='' else ['<internal_waymo_dataset_root>/validation_interactive/' + target_scene_folder]
         for data_file in data_files_list:
             dataset = tf.data.TFRecordDataset(data_file)
             for data in dataset:

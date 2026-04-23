@@ -3,7 +3,7 @@ import glob
 import sys
 sys.path.append("..")
 sys.path.append(".")
-sys.path.append("/home/felembaa/projects/iMotion-LLM-ICLR")
+sys.path.append("<legacy_repo_root>")
 import argparse
 from multiprocessing import Pool
 import tensorflow as tf
@@ -3102,7 +3102,7 @@ class DataProcess(object):
                 fig,ax = vizualize_background(segment=point, segment_type=state, fig=fig, categ=6, ax=ax)
 
         # if False:
-        # nohup python3 /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/data_preprocess_v08_eval02.py > nohup/zzz.log 2>&1 & disown
+        # nohup python3 <legacy_repo_root>/gameformer/data_preprocess_v08_eval02.py > nohup/zzz.log 2>&1 & disown
         # if figure_center is not None:
         center_x = 0  # Replace with your actual center x-coordinate
         center_y = 0  # Replace with your actual center y-coordinate
@@ -3426,15 +3426,15 @@ def parallel_process(root_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data Processing Interaction Predictions')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/dataset/waymo/gameformer/training_fullmap_small')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/validation_interactive/')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_16may_fullmap_wPlausbility')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/training/')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/validation_interactive')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/temp')
-    parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/training')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/validation_interactive')
-    parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/verification_data/v08_04')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/training_fullmap_small')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/validation_interactive/')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/validation_16may_fullmap_wPlausbility')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/training/')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/validation_interactive')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/temp')
+    parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/training')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/validation_interactive')
+    parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_verification_root>/v08_04')
     # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '')
     parser.add_argument('--point_path', type=str, help='path to load K-Means Anchors (Currently not included in the pipeline)', default='')
     parser.add_argument('--processes', type=int, help='multiprocessing process num', default=8)

@@ -1739,7 +1739,7 @@ def parallel_process(root_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data Processing Interaction Predictions')
-    parser.add_argument('--load_path', type=str, help='path to dataset files', default='/home/felembaa/datasets/waymo/v_1_2/scenario/training/')
+    parser.add_argument('--load_path', type=str, help='path to dataset files', default='<local_dataset_root>/waymo/v_1_2/scenario/training/')
     parser.add_argument('--save_path', type=str, help='path to save processed data', default = '')
     # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '')
     parser.add_argument('--point_path', type=str, help='path to load K-Means Anchors (Currently not included in the pipeline)', default='')

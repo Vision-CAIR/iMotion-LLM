@@ -1,6 +1,6 @@
 datasets:
   traj_align:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/train_small_17may_fullmap_wPlausbility/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/train_small_17may_fullmap_wPlausbility/*'
     filelabel: waymo_interactive
     processor:
       train:
@@ -17,7 +17,7 @@ datasets:
         random_select: False
   
   traj_align_valid:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_17may_fullmap_wPlausbility_val_splits/split_1/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/validation_17may_fullmap_wPlausbility_val_splits/split_1/*'
     processor:
       valid:
         name: "traj_eval"
@@ -68,8 +68,8 @@ model:
   rollouts: 6
   lora_bias: false
   gameformer_enc: true
-  # gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
-  gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_act_smalldata/epochs_last.pth'
+  # gf_encoder_path: '<internal_user_root>/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
+  gf_encoder_path: '<internal_user_root>/gameformer_models/gf_7may_act_smalldata/epochs_last.pth'
   gf_encoder_layers: 6
   gf_act_enc: False
   gf_act_dec: true
@@ -77,7 +77,7 @@ model:
   caption: true
   
 run:
-  resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/checkpoint_last.pth"
+  resume_ckpt_path: "<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/checkpoint_last.pth"
   best_epoch: 90
   amp: false
   batch_size_train: 24
@@ -108,7 +108,7 @@ run:
   evaluate: true
   evaluate_only: true
   job_name: ''
-  output_dir: /ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/wPlausbility_val_gt_template3_4aug_noInstruct_s1 #Adjust this
+  output_dir: <internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/wPlausbility_val_gt_template3_4aug_noInstruct_s1 #Adjust this
   
   
   

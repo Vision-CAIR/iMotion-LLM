@@ -388,7 +388,7 @@ class DrivingData(Dataset):
         if not self.full_map:    
             if self.new_eval:
                 try:
-                    act_2_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/sep14_2025_2agent/validation_complementary_data_acts/'+np_filename.replace('.npz','.pkl').split('/')[-1]
+                    act_2_dir = '<internal_dataset_root>/waymo/gameformer/sep14_2025_2agent/validation_complementary_data_acts/'+np_filename.replace('.npz','.pkl').split('/')[-1]
                     with open(act_2_dir, "rb") as f:
                         act2_data = pickle.load(f)
                     # acts[1]=act2_data['act1']

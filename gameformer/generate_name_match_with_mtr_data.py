@@ -3,7 +3,7 @@ import glob
 import sys
 sys.path.append("..")
 sys.path.append(".")
-sys.path.append("/home/felembaa/projects/iMotion-LLM-ICLR")
+sys.path.append("<legacy_repo_root>")
 import argparse
 from multiprocessing import Pool
 import tensorflow as tf
@@ -2982,11 +2982,11 @@ class DataProcess(object):
             self.pbar.close()
     
         # Define directory for saving JSONs
-        self.templatellm_filename_map_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/gf_mtr_mapping/gf_templatellm_maps'
-        self.acts_filename_map_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/gf_mtr_mapping/gf_acts_maps'
-        self.np_filename_map_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/gf_mtr_mapping/gf_np_maps'
-        self.agent_json_filename_map_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/gf_mtr_mapping/gf_agent_json_maps'
-        self.map_json_filename_map_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/gf_mtr_mapping/gf_map_json_maps'
+        self.templatellm_filename_map_dir = '<internal_dataset_root>/waymo/gameformer/gf_mtr_mapping/gf_templatellm_maps'
+        self.acts_filename_map_dir = '<internal_dataset_root>/waymo/gameformer/gf_mtr_mapping/gf_acts_maps'
+        self.np_filename_map_dir = '<internal_dataset_root>/waymo/gameformer/gf_mtr_mapping/gf_np_maps'
+        self.agent_json_filename_map_dir = '<internal_dataset_root>/waymo/gameformer/gf_mtr_mapping/gf_agent_json_maps'
+        self.map_json_filename_map_dir = '<internal_dataset_root>/waymo/gameformer/gf_mtr_mapping/gf_map_json_maps'
         # Create directories if they do not exist
         os.makedirs(self.templatellm_filename_map_dir, exist_ok=True)
         os.makedirs(self.acts_filename_map_dir, exist_ok=True)
@@ -3023,16 +3023,16 @@ def parallel_process(root_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data Processing Interaction Predictions')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/dataset/waymo/gameformer/training_fullmap_small')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/validation_interactive/')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_16may_fullmap_wPlausbility')
-    parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/training/')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/validation_interactive')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/temp')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/sample/validation_interactive')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/sample/training')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/validation_interactive')
-    parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/training_fullmap_small')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/validation_interactive/')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/validation_16may_fullmap_wPlausbility')
+    parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/training/')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/validation_interactive')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/temp')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/sample/validation_interactive')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/sample/training')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/validation_interactive')
+    parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/training_28nov')
     # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '')
     parser.add_argument('--point_path', type=str, help='path to load K-Means Anchors (Currently not included in the pipeline)', default='')
     parser.add_argument('--processes', type=int, help='multiprocessing process num', default=1)

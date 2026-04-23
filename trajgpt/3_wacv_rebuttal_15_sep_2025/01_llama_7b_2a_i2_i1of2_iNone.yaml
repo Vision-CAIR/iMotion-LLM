@@ -1,7 +1,7 @@
 datasets:
   traj_align:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/sep14_2025_2a/training/*'
-    # dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/sep14_2025_2a/training/*'
+    # dataset_path: '<internal_dataset_root>/waymo/gameformer/feb16_2025/training/*'
     
     filelabel: waymo_interactive
     processor:
@@ -28,7 +28,7 @@ datasets:
         
   
   traj_align_valid:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation/*'
     filelabel: waymo_interactive
     processor:
       valid:
@@ -81,9 +81,9 @@ model:
   gameformer_enc: true
   two_agent: True
   neighbors_to_predict: 1
-  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/cgf_l3_2agent_egoInstruct/epochs_29.pth'
+  gf_encoder_path: '<internal_model_root>/gameformer/sep_14_2025/cgf_l3_2agent_egoInstruct/epochs_29.pth'
   gf_level: 3 # decoder levels
-  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/cgf_l1_2agent_egoInstruct/epochs_29.pth'
+  # gf_encoder_path: '<internal_model_root>/gameformer/sep_14_2025/cgf_l1_2agent_egoInstruct/epochs_29.pth'
   # gf_level: 1 # decoder levels
   num_direction_classes: 5
   gf_encoder_layers: 6
@@ -105,7 +105,7 @@ model:
   # * mistralai/Mistral-7B-Instruct-v0.1
   auto_txt_formatter: True
 run:
-  output_dir: /ibex/project/c2278/felembaa/models/imotion/3_wacv_rebuttal_15_sep_2025/01_llama_7b_2a_i2_i1of2_iNone
+  output_dir: <internal_model_root>/imotion/3_wacv_rebuttal_15_sep_2025/01_llama_7b_2a_i2_i1of2_iNone
   
   amp: False
   

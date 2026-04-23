@@ -1,7 +1,13 @@
 import pickle
 import torch
 import sys
-sys.path.append('.')
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+if str(REPO_ROOT / "mtr") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "mtr"))
 import csv
 import argparse
 from torch import optim
@@ -160,16 +166,16 @@ print_all_waymo_metrics = False
 #     'iMotionLLM + C-GameFormer + FullMap + Short Instruct only (overall direction only)',
 # ]
 # data_dirs = [
-#     # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_base_smalldata/validation_11may_fullmap_val_splits/results',
-#     # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_fullmap_smalldata/validation_11may_fullmap_val_splits/results',
-#     # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_act_smalldata/validation_11may_fullmap_val_splits/results',
-#     # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_fullmap_act_smalldata/validation_11may_fullmap_val_splits/results',
-#     # '/ibex/project/c2278/felembaa/models/imotion/gf_13may_act_imotion/validation_11may_fullmap_val_splits/eval90/data/',
-#     # '/ibex/project/c2278/felembaa/models/imotion/gf_13may_fmact_imotion/validation_11may_fullmap_val_splits/eval90/data/',
-#     '/ibex/project/c2278/felembaa/models/imotion/gf_15may_fmact_03imotion_shortInstruct/validation_11may_fullmap_val_splits/eval90/data/',
-#     # No data: '/ibex/project/c2278/felembaa/models/imotion/gf_15may_act_04imotion_shortInstruct/validation_11may_fullmap_val_splits/eval90/data/',
+#     # '<internal_model_root>/gameformer/gf_7may_base_smalldata/validation_11may_fullmap_val_splits/results',
+#     # '<internal_model_root>/gameformer/gf_7may_fullmap_smalldata/validation_11may_fullmap_val_splits/results',
+#     # '<internal_model_root>/gameformer/gf_7may_act_smalldata/validation_11may_fullmap_val_splits/results',
+#     # '<internal_model_root>/gameformer/gf_7may_fullmap_act_smalldata/validation_11may_fullmap_val_splits/results',
+#     # '<internal_model_root>/imotion/gf_13may_act_imotion/validation_11may_fullmap_val_splits/eval90/data/',
+#     # '<internal_model_root>/imotion/gf_13may_fmact_imotion/validation_11may_fullmap_val_splits/eval90/data/',
+#     '<internal_model_root>/imotion/gf_15may_fmact_03imotion_shortInstruct/validation_11may_fullmap_val_splits/eval90/data/',
+#     # No data: '<internal_model_root>/imotion/gf_15may_act_04imotion_shortInstruct/validation_11may_fullmap_val_splits/eval90/data/',
 # ]
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_11may_fullmap_val'
+# root_data_dir = '<internal_dataset_root>/waymo/gameformer/validation_11may_fullmap_val'
 
 # models_names_and_description = [
 #     # 'GameFormer',
@@ -222,687 +228,687 @@ print_all_waymo_metrics = False
 
 
 data_dirs = [
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_base_smalldata/wPlausbility_val_gt_s1/results', #1
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_fullmap_smalldata/wPlausbility_val_gt_s1/results', #2
+    # '<internal_model_root>/gameformer/gf_7may_base_smalldata/wPlausbility_val_gt_s1/results', #1
+    # '<internal_model_root>/gameformer/gf_7may_fullmap_smalldata/wPlausbility_val_gt_s1/results', #2
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_act_smalldata/wPlausbility_val_gt_s1/results', #3
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_act_smalldata/wPlausbility_val_c_s1/results', #4
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_act_smalldata/wPlausbility_val_p_s1/results', #5
+    # '<internal_model_root>/gameformer/gf_7may_act_smalldata/wPlausbility_val_gt_s1/results', #3
+    # '<internal_model_root>/gameformer/gf_7may_act_smalldata/wPlausbility_val_c_s1/results', #4
+    # '<internal_model_root>/gameformer/gf_7may_act_smalldata/wPlausbility_val_p_s1/results', #5
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_fullmap_act_smalldata/wPlausbility_val_gt_s1/results', #6
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_fullmap_act_smalldata/wPlausbility_val_c_s1/results', #7
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7may_fullmap_act_smalldata/wPlausbility_val_p_s1/results', #8
+    # '<internal_model_root>/gameformer/gf_7may_fullmap_act_smalldata/wPlausbility_val_gt_s1/results', #6
+    # '<internal_model_root>/gameformer/gf_7may_fullmap_act_smalldata/wPlausbility_val_c_s1/results', #7
+    # '<internal_model_root>/gameformer/gf_7may_fullmap_act_smalldata/wPlausbility_val_p_s1/results', #8
 
-    # '/ibex/project/c2278/felembaa/models/imotion/gf_15may_fmact_03imotion_shortInstruct/wPlausbility_val_gt_s1/eval90/data', #9
-    # '/ibex/project/c2278/felembaa/models/imotion/gf_15may_fmact_03imotion_shortInstruct/wPlausbility_val_contrastive_s1/eval90/data', #10
-    # '/ibex/project/c2278/felembaa/models/imotion/gf_15may_fmact_03imotion_shortInstruct/wPlausbility_val_pos_s1/eval90/data', #11
+    # '<internal_model_root>/imotion/gf_15may_fmact_03imotion_shortInstruct/wPlausbility_val_gt_s1/eval90/data', #9
+    # '<internal_model_root>/imotion/gf_15may_fmact_03imotion_shortInstruct/wPlausbility_val_contrastive_s1/eval90/data', #10
+    # '<internal_model_root>/imotion/gf_15may_fmact_03imotion_shortInstruct/wPlausbility_val_pos_s1/eval90/data', #11
 
-    # '/ibex/project/c2278/felembaa/models/imotion/gf_15may_act_04imotion_shortInstruct/wPlausbility_val_gt_s1/eval90/data', #12
-    # '/ibex/project/c2278/felembaa/models/imotion/gf_15may_act_04imotion_shortInstruct/wPlausbility_val_contrastive_s1/eval90/data', #13
-    # '/ibex/project/c2278/felembaa/models/imotion/gf_15may_act_04imotion_shortInstruct/wPlausbility_val_pos_s1/eval90/data', #14
+    # '<internal_model_root>/imotion/gf_15may_act_04imotion_shortInstruct/wPlausbility_val_gt_s1/eval90/data', #12
+    # '<internal_model_root>/imotion/gf_15may_act_04imotion_shortInstruct/wPlausbility_val_contrastive_s1/eval90/data', #13
+    # '<internal_model_root>/imotion/gf_15may_act_04imotion_shortInstruct/wPlausbility_val_pos_s1/eval90/data', #14
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m01_gf_13may_act_imotion/wPlausbility_val_gt_shortInstruct_s1/eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m01_gf_13may_act_imotion/wPlausbility_val_gt_template4_s1/eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m01_gf_13may_act_imotion/wPlausbility_val_p_shortInstruct_s1/eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m01_gf_13may_act_imotion/wPlausbility_val_c_shortInstruct_s1/eval90/data',
+    # '<internal_model_root>/imotion/m01_gf_13may_act_imotion/wPlausbility_val_gt_shortInstruct_s1/eval90/data',
+    # '<internal_model_root>/imotion/m01_gf_13may_act_imotion/wPlausbility_val_gt_template4_s1/eval90/data',
+    # '<internal_model_root>/imotion/m01_gf_13may_act_imotion/wPlausbility_val_p_shortInstruct_s1/eval90/data',
+    # '<internal_model_root>/imotion/m01_gf_13may_act_imotion/wPlausbility_val_c_shortInstruct_s1/eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m02_gf_13may_fmact_imotion/wPlausbility_val_gt_shortInstruct_s1/eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m02_gf_13may_fmact_imotion/wPlausbility_val_gt_template4_s1/eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m02_gf_13may_fmact_imotion/wPlausbility_val_p_shortInstruct_s1/eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m02_gf_13may_fmact_imotion/wPlausbility_val_c_shortInstruct_s1/eval90/data',
+    # '<internal_model_root>/imotion/m02_gf_13may_fmact_imotion/wPlausbility_val_gt_shortInstruct_s1/eval90/data',
+    # '<internal_model_root>/imotion/m02_gf_13may_fmact_imotion/wPlausbility_val_gt_template4_s1/eval90/data',
+    # '<internal_model_root>/imotion/m02_gf_13may_fmact_imotion/wPlausbility_val_p_shortInstruct_s1/eval90/data',
+    # '<internal_model_root>/imotion/m02_gf_13may_fmact_imotion/wPlausbility_val_c_shortInstruct_s1/eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_gt_template3_s1e87/eval90/data/', #18
-    # '/ibex/project/c2278/felembaa/models/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_p_template3_s1e87/eval90/data/', #19
-    # '/ibex/project/c2278/felembaa/models/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_c_template3_s1e87/eval90/data/', #20
+    # '<internal_model_root>/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_gt_template3_s1e87/eval90/data/', #18
+    # '<internal_model_root>/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_p_template3_s1e87/eval90/data/', #19
+    # '<internal_model_root>/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_c_template3_s1e87/eval90/data/', #20
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_gt_template3_s1/eval90/data/', #21
-    # '/ibex/project/c2278/felembaa/models/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_p_template3_s1/eval90/data/', #22
-    # '/ibex/project/c2278/felembaa/models/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_c_template3_s1/eval90/data/', #23
+    # '<internal_model_root>/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_gt_template3_s1/eval90/data/', #21
+    # '<internal_model_root>/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_p_template3_s1/eval90/data/', #22
+    # '<internal_model_root>/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_c_template3_s1/eval90/data/', #23
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m06_imotion_act_contrastive_randomtemplate/wPlausbility_val_gt_template3_s1/eval90/data/', #23
-    # '/ibex/project/c2278/felembaa/models/imotion/m06_imotion_act_contrastive_randomtemplate/wPlausbility_val_p_template3_s1/eval90/data/', #23
-    # '/ibex/project/c2278/felembaa/models/imotion/m06_imotion_act_contrastive_randomtemplate/wPlausbility_val_c_template3_s1/eval90/data/', #23
+    # '<internal_model_root>/imotion/m06_imotion_act_contrastive_randomtemplate/wPlausbility_val_gt_template3_s1/eval90/data/', #23
+    # '<internal_model_root>/imotion/m06_imotion_act_contrastive_randomtemplate/wPlausbility_val_p_template3_s1/eval90/data/', #23
+    # '<internal_model_root>/imotion/m06_imotion_act_contrastive_randomtemplate/wPlausbility_val_c_template3_s1/eval90/data/', #23
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_gt_template3_s1e41/eval90/data/'
+    # '<internal_model_root>/imotion/m05_imotion_fmact_contrastive_randomtemplate/wPlausbility_val_gt_template3_s1e41/eval90/data/'
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m08_base_imotion/wPlausbility_val_gt_s1/eval90/data/',
+    # '<internal_model_root>/imotion/m08_base_imotion/wPlausbility_val_gt_s1/eval90/data/',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/wPlausbility_val_gt_template3_s1/eval90/data/',
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/wPlausbility_val_p_template3_s1/eval90/data/',
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/wPlausbility_val_c_template3_s1/eval90/data/',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/wPlausbility_val_gt_template3_s1/eval90/data/',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/wPlausbility_val_p_template3_s1/eval90/data/',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/wPlausbility_val_c_template3_s1/eval90/data/',
     
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata/validation_3jul/gt1results/',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata/validation_3jul/pos1results/',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata/validation_3jul/neg1results/',
+    # '<internal_model_root>/gameformer/cgf_2jul_smalldata/validation_3jul/gt1results/',
+    # '<internal_model_root>/gameformer/cgf_2jul_smalldata/validation_3jul/pos1results/',
+    # '<internal_model_root>/gameformer/cgf_2jul_smalldata/validation_3jul/neg1results/',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/validation_3jul/gt1results/',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/validation_3jul/pos1results/',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/validation_3jul/neg1results/',
+    # '<internal_model_root>/gameformer/cgf_7jul_fulldata/validation_3jul/gt1results/',
+    # '<internal_model_root>/gameformer/cgf_7jul_fulldata/validation_3jul/pos1results/',
+    # '<internal_model_root>/gameformer/cgf_7jul_fulldata/validation_3jul/neg1results/',
 
     ## Jul
-    # '/ibex/project/c2278/felembaa/models/imotion/jul_m03_imotion_act_contrastive_small_smallPretrain/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul_m03_imotion_act_contrastive_small_smallPretrain/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul_m03_imotion_act_contrastive_small_smallPretrain/neg1_eval0/data',
+    # '<internal_model_root>/imotion/jul_m03_imotion_act_contrastive_small_smallPretrain/gt1_eval0/data',
+    # '<internal_model_root>/imotion/jul_m03_imotion_act_contrastive_small_smallPretrain/pos1_eval0/data',
+    # '<internal_model_root>/imotion/jul_m03_imotion_act_contrastive_small_smallPretrain/neg1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/jul_m04_imotion_act_contrastive_small_smallPretrain_fullmap/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul_m04_imotion_act_contrastive_small_smallPretrain_fullmap/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul_m04_imotion_act_contrastive_small_smallPretrain_fullmap/neg1_eval0/data',
+    # '<internal_model_root>/imotion/jul_m04_imotion_act_contrastive_small_smallPretrain_fullmap/gt1_eval0/data',
+    # '<internal_model_root>/imotion/jul_m04_imotion_act_contrastive_small_smallPretrain_fullmap/pos1_eval0/data',
+    # '<internal_model_root>/imotion/jul_m04_imotion_act_contrastive_small_smallPretrain_fullmap/neg1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/jul_m02_imotion_act_contrastive_small_largePretrain_e14/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul_m02_imotion_act_contrastive_small_largePretrain_e14/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul_m02_imotion_act_contrastive_small_largePretrain_e14/neg1_eval0/data',
+    # '<internal_model_root>/imotion/jul_m02_imotion_act_contrastive_small_largePretrain_e14/gt1_eval0/data',
+    # '<internal_model_root>/imotion/jul_m02_imotion_act_contrastive_small_largePretrain_e14/pos1_eval0/data',
+    # '<internal_model_root>/imotion/jul_m02_imotion_act_contrastive_small_largePretrain_e14/neg1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata/validation_3jul/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata/validation_3jul/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata/validation_3jul/neg1results',
+    # '<internal_model_root>/gameformer/cgf_2jul_smalldata/validation_3jul/gt1results',
+    # '<internal_model_root>/gameformer/cgf_2jul_smalldata/validation_3jul/pos1results',
+    # '<internal_model_root>/gameformer/cgf_2jul_smalldata/validation_3jul/neg1results',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_2jul_smalldata/validation_3jul/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_2jul_smalldata/validation_3jul/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_2jul_smalldata/validation_3jul/neg1results',
+    # '<internal_model_root>/gameformer/gf_2jul_smalldata/validation_3jul/gt1results',
+    # '<internal_model_root>/gameformer/gf_2jul_smalldata/validation_3jul/pos1results',
+    # '<internal_model_root>/gameformer/gf_2jul_smalldata/validation_3jul/neg1results',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_2jul_smalldata_fullmap/validation_3jul/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_2jul_smalldata_fullmap/validation_3jul/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_2jul_smalldata_fullmap/validation_3jul/neg1results',
+    # '<internal_model_root>/gameformer/gf_2jul_smalldata_fullmap/validation_3jul/gt1results',
+    # '<internal_model_root>/gameformer/gf_2jul_smalldata_fullmap/validation_3jul/pos1results',
+    # '<internal_model_root>/gameformer/gf_2jul_smalldata_fullmap/validation_3jul/neg1results',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7jul_fulldata/validation_3jul/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7jul_fulldata/validation_3jul/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_7jul_fulldata/validation_3jul/neg1results',
+    # '<internal_model_root>/gameformer/gf_7jul_fulldata/validation_3jul/gt1results',
+    # '<internal_model_root>/gameformer/gf_7jul_fulldata/validation_3jul/pos1results',
+    # '<internal_model_root>/gameformer/gf_7jul_fulldata/validation_3jul/neg1results',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/validation_3jul/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/validation_3jul/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/validation_3jul/neg1results',
+    # '<internal_model_root>/gameformer/cgf_7jul_fulldata/validation_3jul/gt1results',
+    # '<internal_model_root>/gameformer/cgf_7jul_fulldata/validation_3jul/pos1results',
+    # '<internal_model_root>/gameformer/cgf_7jul_fulldata/validation_3jul/neg1results',
     
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/pos12_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/neg12_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/gt1_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/pos1_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/neg1_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/pos12_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/neg12_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/gt2_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/pos2_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/neg2_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/neg12_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/pos12_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/gt2_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/pos2_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/neg2_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/neg12_eval0/data',
+    # '<internal_model_root>/imotion/jul17_m01_imotion_act_contrastive_shortInstruct_2agent/pos12_eval0/data',
 
     # scale of training
 
     # rebuttal
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/wPlausbility_val_gt_template3_4aug_noInstruct_s1/_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/wPlausbility_val_gt_template3_4aug_noInstruct_s1/_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/wPlausbility_val_template3_4aug_gt_s1/_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/wPlausbility_val_template3_4aug_neg_s1/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/wPlausbility_val_gt_template3_4aug_noInstruct_s1/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/wPlausbility_val_gt_template3_4aug_noInstruct_s1/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/wPlausbility_val_template3_4aug_gt_s1/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct_5aug_randomDrop/wPlausbility_val_template3_4aug_neg_s1/_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/nuplan/_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/nuplan_finetune/boston_gt/_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/nuplan_finetune_e2e/boston_gt/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/nuplan/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/nuplan_finetune/boston_gt/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/nuplan_finetune_e2e/boston_gt/_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/waymo_finetune_e2e/gt/_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/waymo_finetune_e2e/p/_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/m07_imotion_act_contrastive_shortInstruct/waymo_finetune_e2e/c/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/waymo_finetune_e2e/gt/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/waymo_finetune_e2e/p/_eval90/data',
+    # '<internal_model_root>/imotion/m07_imotion_act_contrastive_shortInstruct/waymo_finetune_e2e/c/_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/smallmodel01/pos/_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/smallmodel01/gt/_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/smallmodel01/neg/_eval90/data',
+    # '<internal_model_root>/imotion/smallmodel01/pos/_eval90/data',
+    # '<internal_model_root>/imotion/smallmodel01/gt/_eval90/data',
+    # '<internal_model_root>/imotion/smallmodel01/neg/_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/validation_23aug/results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/results_validation_23aug_gt/results',
+    # '<internal_model_root>/gameformer/gf_23aug/validation_23aug/results',
+    # '<internal_model_root>/gameformer/cgf_23aug/results_validation_23aug_gt/results',
     
-    # '/ibex/project/c2278/felembaa/models/imotion/aug24_gf_2tokens_smallLLM/results_90e_gt1/pred_only_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/results_validation_23aug_gt1/gt1results',
-    # '/ibex/project/c2278/felembaa/models/imotion/aug24_gf_4tokens_smallLLM/results_90e_gt1/pred_only_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/aug24_gf_e2e_4tokens_smallLLM/checkpoint_80_gt1/pred_only_eval90/data',
+    # '<internal_model_root>/imotion/aug24_gf_2tokens_smallLLM/results_90e_gt1/pred_only_eval90/data',
+    # '<internal_model_root>/gameformer/gf_23aug/results_validation_23aug_gt1/gt1results',
+    # '<internal_model_root>/imotion/aug24_gf_4tokens_smallLLM/results_90e_gt1/pred_only_eval90/data',
+    # '<internal_model_root>/imotion/aug24_gf_e2e_4tokens_smallLLM/checkpoint_80_gt1/pred_only_eval90/data',
 
     # sep
-    # '/ibex/project/c2278/felembaa/models/imotion/sep09_gf_clsHeadFinetune_4tokens_smallLLM/checkpoint_70_gt1/pred_only_eval90/data',
+    # '<internal_model_root>/imotion/sep09_gf_clsHeadFinetune_4tokens_smallLLM/checkpoint_70_gt1/pred_only_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep22_imotion_2tokens/checkpoint_last_gt1/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep22_imotion_2tokens/checkpoint_last_pos1/pos1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep22_imotion_2tokens/checkpoint_last_neg1/neg1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep22_imotion_2tokens/checkpoint_last_pred/pred_only_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/imotion_2tokens_smallLLM/gt1/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_5_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep22_imotion_2tokens/checkpoint_last_gt1/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep22_imotion_2tokens/checkpoint_last_pos1/pos1_eval90/data',
+    # '<internal_model_root>/imotion/sep22_imotion_2tokens/checkpoint_last_neg1/neg1_eval90/data',
+    # '<internal_model_root>/imotion/sep22_imotion_2tokens/checkpoint_last_pred/pred_only_eval90/data',
+    # '<internal_model_root>/imotion/imotion_2tokens_smallLLM/gt1/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_5_gt/gt1_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_5_gt/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_5_neg/neg1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_last_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_5_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_5_neg/neg1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_last_gt/gt1_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_70_gt/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_70_neg/neg1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_70_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_70_neg/neg1_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_last_pred/pred_only_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_last_pos/pos1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_last_gt/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_last_neg/neg1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_last_pred/pred_only_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_last_pos/pos1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_last_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_last_neg/neg1_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_last_gt_30sep/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_last_pos_30sep/pos1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_last_neg_30sep/neg1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep26_imotion_3tokens/checkpoint_last_pred_30sep/pred_only_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_last_gt_30sep/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_last_pos_30sep/pos1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_last_neg_30sep/neg1_eval90/data',
+    # '<internal_model_root>/imotion/sep26_imotion_3tokens/checkpoint_last_pred_30sep/pred_only_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens/e45_gt/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens/e45_neg/neg1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens/e45_pos/pos1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens/e45_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens/e45_neg/neg1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens/e45_pos/pos1_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/results30sep/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/results30sep/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/results30sep/neg1results',
+    # '<internal_model_root>/gameformer/cgf_23aug/results30sep/pos1results',
+    # '<internal_model_root>/gameformer/cgf_23aug/results30sep/gt1results',
+    # '<internal_model_root>/gameformer/cgf_23aug/results30sep/neg1results',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/results30sep/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/results30sep/neg1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/results30sep/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/results/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/results/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/results/neg1results',
+    # '<internal_model_root>/gameformer/gf_23aug/results30sep/gt1results',
+    # '<internal_model_root>/gameformer/gf_23aug/results30sep/neg1results',
+    # '<internal_model_root>/gameformer/gf_23aug/results30sep/pos1results',
+    # '<internal_model_root>/gameformer/cgf_23aug/results/gt1results',
+    # '<internal_model_root>/gameformer/cgf_23aug/results/pos1results',
+    # '<internal_model_root>/gameformer/cgf_23aug/results/neg1results',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens/e70_gt/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens/e70_pos/pos1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens/e70_neg/neg1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens/e70_pred/pred_only_eval90/data'
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens/e70_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens/e70_pos/pos1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens/e70_neg/neg1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens/e70_pred/pred_only_eval90/data'
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens/train_pos_augmentation/pos1_eval90/data'
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens/train_pos_augmentation/pos1_eval90/data'
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens_stage2/gt/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens_stage2/pos/pos1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens_stage2/neg/neg1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens_stage2/pred/pred_only_eval90/data'
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens_stage2/gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens_stage2/pos/pos1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens_stage2/neg/neg1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens_stage2/pred/pred_only_eval90/data'
 
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens_stage2_02/gt/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens_stage2_02/pos/pos1_eval90/data'
-    # '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens_stage2_02/neg/neg1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/oct12_imotion_3tokens_nuplan_boston_02/eval_boston_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens_stage2_02/gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens_stage2_02/pos/pos1_eval90/data'
+    # '<internal_model_root>/imotion/sep30_imotion_3tokens_stage2_02/neg/neg1_eval90/data',
+    # '<internal_model_root>/imotion/oct12_imotion_3tokens_nuplan_boston_02/eval_boston_gt/gt1_eval90/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/oct12_imotion_3tokens_nuplan_pittsburgh_02/eval_boston_gt/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/oct12_imotion_3tokens_nuplan_pittsburgh_02/eval_boston_neg/neg1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/oct12_imotion_3tokens_nuplan_boston_02/eval_boston_gt/gt1_eval90/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/oct12_imotion_3tokens_nuplan_boston_02/eval_boston_neg/neg1_eval90/data',
+    # '<internal_model_root>/imotion/oct12_imotion_3tokens_nuplan_pittsburgh_02/eval_boston_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/oct12_imotion_3tokens_nuplan_pittsburgh_02/eval_boston_neg/neg1_eval90/data',
+    # '<internal_model_root>/imotion/oct12_imotion_3tokens_nuplan_boston_02/eval_boston_gt/gt1_eval90/data',
+    # '<internal_model_root>/imotion/oct12_imotion_3tokens_nuplan_boston_02/eval_boston_neg/neg1_eval90/data',
 
     ## 22 Nov
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_3tokens_e2e_21nov_01/e20_gt/gt1_eval20/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_6qtokens_gf_21nov_01/gt1_eval20/data',
+    # '<internal_model_root>/imotion/nov/imotion_3tokens_e2e_21nov_01/e20_gt/gt1_eval20/data',
+    # '<internal_model_root>/imotion/nov/imotion_6qtokens_gf_21nov_01/gt1_eval20/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtoken_gf_21nov_01/eval/gt1_eval20/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_3tokens_21nov_01/eval/gt1_eval20/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_6qtokens_21nov_01/eval/gt1_eval20/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval20/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_3tokens_e2e_21nov_01/eval/gt1_eval20/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_6qtokens_gf_21nov_01/eval/gt1_eval20/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval16/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval11/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval6/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval1/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtoken_gf_21nov_01/eval/gt1_eval20/data',
+    # '<internal_model_root>/imotion/nov/imotion_3tokens_21nov_01/eval/gt1_eval20/data',
+    # '<internal_model_root>/imotion/nov/imotion_6qtokens_21nov_01/eval/gt1_eval20/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval20/data',
+    # '<internal_model_root>/imotion/nov/imotion_3tokens_e2e_21nov_01/eval/gt1_eval20/data',
+    # '<internal_model_root>/imotion/nov/imotion_6qtokens_gf_21nov_01/eval/gt1_eval20/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval16/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval11/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval6/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval1/data',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/results_fullData_gt/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/results_fullData_gt/gt1results',
+    # '<internal_model_root>/gameformer/gf_23aug/results_fullData_gt/gt1results',
+    # '<internal_model_root>/gameformer/cgf_23aug/results_fullData_gt/gt1results',
     
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtokens_24nov_e2e/eval/gt1_eval6/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtokens_24nov_OnlyLora/eval/gt1_eval6/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtokens_24nov_onlyEnc/eval/gt1_eval6/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval6/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtokens_24nov_e2e/eval/gt1_eval6/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtokens_24nov_OnlyLora/eval/gt1_eval6/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtokens_24nov_onlyEnc/eval/gt1_eval6/data',
+    # '<internal_model_root>/imotion/nov/imotion_1qtokens_21nov_01/eval/gt1_eval6/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_6qtokens_21nov_01/eval/gt1_eval6/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/nov/imotion_6qtokens_gf_21nov_01/eval/gt1_eval6/data',
+    # '<internal_model_root>/imotion/nov/imotion_6qtokens_21nov_01/eval/gt1_eval6/data',
+    # '<internal_model_root>/imotion/nov/imotion_6qtokens_gf_21nov_01/eval/gt1_eval6/data',
 
     ## DEC
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_1a_29nov_newData/validation_30sep/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData_kvact/validation_30sep/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/validation_30sep/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData_alldata_randDrop/validation_30sep/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData_randDrop/validation_30sep/gt1results',
+    # '<internal_model_root>/gameformer/gf_1a_29nov_newData/validation_30sep/gt1results',
+    # '<internal_model_root>/gameformer/cgf_1a_29nov_newData_kvact/validation_30sep/gt1results',
+    # '<internal_model_root>/gameformer/cgf_1a_29nov_newData/validation_30sep/gt1results',
+    # '<internal_model_root>/gameformer/cgf_1a_29nov_newData_alldata_randDrop/validation_30sep/gt1results',
+    # '<internal_model_root>/gameformer/cgf_1a_29nov_newData_randDrop/validation_30sep/gt1results',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/qtoken_latefusion/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/qtoken_latefusion/eval/gt1_eval4/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/qtoken_latefusion/eval/gt1_eval3/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/qtoken_latefusion/eval/gt1_eval2/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/qtoken_latefusion/eval/gt1_eval1/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/qtoken_latefusion/eval/gt1_eval0/data'
+    # '<internal_model_root>/imotion/dec/qtoken_latefusion/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/qtoken_latefusion/eval/gt1_eval4/data',
+    # '<internal_model_root>/imotion/dec/qtoken_latefusion/eval/gt1_eval3/data',
+    # '<internal_model_root>/imotion/dec/qtoken_latefusion/eval/gt1_eval2/data',
+    # '<internal_model_root>/imotion/dec/qtoken_latefusion/eval/gt1_eval1/data',
+    # '<internal_model_root>/imotion/dec/qtoken_latefusion/eval/gt1_eval0/data'
 
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/qtoken_LoRAonly_6dec/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/qtoken_latefusion_6dec/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/qtoken_6dec/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_6dec/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/qtoken_LoRAonly_6dec/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/qtoken_latefusion_6dec/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/qtoken_6dec/eval/gt1_eval5/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_6dec/eval/gt1_eval4/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_6dec/eval/gt1_eval3/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_6dec/eval/gt1_eval2/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_6dec/eval/gt1_eval1/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_6dec/eval/gt1_eval4/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_6dec/eval/gt1_eval3/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_6dec/eval/gt1_eval2/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_6dec/eval/gt1_eval1/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_captionPos/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_caption/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_caption/eval/neg1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_caption/eval/pos1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_captionPos/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_caption/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_caption/eval/neg1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_caption/eval/pos1_eval5/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_caption_30epochs/eval/gt1_eval30/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_caption_30epochs/eval/neg1_eval30/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_caption_30epochs/eval/pos1_eval30/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_caption_30epochs/eval/gt1_eval30/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_caption_30epochs/eval/neg1_eval30/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_caption_30epochs/eval/pos1_eval30/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_caption_30epochs/eval/gt1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_caption_30epochs/eval/neg1_eval5/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/kvtoken_caption_30epochs/eval/pos1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_caption_30epochs/eval/gt1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_caption_30epochs/eval/neg1_eval5/data',
+    # '<internal_model_root>/imotion/dec/kvtoken_caption_30epochs/eval/pos1_eval5/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/template_26dec/gt1_eval17/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/template_26dec/gt1_eval2/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/template_26dec/gt1_eval1/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/template_27dec_alwyasGT/gt1_eval2/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/template_31dec/eval/gt1_eval80/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/template_31dec/eval/gt1_eval2/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/dec/template_31dec/eval/gt1_eval11/data',
+    # '<internal_model_root>/imotion/dec/template_26dec/gt1_eval17/data',
+    # '<internal_model_root>/imotion/dec/template_26dec/gt1_eval2/data',
+    # '<internal_model_root>/imotion/dec/template_26dec/gt1_eval1/data',
+    # '<internal_model_root>/imotion/dec/template_27dec_alwyasGT/gt1_eval2/data',
+    # '<internal_model_root>/imotion/dec/template_31dec/eval/gt1_eval80/data',
+    # '<internal_model_root>/imotion/dec/template_31dec/eval/gt1_eval2/data',
+    # '<internal_model_root>/imotion/dec/template_31dec/eval/gt1_eval11/data',
     
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion/checkpoint-5000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion/checkpoint-10000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion/checkpoint-5000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_gt/checkpoint-10000/result/gt1_eval0/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03_temp/checkpoint-302/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03/checkpoint-1000_old_/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03/checkpoint-1000_old/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion/checkpoint-5000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion/checkpoint-10000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion/checkpoint-5000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_gt/checkpoint-10000/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion_03_temp/checkpoint-302/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_03/checkpoint-1000_old_/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_03/checkpoint-1000_old/result/gt1_eval0/data'
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/validation_30sep/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/validation_30sep/neg1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/validation_30sep/gt1results',
+    # '<internal_model_root>/gameformer/cgf_1a_29nov_newData/validation_30sep/pos1results',
+    # '<internal_model_root>/gameformer/cgf_1a_29nov_newData/validation_30sep/neg1results',
+    # '<internal_model_root>/gameformer/cgf_1a_29nov_newData/validation_30sep/gt1results',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03/checkpoint-2000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03/checkpoint-2000/result/neg1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03/checkpoint-2000/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion_03/checkpoint-2000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_03/checkpoint-2000/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion_03/checkpoint-2000/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03_e2e/checkpoint-2000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03_e2e/checkpoint-2000/result/pos1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03_e2e/checkpoint-2000/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion_03_e2e/checkpoint-2000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_03_e2e/checkpoint-2000/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion_03_e2e/checkpoint-2000/result/neg1_eval0/data',
     
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03/checkpoint-4000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03_e2e/checkpoint-4000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_03/checkpoint-4000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_03_e2e/checkpoint-4000/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03/checkpoint-1000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03_e2e/checkpoint-1000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03/checkpoint-1000/result/pos1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03_e2e/checkpoint-1000/result/pos1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_03_e2e/checkpoint-1000/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion_03/checkpoint-1000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_03_e2e/checkpoint-1000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_03/checkpoint-1000/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion_03_e2e/checkpoint-1000/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion_03_e2e/checkpoint-1000/result/neg1_eval0/data',
     
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_04/checkpoint-1000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_04/checkpoint-1000/result/neg1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_04/checkpoint-1000/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion_04/checkpoint-1000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_04/checkpoint-1000/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion_04/checkpoint-1000/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_04/checkpoint-2000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_04/checkpoint-2000/result/neg1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_04/checkpoint-2000/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion_04/checkpoint-2000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_04/checkpoint-2000/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion_04/checkpoint-2000/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_05/checkpoint-500/result/gt1_eval0/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_05_02/checkpoint-1500/result/gt1_eval0/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_05/checkpoint-1000/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion_05/checkpoint-500/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion_05_02/checkpoint-1500/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion_05/checkpoint-1000/result/gt1_eval0/data'
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_06/checkpoint-500/result/gt1_eval0/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_06_dec/checkpoint-3000/result/gt1_eval0/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_06/checkpoint-3500/result/gt1_eval0/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_06_dec/checkpoint-7500/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_06_dec/checkpoint-500/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_06_dec/checkpoint-3000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion_06_dec_lowlr_highnorm/checkpoint-500/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_06/checkpoint-500/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion_06_dec/checkpoint-3000/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion_06/checkpoint-3500/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion_06_dec/checkpoint-7500/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_06_dec/checkpoint-500/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_06_dec/checkpoint-3000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion_06_dec_lowlr_highnorm/checkpoint-500/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/gf_1a_29nov_newData/validation_30sep/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/validation_30sep/gt1results',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8/checkpoint-1000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8/checkpoint-500/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8/checkpoint-3500/result/gt1_eval0/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8/checkpoint-3500/result/pos1_eval0/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_02/checkpoint-1000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_02_cls/checkpoint-1000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8/checkpoint-3000/result/gt1_eval0/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_02_cls/checkpoint-3000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_02/checkpoint-3000/result/gt1_eval0/data'
+    # '<internal_model_root>/gameformer/gf_1a_29nov_newData/validation_30sep/gt1results',
+    # '<internal_model_root>/gameformer/cgf_1a_29nov_newData/validation_30sep/gt1results',
+    # '<internal_experiment_root>/imotion08_r8/checkpoint-1000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8/checkpoint-500/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8/checkpoint-3500/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion08_r8/checkpoint-3500/result/pos1_eval0/data'
+    # '<internal_experiment_root>/imotion08_r8_02/checkpoint-1000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_02_cls/checkpoint-1000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8/checkpoint-3000/result/gt1_eval0/data'
+    # '<internal_experiment_root>/imotion08_r8_02_cls/checkpoint-3000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_02/checkpoint-3000/result/gt1_eval0/data'
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-2000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_cls/checkpoint-2000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_03/checkpoint-2000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-5000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_cls/checkpoint-3000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8/checkpoint-3000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-3000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-14128/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-2000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_cls/checkpoint-2000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_03/checkpoint-2000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-5000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_cls/checkpoint-3000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8/checkpoint-3000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-3000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-14128/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_cls/checkpoint-14128/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_cls/checkpoint-14128/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-14128/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-14128/result/neg1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-14128/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-14128/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-14128/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-14128/result/pos1_eval0/data',
     
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_cls/checkpoint-14128/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_cls/checkpoint-14128/result/neg1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_cls/checkpoint-14128/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_cls/checkpoint-14128/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_cls/checkpoint-14128/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_cls/checkpoint-14128/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_dec/checkpoint-14128/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_dec/checkpoint-14128/result/neg1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_dec/checkpoint-14128/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_dec/checkpoint-14128/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_dec/checkpoint-14128/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_dec/checkpoint-14128/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r32_noDrop/checkpoint-14128/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r32_noDrop/checkpoint-14128/result/neg1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r32_noDrop/checkpoint-14128/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r32_noDrop/checkpoint-14128/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r32_noDrop/checkpoint-14128/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r32_noDrop/checkpoint-14128/result/pos1_eval0/data',
     
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r32_noDrop_cls/checkpoint-14128/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r32_noDrop_cls/checkpoint-14128/result/neg1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r32_noDrop_cls/checkpoint-14128/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r32_noDrop_cls/checkpoint-14128/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r32_noDrop_cls/checkpoint-14128/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r32_noDrop_cls/checkpoint-14128/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-8000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-8000/result/pos1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop/checkpoint-8000/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-8000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-8000/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop/checkpoint-8000/result/neg1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-3000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-3000/result/pos1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-3000/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-3000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-3000/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-3000/result/neg1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-10000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-10000/result/pos1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-10000/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-10000/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-10000/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-10000/result/neg1_eval0/data',
     
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-14128/result/gt1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-14128/result/pos1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-14128/result/neg1_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8_noDrop_synth/checkpoint-14128/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-14128/result/gt1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-14128/result/pos1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-14128/result/neg1_eval0/data',
+    # '<internal_experiment_root>/imotion08_r8_noDrop_synth/checkpoint-14128/result/gt1_eval0/data',
 
     ### 21 feb 2025
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/validation/neg1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/validation/pos1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/validation/neg1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/validation/pos1results',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf/validation/neg1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf/validation/pos1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf/validation/neg1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf/validation/pos1results',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf/validation_30sep/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf_l1/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/validation/neg1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf/validation/neg1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/validation/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf/validation/pos1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/gf/validation_30sep/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/gf_l1/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/gf/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/validation/neg1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf/validation/neg1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/validation/pos1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf/validation/pos1results',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion/checkpoint-17935/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion/checkpoint-17935/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion/checkpoint-17935/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_noCaption/checkpoint-17935/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion/checkpoint-17935/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion/checkpoint-17935/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion/checkpoint-17935/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_noCaption/checkpoint-17935/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_1mar/results/mtr+20_percent_data_act/default/eval/epoch_30/default/gt1/data'
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_1mar/results/mtr+20_percent_data/default/eval/epoch_30/default/gt1/data'
+    # '<internal_experiment_root>/mtr_models/cmtr_1mar/results/mtr+20_percent_data_act/default/eval/epoch_30/default/gt1/data'
+    # '<internal_experiment_root>/mtr_models/mtr_1mar/results/mtr+20_percent_data/default/eval/epoch_30/default/gt1/data'
 
     
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf_l1/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf/validation/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/validation/pos1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf/validation/neg1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/validation/neg1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/gf/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/gf_l1/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf/validation/pos1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/validation/pos1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf/validation/neg1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/validation/neg1results',
     ## DONE
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion/checkpoint-5000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e/checkpoint-5000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_3epochs/checkpoint-5000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_largeNorm/checkpoint-5000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-5000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion/checkpoint-17935/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion/checkpoint-5000/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e/checkpoint-5000/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_3epochs/checkpoint-5000/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_largeNorm/checkpoint-5000/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-5000/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion/checkpoint-17935/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/complex/r8/checkpoint-3600/result/gt1_eval0/data'
+    # '<internal_experiment_root>/complex/r8/checkpoint-3600/result/gt1_eval0/data'
 
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_q/checkpoint-5000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_q/checkpoint-10000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-20000/result/gt1_eval0/data'
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_q/checkpoint-5000/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_q/checkpoint-10000/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-20000/result/gt1_eval0/data'
 
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion/checkpoint-17935/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_02_q/checkpoint-26902/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_02/checkpoint-26902/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_3epochs/checkpoint-25000/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_largeNorm/checkpoint-17935/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-26902/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_q/checkpoint-26902/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_noCaption/checkpoint-17935/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion/checkpoint-17935/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_02_q/checkpoint-26902/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_02/checkpoint-26902/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_3epochs/checkpoint-25000/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_largeNorm/checkpoint-17935/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-26902/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_q/checkpoint-26902/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_noCaption/checkpoint-17935/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion/checkpoint-17935/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_02_q/checkpoint-26902/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_02/checkpoint-26902/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_3epochs/checkpoint-25000/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_largeNorm/checkpoint-17935/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-26902/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_q/checkpoint-26902/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_noCaption/checkpoint-17935/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion/checkpoint-17935/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_02_q/checkpoint-26902/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_02/checkpoint-26902/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_3epochs/checkpoint-25000/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_largeNorm/checkpoint-17935/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-26902/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_q/checkpoint-26902/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_noCaption/checkpoint-17935/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion/checkpoint-17935/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_02_q/checkpoint-26902/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_02/checkpoint-26902/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_3epochs/checkpoint-25000/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_largeNorm/checkpoint-17935/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-26902/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_q/checkpoint-26902/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_noCaption/checkpoint-17935/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion/checkpoint-17935/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_02_q/checkpoint-26902/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_02/checkpoint-26902/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e/checkpoint-17935/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_3epochs/checkpoint-25000/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_largeNorm/checkpoint-17935/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_loraDropout/checkpoint-26902/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_q/checkpoint-26902/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_noCaption/checkpoint-17935/result/neg1_eval0/data',
 
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_12/default/gt1/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/gt1/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/pos1/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/neg1/data',
+    # '<internal_experiment_root>/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_12/default/gt1/data',
+    # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/gt1/data',
+    # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/pos1/data',
+    # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/neg1/data',
 
 
-    # '/ibex/project/c2278/cvpr_rebuttal/complex/r8/checkpoint-7196/result/safe_no_context_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/complex/r8/checkpoint-7196/result/safe_with_context_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/complex/r8/checkpoint-7196/result/unsafe_no_context_eval0/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/complex/r8/checkpoint-7196/result/unsafe_with_context_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_complex/checkpoint-9592/result/safe_no_context_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_complex/checkpoint-9592/result/safe_with_context_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_complex/checkpoint-9592/result/unsafe_no_context_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_complex/checkpoint-9592/result/unsafe_with_context_eval0/data',
+    # '<internal_experiment_root>/complex/r8/checkpoint-7196/result/safe_no_context_eval0/data',
+    # '<internal_experiment_root>/complex/r8/checkpoint-7196/result/safe_with_context_eval0/data',
+    # '<internal_experiment_root>/complex/r8/checkpoint-7196/result/unsafe_no_context_eval0/data',
+    # '<internal_experiment_root>/complex/r8/checkpoint-7196/result/unsafe_with_context_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_complex/checkpoint-9592/result/safe_no_context_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_complex/checkpoint-9592/result/safe_with_context_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_complex/checkpoint-9592/result/unsafe_no_context_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_complex/checkpoint-9592/result/unsafe_with_context_eval0/data',
     
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_complex_pretrained/checkpoint-9592/result/safe_no_context_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_complex_pretrained/checkpoint-9592/result/safe_with_context_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_complex_pretrained/checkpoint-9592/result/unsafe_no_context_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_complex_pretrained/checkpoint-9592/result/unsafe_with_context_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_complex_pretrained/checkpoint-9592/result/safe_no_context_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_complex_pretrained/checkpoint-9592/result/safe_with_context_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_complex_pretrained/checkpoint-9592/result/unsafe_no_context_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_complex_pretrained/checkpoint-9592/result/unsafe_with_context_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_synth/checkpoint-17935/result/gt1_eval0/data'
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_synth/checkpoint-17935/result/neg1_eval0/data'
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_synth/checkpoint-17935/result/pos1_eval0/data'
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_synth/checkpoint-17935/result/gt1_eval0/data'
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_synth/checkpoint-17935/result/neg1_eval0/data'
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_synth/checkpoint-17935/result/pos1_eval0/data'
 
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_15/default/gt1/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/pos1/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/gt1/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/neg1/data',
+    # '<internal_experiment_root>/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_15/default/gt1/data',
+    # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/pos1/data',
+    # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/gt1/data',
+    # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/neg1/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/neg1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf_l1/validation/gt1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf_l1/validation/neg1results',
-    # '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/gf_l1/validation/pos1results',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_15/default/gt1/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_15/default/pos1/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/gt1/data',
-    # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/pos1/data',
+    # '<internal_model_root>/gameformer/feb_18_2025/gf_l1/validation/gt1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/gf_l1/validation/neg1results',
+    # '<internal_model_root>/gameformer/feb_18_2025/gf_l1/validation/pos1results',
+    # '<internal_experiment_root>/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_15/default/gt1/data',
+    # '<internal_experiment_root>/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_15/default/pos1/data',
+    # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/gt1/data',
+    # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/pos1/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e_cb/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e_decOnly/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e_llmOnly/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e_lora01/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e_lora02/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e_lr01/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e_lr02/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/imotion_e2e_simpleTxt/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/imotion_e2e/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/imotion_e2e_cb/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/imotion_e2e_decOnly/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/imotion_e2e_llmOnly/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/imotion_e2e_lora01/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/imotion_e2e_lora02/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/imotion_e2e_lr01/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/imotion_e2e_lr02/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/imotion_e2e_simpleTxt/checkpoint-6726/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r16a16lr1e4/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r16a16lr1e5/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r16a16lr3e5/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r32a16lr1e4/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r32a16lr1e5/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r32a16lr3e5/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r32a32lr1e4/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r32a32lr1e5/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r32a32lr3e5/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r16a32lr1e4/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r16a32lr1e5/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r16a32lr3e5/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r16a16lr1e4/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r16a16lr1e5/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r16a16lr3e5/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r32a16lr1e4/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r32a16lr1e5/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r32a16lr3e5/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r32a32lr1e4/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r32a32lr1e5/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r32a32lr3e5/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r16a32lr1e4/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r16a32lr1e5/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r16a32lr3e5/checkpoint-6726/result/gt1_eval0/data',
     
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/r32a16lr1e4/checkpoint-6726/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_modeling/llama_2_7b_qOnly/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/r32a16lr1e4/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_modeling/llama_2_7b_qOnly/checkpoint-6726/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/gt1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/pos1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/neg1_eval0/data',
-
-    # ## 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_modeling/llama_2_7b_qOnly/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_modeling/llama_2_7b_qOnly/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_modeling/llama_2_7b_qOnly/checkpoint-6726/result/pos1_eval0/data',
-
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/pos1_eval0/data',
-
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/neg1_eval0/data',
 
     # ## 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_wSysPrompt/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_wSysPrompt/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_wSysPrompt/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_modeling/llama_2_7b_qOnly/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_modeling/llama_2_7b_qOnly/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_modeling/llama_2_7b_qOnly/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct_contrastive/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct_contrastive/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct_contrastive/checkpoint-6726/result/pos1_eval0/data',
-
-    # ## 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/pos1_eval0/data',
-
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct_contrastive/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct_contrastive/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct_contrastive/checkpoint-6726/result/pos1_eval0/data',
-
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_contrastive/checkpoint-6726/result/pos1_eval0/data',
 
     # ## 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/mistral_7b_instruct_contrastive/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/mistral_7b_instruct_contrastive/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/mistral_7b_instruct_contrastive/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_wSysPrompt/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_wSysPrompt/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_wSysPrompt/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/vicuna_7b_contrastive/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/vicuna_7b_contrastive/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/vicuna_7b_contrastive/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct_contrastive/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct_contrastive/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_1b_instruct_contrastive/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_02/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_02/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/llama_2_7b_02/checkpoint-6726/result/pos1_eval0/data',
+    # ## 
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/1_nussair_llama_2_7b_contrastive_query_only/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/1_nussair_llama_2_7b_contrastive_query_only/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/1_nussair_llama_2_7b_contrastive_query_only/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct_contrastive/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct_contrastive/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_3_2_3b_instruct_contrastive/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/2_nussair_llama_2_7b_contrastive_114_kvs_query/checkpoint-13451/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/2_nussair_llama_2_7b_contrastive_114_kvs_query/checkpoint-13451/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/2_nussair_llama_2_7b_contrastive_114_kvs_query/checkpoint-13451/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/mistral_7b_instruct/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/3_nussair_llama_2_7b_contrastive_34_actors_query/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/3_nussair_llama_2_7b_contrastive_34_actors_query/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/3_nussair_llama_2_7b_contrastive_34_actors_query/checkpoint-6726/result/pos1_eval0/data',
+    # ## 
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/mistral_7b_instruct_contrastive/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/mistral_7b_instruct_contrastive/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/mistral_7b_instruct_contrastive/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/4_nussair_llama_2_7b_contrastive_60_lanes_query/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/4_nussair_llama_2_7b_contrastive_60_lanes_query/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/4_nussair_llama_2_7b_contrastive_60_lanes_query/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/vicuna_7b/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/5_nussair_llama_2_7b_contrastive_20_crosswalks_query/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/5_nussair_llama_2_7b_contrastive_20_crosswalks_query/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/5_nussair_llama_2_7b_contrastive_20_crosswalks_query/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/vicuna_7b_contrastive/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/vicuna_7b_contrastive/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/vicuna_7b_contrastive/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/llama_2_7b_03/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/llama_2_7b_03/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/llama_2_7b_03/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_02/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_02/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/mar_2025/ablation_llms/llama_2_7b_02/checkpoint-6726/result/pos1_eval0/data',
 
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/llama_2_7b_contrastive_04/checkpoint-6726/result/gt1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/llama_2_7b_contrastive_04/checkpoint-6726/result/neg1_eval0/data',
-    # '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/llama_2_7b_contrastive_04/checkpoint-6726/result/pos1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/1_nussair_llama_2_7b_contrastive_query_only/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/1_nussair_llama_2_7b_contrastive_query_only/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/1_nussair_llama_2_7b_contrastive_query_only/checkpoint-6726/result/pos1_eval0/data',
 
-    "/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/1_llama_2_7b_contrastive_34_actors_1e4_r32_a32/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/1_llama_2_7b_contrastive_34_actors_1e4_r32_a32/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/1_llama_2_7b_contrastive_34_actors_1e4_r32_a32/checkpoint-6726/result/pos1_eval0/data",
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/2_nussair_llama_2_7b_contrastive_114_kvs_query/checkpoint-13451/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/2_nussair_llama_2_7b_contrastive_114_kvs_query/checkpoint-13451/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/2_nussair_llama_2_7b_contrastive_114_kvs_query/checkpoint-13451/result/pos1_eval0/data',
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/2_llama_2_7b_contrastive_34_actors_1e4_r16_a32/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/2_llama_2_7b_contrastive_34_actors_1e4_r16_a32/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/2_llama_2_7b_contrastive_34_actors_1e4_r16_a32/checkpoint-6726/result/pos1_eval0/data",
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/3_nussair_llama_2_7b_contrastive_34_actors_query/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/3_nussair_llama_2_7b_contrastive_34_actors_query/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/3_nussair_llama_2_7b_contrastive_34_actors_query/checkpoint-6726/result/pos1_eval0/data',
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/3_llama_2_7b_contrastive_34_actors_1e4_r16_a16/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/3_llama_2_7b_contrastive_34_actors_1e4_r16_a16/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/3_llama_2_7b_contrastive_34_actors_1e4_r16_a16/checkpoint-6726/result/pos1_eval0/data",
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/4_nussair_llama_2_7b_contrastive_60_lanes_query/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/4_nussair_llama_2_7b_contrastive_60_lanes_query/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/4_nussair_llama_2_7b_contrastive_60_lanes_query/checkpoint-6726/result/pos1_eval0/data',
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/4_llama_2_7b_contrastive_34_actors_1e4_r32_a16/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/4_llama_2_7b_contrastive_34_actors_1e4_r32_a16/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/4_llama_2_7b_contrastive_34_actors_1e4_r32_a16/checkpoint-6726/result/pos1_eval0/data",
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/5_nussair_llama_2_7b_contrastive_20_crosswalks_query/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/5_nussair_llama_2_7b_contrastive_20_crosswalks_query/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/5_nussair_llama_2_7b_contrastive_20_crosswalks_query/checkpoint-6726/result/pos1_eval0/data',
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/5_llama_2_7b_contrastive_34_actors_1e5_r32_a32/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/5_llama_2_7b_contrastive_34_actors_1e5_r32_a32/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/5_llama_2_7b_contrastive_34_actors_1e5_r32_a32/checkpoint-6726/result/pos1_eval0/data",
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/llama_2_7b_03/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/llama_2_7b_03/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/llama_2_7b_03/checkpoint-6726/result/pos1_eval0/data',
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/6_llama_2_7b_contrastive_34_actors_1e5_r16_a32/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/6_llama_2_7b_contrastive_34_actors_1e5_r16_a32/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/6_llama_2_7b_contrastive_34_actors_1e5_r16_a32/checkpoint-6726/result/pos1_eval0/data",
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/llama_2_7b_contrastive_04/checkpoint-6726/result/gt1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/llama_2_7b_contrastive_04/checkpoint-6726/result/neg1_eval0/data',
+    # '<internal_model_root>/imotion/apr_2025/ablation_llms/llama_2_7b_contrastive_04/checkpoint-6726/result/pos1_eval0/data',
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/7_llama_2_7b_contrastive_34_actors_1e5_r16_a16/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/7_llama_2_7b_contrastive_34_actors_1e5_r16_a16/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/7_llama_2_7b_contrastive_34_actors_1e5_r16_a16/checkpoint-6726/result/pos1_eval0/data",
+    "<internal_model_root>/imotion/apr_2025/replacements/1_llama_2_7b_contrastive_34_actors_1e4_r32_a32/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/1_llama_2_7b_contrastive_34_actors_1e4_r32_a32/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/1_llama_2_7b_contrastive_34_actors_1e4_r32_a32/checkpoint-6726/result/pos1_eval0/data",
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/8_llama_2_7b_contrastive_34_actors_1e5_r32_a16/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/8_llama_2_7b_contrastive_34_actors_1e5_r32_a16/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/8_llama_2_7b_contrastive_34_actors_1e5_r32_a16/checkpoint-6726/result/pos1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/2_llama_2_7b_contrastive_34_actors_1e4_r16_a32/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/2_llama_2_7b_contrastive_34_actors_1e4_r16_a32/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/2_llama_2_7b_contrastive_34_actors_1e4_r16_a32/checkpoint-6726/result/pos1_eval0/data",
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/9_llama_2_7b_contrastive_34_actors_3e5_r32_a32/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/9_llama_2_7b_contrastive_34_actors_3e5_r32_a32/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/9_llama_2_7b_contrastive_34_actors_3e5_r32_a32/checkpoint-6726/result/pos1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/3_llama_2_7b_contrastive_34_actors_1e4_r16_a16/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/3_llama_2_7b_contrastive_34_actors_1e4_r16_a16/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/3_llama_2_7b_contrastive_34_actors_1e4_r16_a16/checkpoint-6726/result/pos1_eval0/data",
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/10_llama_2_7b_contrastive_34_actors_3e5_r16_a32/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/10_llama_2_7b_contrastive_34_actors_3e5_r16_a32/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/10_llama_2_7b_contrastive_34_actors_3e5_r16_a32/checkpoint-6726/result/pos1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/4_llama_2_7b_contrastive_34_actors_1e4_r32_a16/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/4_llama_2_7b_contrastive_34_actors_1e4_r32_a16/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/4_llama_2_7b_contrastive_34_actors_1e4_r32_a16/checkpoint-6726/result/pos1_eval0/data",
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/11_llama_2_7b_contrastive_34_actors_3e5_r16_a16/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/11_llama_2_7b_contrastive_34_actors_3e5_r16_a16/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/11_llama_2_7b_contrastive_34_actors_3e5_r16_a16/checkpoint-6726/result/pos1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/5_llama_2_7b_contrastive_34_actors_1e5_r32_a32/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/5_llama_2_7b_contrastive_34_actors_1e5_r32_a32/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/5_llama_2_7b_contrastive_34_actors_1e5_r32_a32/checkpoint-6726/result/pos1_eval0/data",
 
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/12_llama_2_7b_contrastive_34_actors_3e5_r32_a16/checkpoint-6726/result/gt1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/12_llama_2_7b_contrastive_34_actors_3e5_r32_a16/checkpoint-6726/result/neg1_eval0/data",
-"/ibex/project/c2278/felembaa/models/imotion/apr_2025/replacements/12_llama_2_7b_contrastive_34_actors_3e5_r32_a16/checkpoint-6726/result/pos1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/6_llama_2_7b_contrastive_34_actors_1e5_r16_a32/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/6_llama_2_7b_contrastive_34_actors_1e5_r16_a32/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/6_llama_2_7b_contrastive_34_actors_1e5_r16_a32/checkpoint-6726/result/pos1_eval0/data",
+
+"<internal_model_root>/imotion/apr_2025/replacements/7_llama_2_7b_contrastive_34_actors_1e5_r16_a16/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/7_llama_2_7b_contrastive_34_actors_1e5_r16_a16/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/7_llama_2_7b_contrastive_34_actors_1e5_r16_a16/checkpoint-6726/result/pos1_eval0/data",
+
+"<internal_model_root>/imotion/apr_2025/replacements/8_llama_2_7b_contrastive_34_actors_1e5_r32_a16/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/8_llama_2_7b_contrastive_34_actors_1e5_r32_a16/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/8_llama_2_7b_contrastive_34_actors_1e5_r32_a16/checkpoint-6726/result/pos1_eval0/data",
+
+"<internal_model_root>/imotion/apr_2025/replacements/9_llama_2_7b_contrastive_34_actors_3e5_r32_a32/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/9_llama_2_7b_contrastive_34_actors_3e5_r32_a32/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/9_llama_2_7b_contrastive_34_actors_3e5_r32_a32/checkpoint-6726/result/pos1_eval0/data",
+
+"<internal_model_root>/imotion/apr_2025/replacements/10_llama_2_7b_contrastive_34_actors_3e5_r16_a32/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/10_llama_2_7b_contrastive_34_actors_3e5_r16_a32/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/10_llama_2_7b_contrastive_34_actors_3e5_r16_a32/checkpoint-6726/result/pos1_eval0/data",
+
+"<internal_model_root>/imotion/apr_2025/replacements/11_llama_2_7b_contrastive_34_actors_3e5_r16_a16/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/11_llama_2_7b_contrastive_34_actors_3e5_r16_a16/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/11_llama_2_7b_contrastive_34_actors_3e5_r16_a16/checkpoint-6726/result/pos1_eval0/data",
+
+"<internal_model_root>/imotion/apr_2025/replacements/12_llama_2_7b_contrastive_34_actors_3e5_r32_a16/checkpoint-6726/result/gt1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/12_llama_2_7b_contrastive_34_actors_3e5_r32_a16/checkpoint-6726/result/neg1_eval0/data",
+"<internal_model_root>/imotion/apr_2025/replacements/12_llama_2_7b_contrastive_34_actors_3e5_r32_a16/checkpoint-6726/result/pos1_eval0/data",
 
 
 ]
@@ -911,75 +917,75 @@ data_dirs = [
 with_classification = False
 
 # Path to the central CSV file
-# csv_file_path = '/ibex/project/c2278/cvpr_rebuttal/all_results.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/feb_all_results_gf_only.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/imotion_e2e_ch5000_gt.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/complex.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/imotion_4mar_01_gt.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/imotion_4mar_01_gt_cls.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/imotion_4mar_01_pos.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/imotion_4mar_01_pos_cls.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/imotion_4mar_01_neg.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/imotion_4mar_01_neg_cls.csv'
+# csv_file_path = '<internal_experiment_root>/all_results.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/feb_all_results_gf_only.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/imotion_e2e_ch5000_gt.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/complex.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/imotion_4mar_01_gt.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/imotion_4mar_01_gt_cls.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/imotion_4mar_01_pos.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/imotion_4mar_01_pos_cls.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/imotion_4mar_01_neg.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/imotion_4mar_01_neg_cls.csv'
 
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/mtr.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/complex02_cls.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/mtr.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/complex02_cls.csv'
 
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/complex03.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/mtr_v02.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/mtr_imotion.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/gf_01.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/mtr_nonconditional.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/csv/gt.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/complex03.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/mtr_v02.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/mtr_imotion.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/gf_01.csv'
+# csv_file_path = '<internal_dataset_root>/waymo/gameformer/feb16_2025/mtr_nonconditional.csv'
+# csv_file_path = '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/csv/gt.csv'
 
-# csv_file_path = '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_lora_lr/csv/gt.csv'
+# csv_file_path = '<internal_model_root>/imotion/mar_2025/ablation_lora_lr/csv/gt.csv'
 
-# csv_file_path = '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_modeling/results.csv'
-# csv_file_path = '/ibex/project/c2278/felembaa/models/imotion/mar_2025/ablation_llms/apr_6_results_acc.csv'
-csv_file_path = '/ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/temp.csv'
+# csv_file_path = '<internal_model_root>/imotion/mar_2025/ablation_modeling/results.csv'
+# csv_file_path = '<internal_model_root>/imotion/mar_2025/ablation_llms/apr_6_results_acc.csv'
+csv_file_path = '<internal_model_root>/imotion/apr_2025/ablation_llms/temp.csv'
 
 
 ade, fde = [], []
 
 save_augmentation_data = False
 if save_augmentation_data:
-    root_save_dir = '/ibex/project/c2278/felembaa/models/imotion/sep30_imotion_3tokens/train_pos_augmentation/data'
+    root_save_dir = '<internal_model_root>/imotion/sep30_imotion_3tokens/train_pos_augmentation/data'
     llm_root_save_dir = root_save_dir + '_templateLLM/'
     # Create the directory
     os.makedirs(root_save_dir)
     os.makedirs(llm_root_save_dir)
 
 
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/nuplan/data/cache/train_boston_processed'
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_17may_fullmap_wPlausbility_val_splits/split_1'
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_3jul'
+# root_data_dir = '<internal_dataset_root>/nuplan/data/cache/train_boston_processed'
+# root_data_dir = '<internal_dataset_root>/waymo/gameformer/validation_17may_fullmap_wPlausbility_val_splits/split_1'
+# root_data_dir = '<internal_dataset_root>/waymo/gameformer/validation_3jul'
 # acts_dir = ''
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep'
-# acts_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep_acts'
+# root_data_dir = '<internal_dataset_root>/waymo/gameformer/validation_30sep'
+# acts_dir = '<internal_dataset_root>/waymo/gameformer/validation_30sep_acts'
 
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_30sep'
-# acts_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_30sep_acts'
+# root_data_dir = '<internal_dataset_root>/waymo/gameformer/training_30sep'
+# acts_dir = '<internal_dataset_root>/waymo/gameformer/training_30sep_acts'
 
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_23aug'
-# acts_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_23aug_acts'
+# root_data_dir = '<internal_dataset_root>/waymo/gameformer/validation_23aug'
+# acts_dir = '<internal_dataset_root>/waymo/gameformer/validation_23aug_acts'
 
 
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep'
-# acts_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep_acts'
+# root_data_dir = '<internal_dataset_root>/waymo/gameformer/validation_30sep'
+# acts_dir = '<internal_dataset_root>/waymo/gameformer/validation_30sep_acts'
 
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation'
+# root_data_dir = '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation'
 
 if 'complex' not in csv_file_path:
-    root_data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation'
-    acts_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_acts'
+    root_data_dir = '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation'
+    acts_dir = '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_acts'
 else:
-    root_data_dir = '/ibex/project/c2278/felembaa/datasets/nuplan/test_gpt_prompt_14types/all_types/npz'
+    root_data_dir = '<internal_dataset_root>/nuplan/test_gpt_prompt_14types/all_types/npz'
     acts_dir = ''
 
 num_classes=5
 # num_classes=8
 
-# root_data_dir = '/ibex/project/c2278/felembaa/datasets/nuplan/test/test_boston_processed'
+# root_data_dir = '<internal_dataset_root>/nuplan/test/test_boston_processed'
 # acts_dir = ''
 
 # num_classes=6
@@ -992,21 +998,22 @@ eval_accepted_only = with_classification
 models_names_and_description = data_dirs
 
 
-#Needs to evaluate first /ibex/project/c2278/felembaa/models/imotion/gf_15may_fmact_03imotion_shortInstruct/
-#Needs to evaluate first /ibex/project/c2278/felembaa/models/imotion/gf_15may_act_04imotion_shortInstruct/
+#Needs to evaluate first <internal_model_root>/imotion/gf_15may_fmact_03imotion_shortInstruct/
+#Needs to evaluate first <internal_model_root>/imotion/gf_15may_act_04imotion_shortInstruct/
 
 
 
-# template_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_16may_fullmap_wPlausbility_val_templateLLM/dba89f922ecb7de6_1_2_interest.txt'
+# template_dir = '<internal_dataset_root>/waymo/gameformer/validation_16may_fullmap_wPlausbility_val_templateLLM/dba89f922ecb7de6_1_2_interest.txt'
 # with open(template_dir) as f:
 #     lines = f.readlines()
 # templates = [json.loads(line) for line in lines]
 
 if False:
-    sys.path.append('/home/felembaa/projects/iMotion-LLM-ICLR/mtr')
+    if str(REPO_ROOT / "mtr") not in sys.path:
+        sys.path.insert(0, str(REPO_ROOT / "mtr"))
     from mtr.mtr.datasets.waymo.waymo_eval import waymo_evaluation
     # Path to the pickle file
-    pkl_dir = '/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_1mar/results/mtr+20_percent_data/default/eval/epoch_30/default/gt1/result.pkl'
+    pkl_dir = '<internal_experiment_root>/mtr_models/mtr_1mar/results/mtr+20_percent_data/default/eval/epoch_30/default/gt1/result.pkl'
     
     print(pkl_dir)
     # Load the pickle file
@@ -1016,7 +1023,7 @@ if False:
     # Apply Waymo evaluation
     print(waymo_evaluation(pred_dicts=pred_dicts, num_modes_for_eval=6)[1])
 
-    pkl_dir = '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_1mar/results/mtr+20_percent_data_act/default/eval/epoch_30/default/gt1/result.pkl'
+    pkl_dir = '<internal_experiment_root>/mtr_models/cmtr_1mar/results/mtr+20_percent_data_act/default/eval/epoch_30/default/gt1/result.pkl'
     print(pkl_dir)
     # Load the pickle file
     with open(pkl_dir, 'rb') as f:
@@ -1026,18 +1033,18 @@ if False:
     print(waymo_evaluation(pred_dicts=pred_dicts, num_modes_for_eval=6)[1])
 
     for pkl_dir in [
-        # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_12/default/gt1/result.pkl',
-        # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/gt1/result.pkl',
-        # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/neg1/result.pkl',
-        # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/pos1/result.pkl',
-        # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_15/default/gt1/result.pkl',
-        # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/gt1/result.pkl',
-        # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/neg1/result.pkl',
-        # '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/pos1/result.pkl',
+        # '<internal_experiment_root>/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_12/default/gt1/result.pkl',
+        # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/gt1/result.pkl',
+        # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/neg1/result.pkl',
+        # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_12/default/pos1/result.pkl',
+        # '<internal_experiment_root>/mtr_models/mtr_4mar/results/mtr+100_percent_data/default/eval/epoch_15/default/gt1/result.pkl',
+        # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/gt1/result.pkl',
+        # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/neg1/result.pkl',
+        # '<internal_experiment_root>/mtr_models/cmtr_4mar/results/mtr+100_percent_data_act/default/eval/epoch_15/default/pos1/result.pkl',
 
-        '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/gt1_eval0/result.pkl',
-        '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/pos1_eval0/result.pkl',
-        # '/ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/neg1_eval0/result.pkl',
+        '<internal_model_root>/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/gt1_eval0/result.pkl',
+        '<internal_model_root>/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/pos1_eval0/result.pkl',
+        # '<internal_model_root>/imotion/feb_2025/imotion_e2e_mtr/checkpoint-7500/result/neg1_eval0/result.pkl',
         ]:
         print(pkl_dir)
         with open(pkl_dir, 'rb') as f:
@@ -1363,7 +1370,7 @@ for data_i, data_dir in enumerate(data_dirs):
 
         
 
-        # template_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_16may_fullmap_wPlausbility_val_templateLLM/dba89f922ecb7de6_1_2_interest.txt'
+        # template_dir = '<internal_dataset_root>/waymo/gameformer/validation_16may_fullmap_wPlausbility_val_templateLLM/dba89f922ecb7de6_1_2_interest.txt'
         # with open(template_dir) as f:
         #     lines = f.readlines()
         # templates = [json.loads(line) for line in lines]

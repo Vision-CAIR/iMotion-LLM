@@ -3,6 +3,7 @@
 # Written by Shaoshuai Shi 
 # All Rights Reserved
 import sys
+from pathlib import Path
 sys.path.append(".")
 REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
@@ -16,7 +17,6 @@ import glob
 import os
 import re
 import time
-from pathlib import Path
 
 import numpy as np
 import torch
@@ -31,17 +31,17 @@ from mtr.utils import common_utils
 
 def parse_config():
     parser = argparse.ArgumentParser(description='arg parser')
-    # parser.add_argument('--cfg_file', type=str, default='/home/felembaa/projects/iMotion-LLM-ICLR/mtr/tools/cfgs/waymo/mtr+100_percent_data.yaml', help='specify the config for training')
+    # parser.add_argument('--cfg_file', type=str, default='<legacy_repo_root>/mtr/tools/cfgs/waymo/mtr+100_percent_data.yaml', help='specify the config for training')
     # parser.add_argument('--act', action='store_true', default=False, help='')
-    # parser.add_argument('--ckpt', type=str, default='/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_4mar/mtr+100_percent_data/act_mtr/ckpt/checkpoint_epoch_15.pth', help='checkpoint to start from')
+    # parser.add_argument('--ckpt', type=str, default='<internal_experiment_root>/mtr_models/mtr_4mar/mtr+100_percent_data/act_mtr/ckpt/checkpoint_epoch_15.pth', help='checkpoint to start from')
 
     parser.add_argument('--cfg_file', type=str, default=str(REPO_ROOT / 'configs' / 'release' / 'mtr_waymo_act.yaml'), help='specify the config for training')
     parser.add_argument('--act', default=True, help='')
     parser.add_argument('--ckpt', type=str, default=None, help='checkpoint to start from')
 
-    # parser.add_argument('--cfg_file', type=str, default='/home/felembaa/projects/iMotion-LLM-ICLR/mtr/tools/cfgs/waymo/mtr+20_percent_data.yaml', help='specify the config for training')
+    # parser.add_argument('--cfg_file', type=str, default='<legacy_repo_root>/mtr/tools/cfgs/waymo/mtr+20_percent_data.yaml', help='specify the config for training')
     # parser.add_argument('--act', action='store_true', default=False, help='')
-    # parser.add_argument('--ckpt', type=str, default='/ibex/project/c2278/cvpr_rebuttal/mtr_models/mtr_1mar/mtr+20_percent_data/act_mtr/ckpt/checkpoint_epoch_30.pth', help='checkpoint to start from')
+    # parser.add_argument('--ckpt', type=str, default='<internal_experiment_root>/mtr_models/mtr_1mar/mtr+20_percent_data/act_mtr/ckpt/checkpoint_epoch_30.pth', help='checkpoint to start from')
     
     parser.add_argument('--eval_mode', default='pos1', help='')
     parser.add_argument('--batch_size', type=int, default=None, required=False, help='batch size for training')
@@ -57,7 +57,7 @@ def parse_config():
     parser.add_argument('--start_epoch', type=int, default=0, help='')
     parser.add_argument('--eval_tag', type=str, default='default', help='eval tag for this experiment')
     parser.add_argument('--eval_all', action='store_true', default=False, help='whether to evaluate all checkpoints')
-    # parser.add_argument('--ckpt_dir', type=str, default='/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_1mar/mtr+20_percent_data_act/act_mtr/ckpt/latest_model.pth', help='specify a ckpt directory to be evaluated if needed')
+    # parser.add_argument('--ckpt_dir', type=str, default='<internal_experiment_root>/mtr_models/cmtr_1mar/mtr+20_percent_data_act/act_mtr/ckpt/latest_model.pth', help='specify a ckpt directory to be evaluated if needed')
     parser.add_argument('--ckpt_dir', type=str, default='', help='specify a ckpt directory to be evaluated if needed')
     # parser.add_argument('--save_to_file', action='store_true', default=False, help='')
     parser.add_argument('--save_to_file', default=True, help='')

@@ -1,9 +1,9 @@
 datasets:
   traj_align:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov/*'
-    # dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep/*'
-    # dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep/*'
-    # dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/toyset/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/training_28nov/*'
+    # dataset_path: '<internal_dataset_root>/waymo/gameformer/validation_30sep/*'
+    # dataset_path: '<internal_dataset_root>/waymo/gameformer/validation_30sep/*'
+    # dataset_path: '<internal_dataset_root>/waymo/gameformer/toyset/*'
     
     filelabel: waymo_interactive
     processor:
@@ -24,7 +24,7 @@ datasets:
         of_samples : False
   
   traj_align_valid:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/validation_30sep/*'
     filelabel: waymo_interactive
     processor:
       valid:
@@ -90,12 +90,12 @@ model:
   rollouts: 6
   lora_bias: false
   gameformer_enc: true
-  # gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
-  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData_kvact/epochs_29.pth'
-  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/epochs_29.pth'
+  # gf_encoder_path: '<internal_user_root>/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
+  # gf_encoder_path: '<internal_model_root>/gameformer/cgf_1a_29nov_newData_kvact/epochs_29.pth'
+  # gf_encoder_path: '<internal_model_root>/gameformer/cgf_1a_29nov_newData/epochs_29.pth'
   neighbors_to_predict: 0
-  # gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/epochs_29.pth'
-  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_1a_29nov_newData/epochs_29.pth'
+  # gf_encoder_path: '<internal_model_root>/gameformer/cgf_23aug/epochs_29.pth'
+  gf_encoder_path: '<internal_model_root>/gameformer/cgf_1a_29nov_newData/epochs_29.pth'
   gf_encoder_layers: 6
   gf_act_enc: False
   gf_act_dec: True
@@ -107,9 +107,9 @@ model:
   act_kv: False
   use_flash_attention: False
   late_fusion: False
-  # resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/dec/template_31dec/checkpoint_last.pth"
+  # resume_ckpt_path: "<internal_model_root>/imotion/dec/template_31dec/checkpoint_last.pth"
 run:
-  # resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/dec/template_31dec/checkpoint_last.pth"
+  # resume_ckpt_path: "<internal_model_root>/imotion/dec/template_31dec/checkpoint_last.pth"
   # best_agg_metric: 1000
   # best_epoch: 1.704
   
@@ -161,13 +161,13 @@ run:
   min_lr: 1e-6
   didnt_work_repeat: 0 
   # num_eval_batches: 8
-  # output_dir: /ibex/project/c2278/felembaa/models/imotion/dec/template_31dec #Adjust this
+  # output_dir: <internal_model_root>/imotion/dec/template_31dec #Adjust this
   # job_name: 'template_31dec'
 
-  output_dir: /ibex/project/c2278/cvpr_rebuttal/imotion08_r8 #Adjust this
+  output_dir: <internal_experiment_root>/imotion08_r8 #Adjust this
   # resume_ckpt_path: False
-  # resume_ckpt_path: "/ibex/project/c2278/cvpr_rebuttal/imotion08_r8"
-  eval_dir: '/ibex/project/c2278/cvpr_rebuttal/imotion08_r8/checkpoint-1000'
+  # resume_ckpt_path: "<internal_experiment_root>/imotion08_r8"
+  eval_dir: '<internal_experiment_root>/imotion08_r8/checkpoint-1000'
   job_name: 'temp'
   
   wandb_log: False

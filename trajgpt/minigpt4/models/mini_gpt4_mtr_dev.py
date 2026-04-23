@@ -17,7 +17,7 @@ from transformers import AutoConfig
 from transformers import BitsAndBytesConfig
 from transformers import LlamaForCausalLM
 # from minigpt4.models.custom_modeling_llama import LlamaForCausalLM
-# /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/minigpt4/models/custom_modeling_llama.py
+# <legacy_repo_root>/trajgpt/minigpt4/models/custom_modeling_llama.py
 from peft import prepare_model_for_kbit_training
 from peft import LoraConfig, get_peft_model, PeftModel
 # from transformers.models.llama.modeling_llama import LlamaForCausalLM
@@ -317,7 +317,7 @@ class MiniGPT4(Blip2Base):
         lora_r=64,
         lora_alpha=16,
         lora_dropout=0.05,
-        # discretizer_model_path = '/home/felembaa/projects/trajgpt/KBinsDiscretizer_76.pkl',
+        # discretizer_model_path = '<legacy_trajgpt_repo>/KBinsDiscretizer_76.pkl',
         discretizer_model_path = './KBinsDiscretizer_76.pkl',
         lora_target_modules = 'all',
         lora_bias=False,
@@ -2599,7 +2599,7 @@ class MiniGPT4(Blip2Base):
     def load_mtr(self):
         from mtr.mtr.models import model as model_utils
         from mtr.config import cfg, cfg_from_list, cfg_from_yaml_file, log_config_to_file
-        mtr_cfg_path = self.mtr_cfg_path or str(REPO_ROOT / "mtr" / "tools" / "cfgs" / "waymo" / "mtr+100_percent_data_act.yaml")
+        mtr_cfg_path = self.mtr_cfg_path or str(REPO_ROOT / "configs" / "release" / "mtr_waymo_act.yaml")
         cfg_from_yaml_file(mtr_cfg_path, cfg)
         if os.environ.get("IMOTION_LLM_MTR_DATA_ROOT"):
             cfg.DATA_CONFIG.DATA_ROOT = os.environ["IMOTION_LLM_MTR_DATA_ROOT"]

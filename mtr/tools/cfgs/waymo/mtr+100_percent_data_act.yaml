@@ -1,9 +1,9 @@
 DATA_CONFIG:
-    OUTPUT_PATH: '/ibex/project/c2278/cvpr_rebuttal/mtr_models/cmtr_27apr'
+    OUTPUT_PATH: '<internal_experiment_root>/mtr_models/cmtr_27apr'
     DATASET: WaymoDataset
     OBJECT_TYPE: &object_type ['TYPE_VEHICLE', 'TYPE_PEDESTRIAN', 'TYPE_CYCLIST']
     
-    DATA_ROOT: '/ibex/project/c2253/felembaa/waymo_dataset/mtr2/'
+    DATA_ROOT: '<internal_waymo_dataset_root>/mtr2/'
     SPLIT_DIR: {
         'train': 'processed_scenarios_training', 
         'test': 'processed_scenarios_validation'
@@ -63,7 +63,7 @@ MODEL:
         NUM_FUTURE_FRAMES: 80
         NUM_MOTION_MODES: 6
 
-        INTENTION_POINTS_FILE: /ibex/project/c2278/felembaa/datasets/waymo/sample/mtr_27dec/output/cluster_64_center_dict.pkl
+        INTENTION_POINTS_FILE: <internal_dataset_root>/waymo/sample/mtr_27dec/output/cluster_64_center_dict.pkl
 
         D_MODEL: 512
         NUM_DECODER_LAYERS: 6

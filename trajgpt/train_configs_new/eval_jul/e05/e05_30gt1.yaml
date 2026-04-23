@@ -1,6 +1,6 @@
 datasets:
   traj_align:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_small_1jul/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/training_small_1jul/*'
     filelabel: waymo_interactive
     processor:
       train:
@@ -18,7 +18,7 @@ datasets:
         two_agent: False
   
   traj_align_valid:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_3jul/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/validation_3jul/*'
     processor:
       valid:
         name: "traj_eval"
@@ -75,8 +75,8 @@ model:
   rollouts: 6
   lora_bias: false
   gameformer_enc: true
-  # gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
-  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/epochs_26.pth'
+  # gf_encoder_path: '<internal_user_root>/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
+  gf_encoder_path: '<internal_model_root>/gameformer/cgf_7jul_fulldata/epochs_26.pth'
   gf_encoder_layers: 6
   gf_level: 6
   gf_act_enc: False
@@ -86,7 +86,7 @@ model:
   two_agent: false
   
 run:
-  resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/jul_m05_imotion_act_contrastive_small_large_e26/checkpoint_30.pth"
+  resume_ckpt_path: "<internal_model_root>/imotion/jul_m05_imotion_act_contrastive_small_large_e26/checkpoint_30.pth"
   # best_agg_metric: 1000
   # best_epoch: 1.704
   
@@ -128,7 +128,7 @@ run:
   min_lr: 1e-6
   didnt_work_repeat: 0 
   # num_eval_batches: 8
-  output_dir: /ibex/project/c2278/felembaa/models/imotion/jul_m05_imotion_act_contrastive_small_large_e26 #Adjust this
+  output_dir: <internal_model_root>/imotion/jul_m05_imotion_act_contrastive_small_large_e26 #Adjust this
   job_name: 'jul_m05_imotion_act_contrastive_small_large_e26'
   
   wandb_log: false

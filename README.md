@@ -156,9 +156,7 @@ Still missing:
 
 ## Migration Note
 
-An older local copy already exists on this machine and is treated as protected reference material, not an edit target:
-
-- `/ibex/project/c2278/felembaa/projects/iMotion-LLM-Jan/run_ibex/iMotion-LLM`
+An older local copy may already exist on the development machine and is treated as protected reference material, not an edit target.
 
 Cleanup and refactoring work happen in this repository only.
 

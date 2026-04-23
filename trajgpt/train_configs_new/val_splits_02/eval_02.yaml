@@ -1,6 +1,6 @@
 datasets:
   traj_align:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_11may_fullmap_split2/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/training_11may_fullmap_split2/*'
     filelabel: waymo_interactive
     processor:
       train:
@@ -14,8 +14,8 @@ datasets:
         act_json: False
   
   traj_align_valid:
-    # dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_11may_fullmap_test/*'
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_11may_fullmap_val_splits/split_2/*'
+    # dataset_path: '<internal_dataset_root>/waymo/gameformer/validation_11may_fullmap_test/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/validation_11may_fullmap_val_splits/split_2/*'
     processor:
       valid:
         name: "traj_eval"
@@ -62,7 +62,7 @@ model:
   rollouts: 6
   lora_bias: false
   gameformer_enc: true
-  gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_act_smalldata/epochs_last.pth'
+  gf_encoder_path: '<internal_user_root>/gameformer_models/gf_7may_act_smalldata/epochs_last.pth'
   gf_encoder_layers: 6
   gf_act_enc: False
   gf_act_dec: true
@@ -71,8 +71,8 @@ model:
   eval_only: True
   
 run:
-  resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/gf_13may_act_imotion/checkpoint_last.pth"
-  # resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/gf_13may_fmact_imotion/checkpoint_last.pth"
+  resume_ckpt_path: "<internal_model_root>/imotion/gf_13may_act_imotion/checkpoint_last.pth"
+  # resume_ckpt_path: "<internal_model_root>/imotion/gf_13may_fmact_imotion/checkpoint_last.pth"
   best_agg_metric: 1000
   best_epoch: 90
   
@@ -112,7 +112,7 @@ run:
   min_lr: 1e-6
   didnt_work_repeat: 0 
   # num_eval_batches: 8 
-  output_dir: /ibex/project/c2278/felembaa/models/imotion/gf_13may_act_imotion/validation_11may_fullmap_val_splits #Adjust this
+  output_dir: <internal_model_root>/imotion/gf_13may_act_imotion/validation_11may_fullmap_val_splits #Adjust this
   job_name: 'gf_13may_act_imotion'
   
   wandb_log: false

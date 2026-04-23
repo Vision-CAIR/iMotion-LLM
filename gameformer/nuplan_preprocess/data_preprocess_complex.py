@@ -1296,27 +1296,27 @@ class DataProcessor(object):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data Processing')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/data/cache/mini')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/data/cache/train_boston')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/home/felembaa/projects/iMotion-LLM-ICLR/datasets/nuplan/data/cache/cache/train_pittsburgh')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/val/data/cache/val')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/train/data/cache/cache/train_boston')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/test/data/cache/test')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/train/data/cache/train_pittsburgh')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/train/data/cache/train_boston')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/data/cache/mini')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/data/cache/train_boston')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<legacy_repo_root>/datasets/nuplan/data/cache/cache/train_pittsburgh')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/val/data/cache/val')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/train/data/cache/cache/train_boston')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/test/data/cache/test')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/train/data/cache/train_pittsburgh')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/train/data/cache/train_boston')
     parser.add_argument('--data_path', type=str, help='path to raw data', default='data/raw/nuplan/cache/train_combined')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/train/data/cache/train_singapore')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/train/data/cache/train_singapore')
     
     
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/train/data/cache/cache/train_vegas_2')
-    # parser.add_argument('--data_path', type=str, help='path to raw data', default='/ibex/project/c2278/felembaa/datasets/nuplan/data/cache/train_pittsburgh')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/train/data/cache/cache/train_vegas_2')
+    # parser.add_argument('--data_path', type=str, help='path to raw data', default='<internal_dataset_root>/nuplan/data/cache/train_pittsburgh')
     
-    # parser.add_argument('--map_path', type=str, help='path to map data', default='/ibex/project/c2278/felembaa/datasets/nuplan/maps')
+    # parser.add_argument('--map_path', type=str, help='path to map data', default='<internal_dataset_root>/nuplan/maps')
     parser.add_argument('--map_path', type=str, help='path to map data', default='data/raw/nuplan/maps')
     
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default='/ibex/project/c2278/felembaa/datasets/nuplan/data/cache/train_boston_processed_viz')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default='<internal_dataset_root>/nuplan/data/cache/train_boston_processed_viz')
     parser.add_argument('--save_path', type=str, help='path to save processed data', default='data/processed/nuplan/gpt_prompt_14types')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default='/ibex/project/c2278/felembaa/datasets/nuplan/data/cache/train_pittsburgh_processed_viz')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default='<internal_dataset_root>/nuplan/data/cache/train_pittsburgh_processed_viz')
     
     parser.add_argument('--scenarios_per_type', type=int, default=600, help='number of scenarios per type')
     # parser.add_argument('--scenarios_per_type', type=int, default=10, help='number of scenarios per type')

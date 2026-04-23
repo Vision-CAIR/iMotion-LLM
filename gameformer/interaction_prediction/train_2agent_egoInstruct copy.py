@@ -1,13 +1,13 @@
 # torchrun --nproc-per-node 4 ~/project/gameformer_p/interaction_prediction/train.py --wandb --distributed --name gameformer_temp1
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --wandb --distributed --name gameformer_temp1 --batch_size 8
-# torchrun --nproc-per-node 2 train.py --distributed --workers 8 --batch_size 64 --train_set /ibex/user/felembaa/waymo_dataset/training_interactive_gameformer_10hz_agentorder --valid_set /ibex/user/felembaa/waymo_dataset/validation_interactive_gameformer_10hz --subsample False --future_len 80
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl0_act/ --name gf_4mar_lvl0_act --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 0 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20nvidia-smi
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl6_valid/ --name gf_4mar_lvl6_valid --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20nvidia-smi
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --wandb --distributed --name gameformer_temp1 --batch_size 8
+# torchrun --nproc-per-node 2 train.py --distributed --workers 8 --batch_size 64 --train_set <internal_user_root>/waymo_dataset/training_interactive_gameformer_10hz_agentorder --valid_set <internal_user_root>/waymo_dataset/validation_interactive_gameformer_10hz --subsample False --future_len 80
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --act --act_dec --save_model <internal_user_root>/gameformer_models/gf_4mar_lvl0_act/ --name gf_4mar_lvl0_act --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 0 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20nvidia-smi
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --save_model <internal_user_root>/gameformer_models/gf_4mar_lvl6_valid/ --name gf_4mar_lvl6_valid --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20nvidia-smi
 import torch
 import sys
 sys.path.append('.')
 sys.path.append('..')
-sys.path.append('/home/felembaa/projects/iMotion-LLM-ICLR')
+sys.path.append('<legacy_repo_root>')
 sys.path.append('...')
 import csv
 import argparse
@@ -442,16 +442,16 @@ if __name__ == "__main__":
     parser.add_argument('--lr_steps', type=str, help='', default='15,18,21,24,27')
     parser.add_argument("--act", action="store_true", help='act', default=False)
     parser.add_argument("--viz", action="store_true", help='visualize', default=False)
-    # parser.add_argument('--train_set', type=str, help='path to train data', default='/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_15may_fullmap_fulldata')
-    # parser.add_argument('--train_set', type=str, help='path to train data', default='/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_3jul') # training_small_1jul
-    # parser.add_argument('--train_set', type=str, help='path to train data', default='/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_21aug')
-    parser.add_argument('--train_set', type=str, help='path to train data', default='/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training')
-    # parser.add_argument('--train_set', type=str, help='path to train data', default='/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_24nov')
+    # parser.add_argument('--train_set', type=str, help='path to train data', default='<internal_dataset_root>/waymo/gameformer/training_15may_fullmap_fulldata')
+    # parser.add_argument('--train_set', type=str, help='path to train data', default='<internal_dataset_root>/waymo/gameformer/validation_3jul') # training_small_1jul
+    # parser.add_argument('--train_set', type=str, help='path to train data', default='<internal_dataset_root>/waymo/gameformer/training_21aug')
+    parser.add_argument('--train_set', type=str, help='path to train data', default='<internal_dataset_root>/waymo/gameformer/feb16_2025/training')
+    # parser.add_argument('--train_set', type=str, help='path to train data', default='<internal_dataset_root>/waymo/gameformer/training_24nov')
     
-    # parser.add_argument('--train_set', type=str, help='path to train data', default='/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep')
+    # parser.add_argument('--train_set', type=str, help='path to train data', default='<internal_dataset_root>/waymo/gameformer/validation_30sep')
     
-    # parser.add_argument('--train_set', type=str, help='path to train data', default='/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_1jul')
-    parser.add_argument('--valid_set', type=str, help='path to train data', default='/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_30sep')
+    # parser.add_argument('--train_set', type=str, help='path to train data', default='<internal_dataset_root>/waymo/gameformer/validation_1jul')
+    parser.add_argument('--valid_set', type=str, help='path to train data', default='<internal_dataset_root>/waymo/gameformer/validation_30sep')
     
     
     parser.add_argument("--eval_only", action="store_true", help='', default=False)
@@ -461,32 +461,32 @@ if __name__ == "__main__":
     parser.add_argument("--act_dec", action="store_true", help='act')
     
     parser.add_argument("--full_map", action="store_true", help='', default=False)
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/cgf_2jul_smalldata/epochs_29.pth')
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/epochs_17.pth')
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/user/felembaa/gameformer_models/gf_7may_act_smalldata/epochs_last.pth')
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/epochs_29.pth')
-    # parser.add_argument('--save_path', type=str, help='', default='/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/validation_23aug')
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/epochs_29.pth')
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/epochs_29.pth')
-    # parser.add_argument('--save_path', type=str, help='', default='/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/results30sep')
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/epochs_29.pth')
-    # parser.add_argument('--save_path', type=str, help='', default='/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/results_fullData_gt')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/cgf_2jul_smalldata/epochs_29.pth')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/cgf_7jul_fulldata/epochs_17.pth')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_user_root>/gameformer_models/gf_7may_act_smalldata/epochs_last.pth')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/gf_23aug/epochs_29.pth')
+    # parser.add_argument('--save_path', type=str, help='', default='<internal_model_root>/gameformer/gf_23aug/validation_23aug')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/cgf_23aug/epochs_29.pth')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/gf_23aug/epochs_29.pth')
+    # parser.add_argument('--save_path', type=str, help='', default='<internal_model_root>/gameformer/gf_23aug/results30sep')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/cgf_23aug/epochs_29.pth')
+    # parser.add_argument('--save_path', type=str, help='', default='<internal_model_root>/gameformer/cgf_23aug/results_fullData_gt')
     
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/epochs_29.pth')
-    # parser.add_argument('--save_path', type=str, help='', default='/ibex/project/c2278/felembaa/models/gameformer/gf_23aug/results_fullData_gt')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/gf_23aug/epochs_29.pth')
+    # parser.add_argument('--save_path', type=str, help='', default='<internal_model_root>/gameformer/gf_23aug/results_fullData_gt')
     parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='')
     parser.add_argument("--save_model", type=str, help='save model directory, not saved if not provided', default=False)
-    # /ibex/project/c2278/felembaa/models/gameformer/temp
+    # <internal_model_root>/gameformer/temp
     parser.add_argument('--save_path', type=str, help='', default='')
     
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/gf_7may_act_smalldata/epochs_last.pth')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/gf_7may_act_smalldata/epochs_last.pth')
     
-    # parser.add_argument('--save_path', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/gf_7may_fullmap_smalldata/wPlausbility_val_gt_s1')
+    # parser.add_argument('--save_path', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/gf_7may_fullmap_smalldata/wPlausbility_val_gt_s1')
     # parser.add_argument("--contrastive", action="store_true", help='', default=False)
     # parser.add_argument("--positive", action="store_true", help='', default=False)
     
     
-    # parser.add_argument('--save_path', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/gf_7may_act_smalldata/wPlausbility_val_c_s1')
+    # parser.add_argument('--save_path', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/gf_7may_act_smalldata/wPlausbility_val_c_s1')
     parser.add_argument("--contrastive", action="store_true", help='', default=False)
     parser.add_argument("--positive", action="store_true", help='', default=False)
     
@@ -507,12 +507,12 @@ if __name__ == "__main__":
 
     
 
-    # parser.add_argument('--save_path', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/project/c2278/felembaa/models/gameformer/gf_7may_fullmap_act_smalldata/wPlausbility_val_p_s1')
+    # parser.add_argument('--save_path', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_model_root>/gameformer/gf_7may_fullmap_act_smalldata/wPlausbility_val_p_s1')
     # parser.add_argument("--contrastive", action="store_true", help='', default=False)
     # parser.add_argument("--positive", action="store_true", help='', default=True)
     
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/user/felembaa/gameformer_models/gf_act_5mar_final_300k_train_03/epochs_last.pth')
-    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_smalldata/epochs_last.pth')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_user_root>/gameformer_models/gf_act_5mar_final_300k_train_03/epochs_last.pth')
+    # parser.add_argument('--load_dir', type=str, help='name to load ckpts from log path (e.g. epochs_0.pth)', default='<internal_user_root>/gameformer_models/gf_7may_fullmap_smalldata/epochs_last.pth')
     # parser.add_argument("--act_dec", action="store_true", help='act', default=True)
     # parser.add_argument("--eval_only", action="store_true", help='', default=True)
     
@@ -522,7 +522,7 @@ if __name__ == "__main__":
     
     # args.act_dec = False
     args.two_agents=True
-    # args.save_model = '/ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/temp'
+    # args.save_model = '<internal_model_root>/gameformer/sep_14_2025/temp'
     args.ego_act_only = True
     # args.ego_act_only = not args.two_agents
 
@@ -531,7 +531,7 @@ if __name__ == "__main__":
         if args.save_model:
             args.save_path = args.save_model
         else:
-            args.save_path = '/home/felembaa/projects/iMotion-LLM-ICLR'
+            args.save_path = '<legacy_repo_root>'
         
         if args.eval_only:
             args.save_path = '/'.join(args.load_dir.split('/')[:-1])+'/'+args.valid_set.split('/')[-1]
@@ -546,30 +546,30 @@ if __name__ == "__main__":
     main()
 
 
-# torchrun --nproc-per-node 4 --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --wandb --distributed --workers 8 --batch_size 64 --level 6 --modalities 6 --encoder_layers 6 --future_len 80 --learning_rate 1e-4 --gmm False --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --name temp --load_dir '' --train_set /ibex/user/felembaa/waymo_dataset/validation_interactive_gameformer_10hz --valid_set /ibex/user/felembaa/waymo_dataset/validation_interactive_gameformer_10hz --save_model /ibex/user/felembaa/gameformer_models/temp/
+# torchrun --nproc-per-node 4 --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --wandb --distributed --workers 8 --batch_size 64 --level 6 --modalities 6 --encoder_layers 6 --future_len 80 --learning_rate 1e-4 --gmm False --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --name temp --load_dir '' --train_set <internal_user_root>/waymo_dataset/validation_interactive_gameformer_10hz --valid_set <internal_user_root>/waymo_dataset/validation_interactive_gameformer_10hz --save_model <internal_user_root>/gameformer_models/temp/
 
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl6_actdec/ --name gf_4mar_lvl6_actdec --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '10,15,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/training_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --name temp --load_dir '' --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '10,15,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/training_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-
-
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --shared_act --act --act_dec --decomposed_gf --save_model /ibex/user/felembaa/gameformer_models/gf_5mar_shared_act/ --name gf_5mar_shared_act --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --act_dec --save_model <internal_user_root>/gameformer_models/gf_4mar_lvl6_actdec/ --name gf_4mar_lvl6_actdec --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '10,15,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/training_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --name temp --load_dir '' --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '10,15,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/training_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
 
 
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --two_agent_act --act --act_dec --decomposed_gf --save_model /ibex/user/felembaa/gameformer_models/gf_5mar_2agentact/ --name gf_5mar_2agentact --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --two_agent_act --act --act_dec --decomposed_gf --load_dir '' --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --two_agent_act --act --decomposed_gf --save_model /ibex/user/felembaa/gameformer_models/gf_5mar_2a_noDec/ --name gf_5mar_2a_noDec --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --two_agent_act --act --act_dec --shared_act --decomposed_gf --save_model /ibex/user/felembaa/gameformer_models/gf_5mar_2a_shared/ --name gf_5mar_2a_shared --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --ego_act_only --act --act_dec --decomposed_gf --save_model /ibex/user/felembaa/gameformer_models/gf_5mar_egonly/ --name gf_5mar_egonly --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --ego_act_only --act --decomposed_gf --save_model /ibex/user/felembaa/gameformer_models/gf_5mar_egonly_nodec/ --name gf_5mar_egonly_nodec --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --ego_act_only --act --act_dec --decomposed_gf --shared_act --save_model /ibex/user/felembaa/gameformer_models/gf_5mar_egonly_sh/ --name gf_5mar_egonly_sh --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act --decomposed_gf --no_fuse_act --save_model /ibex/user/felembaa/gameformer_models/gf_5mar_nofuse/ --name gf_5mar_nofuse --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20
-
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act_dec --act --decomposed_gf --save_model /ibex/user/felembaa/gameformer_models/gf_act_5mar_final_80k/ --name gf_act_5mar_final_80k --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/training_interactive_5mar_80k --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_5mar_5k
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --shared_act --act --act_dec --decomposed_gf --save_model <internal_user_root>/gameformer_models/gf_5mar_shared_act/ --name gf_5mar_shared_act --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
 
 
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train_03.py --act_dec --act --save_model /ibex/user/felembaa/gameformer_models/gf_act_5mar_final_80k_train_03/ --name gf_act_5mar_final_80k_train_03 --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/training_interactive_5mar_80k --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_5mar_5k
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --two_agent_act --act --act_dec --decomposed_gf --save_model <internal_user_root>/gameformer_models/gf_5mar_2agentact/ --name gf_5mar_2agentact --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
 
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train_03.py --act_dec --act --save_model /ibex/user/felembaa/gameformer_models/gf_act_5mar_final_300k_train_03/ --name gf_act_5mar_final_300k_train_03 --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/training_interactive_5mar --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_5mar_5k
-# python /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/interaction_prediction/train.py --workers 2 --batch_size 4 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_full_3jul --save_model /ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/ --name cgf_7jul_fulldata_res1 --load_dir /ibex/project/c2278/felembaa/models/gameformer/cgf_7jul_fulldata/epochs_5.pth --wandb --act_dec
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --two_agent_act --act --act_dec --decomposed_gf --load_dir '' --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
+
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --two_agent_act --act --decomposed_gf --save_model <internal_user_root>/gameformer_models/gf_5mar_2a_noDec/ --name gf_5mar_2a_noDec --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --two_agent_act --act --act_dec --shared_act --decomposed_gf --save_model <internal_user_root>/gameformer_models/gf_5mar_2a_shared/ --name gf_5mar_2a_shared --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --ego_act_only --act --act_dec --decomposed_gf --save_model <internal_user_root>/gameformer_models/gf_5mar_egonly/ --name gf_5mar_egonly --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --ego_act_only --act --decomposed_gf --save_model <internal_user_root>/gameformer_models/gf_5mar_egonly_nodec/ --name gf_5mar_egonly_nodec --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --ego_act_only --act --act_dec --decomposed_gf --shared_act --save_model <internal_user_root>/gameformer_models/gf_5mar_egonly_sh/ --name gf_5mar_egonly_sh --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --act --decomposed_gf --no_fuse_act --save_model <internal_user_root>/gameformer_models/gf_5mar_nofuse/ --name gf_5mar_nofuse --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20
+
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --act_dec --act --decomposed_gf --save_model <internal_user_root>/gameformer_models/gf_act_5mar_final_80k/ --name gf_act_5mar_final_80k --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/training_interactive_5mar_80k --valid_set <internal_waymo_dataset_root>/validation_interactive_5mar_5k
+
+
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train_03.py --act_dec --act --save_model <internal_user_root>/gameformer_models/gf_act_5mar_final_80k_train_03/ --name gf_act_5mar_final_80k_train_03 --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/training_interactive_5mar_80k --valid_set <internal_waymo_dataset_root>/validation_interactive_5mar_5k
+
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train_03.py --act_dec --act --save_model <internal_user_root>/gameformer_models/gf_act_5mar_final_300k_train_03/ --name gf_act_5mar_final_300k_train_03 --load_dir '' --wandb --distributed --workers 4 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/training_interactive_5mar --valid_set <internal_waymo_dataset_root>/validation_interactive_5mar_5k
+# python <legacy_repo_root>/gameformer/interaction_prediction/train.py --workers 2 --batch_size 4 --level 6 --modalities 6 --future_len 80 --learning_rate 5e-5 --lr_steps '15,18,21,24,27,30' --training_epochs 30 --train_set <internal_dataset_root>/waymo/gameformer/training_full_3jul --save_model <internal_model_root>/gameformer/cgf_7jul_fulldata/ --name cgf_7jul_fulldata_res1 --load_dir <internal_model_root>/gameformer/cgf_7jul_fulldata/epochs_5.pth --wandb --act_dec

@@ -2,7 +2,7 @@
 
 Audit target:
 
-- source repo: `/home/felembaa/projects/iMotion-LLM-ICLR`
+- source repo: `<legacy_repo_root>`
 - source role: protected legacy working tree
 - migration destination: this public `iMotion-LLM` repository
 
@@ -211,7 +211,7 @@ Audit notes:
 
 ## High-Risk Legacy Issues To Fix During Migration
 
-- hard-coded local paths to `/home/felembaa/...` and `/ibex/project/...`
+- hard-coded local paths to private local and cluster directories
 - copied model files like `mini_gpt4 copy.py`, `mini_gpt4 copy 2.py`, etc.
 - duplicated preprocess variants with unclear ownership
 - mixed tracked and untracked experimental files
@@ -257,9 +257,9 @@ Reason:
 
 ## Secondary Sources To Use Only If Needed
 
-- `/ibex/project/c2278/felembaa/projects/iMotion-LLM-Jan`
+- `<legacy_snapshot_repo>`
   - use to compare missing files, recover examples, or inspect later packed experiment state
-- `/home/felembaa/projects/iMotion-LLM-old`
+- `<legacy_old_repo>`
   - use only if a needed file is absent from `iMotion-LLM-ICLR`
 
 This document is the working source-audit baseline for upcoming code migration.

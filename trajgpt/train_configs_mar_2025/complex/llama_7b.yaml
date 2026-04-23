@@ -1,15 +1,15 @@
-# configuration: /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/may_experiments/27_Llama_2_7b_hf_1e5_1e4_1e4_none_r32_a16_2r_25.yaml
-# Directory: /ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/27_Llama_2_7b_hf_1e5_1e4_1e4_none_r32_a16_2r_25/checkpoint-6726
+# configuration: <legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/may_experiments/27_Llama_2_7b_hf_1e5_1e4_1e4_none_r32_a16_2r_25.yaml
+# Directory: <internal_model_root>/imotion/apr_2025/ablation_llms/27_Llama_2_7b_hf_1e5_1e4_1e4_none_r32_a16_2r_25/checkpoint-6726
 
-# /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/may_experiments/06_mistral_7b_1e4_1e3_1e5_both_r32_a16_2r_25.yaml
-# /ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/06_mistral_7b_1e4_1e3_1e5_both_r32_a16_2r_25/checkpoint-6726
+# <legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/may_experiments/06_mistral_7b_1e4_1e3_1e5_both_r32_a16_2r_25.yaml
+# <internal_model_root>/imotion/apr_2025/ablation_llms/06_mistral_7b_1e4_1e3_1e5_both_r32_a16_2r_25/checkpoint-6726
 
-# /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/may_experiments/14_Llama_3.2_1B_1e4_1e3_1e4_none_r32_a16_2r_25.yaml
-# /ibex/project/c2278/felembaa/models/imotion/apr_2025/ablation_llms/14_Llama_3.2_1B_1e4_1e3_1e4_none_r32_a16_2r_25/checkpoint-6726
+# <legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/may_experiments/14_Llama_3.2_1B_1e4_1e3_1e4_none_r32_a16_2r_25.yaml
+# <internal_model_root>/imotion/apr_2025/ablation_llms/14_Llama_3.2_1B_1e4_1e3_1e4_none_r32_a16_2r_25/checkpoint-6726
 
 datasets:
   traj_align:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/nuplan/gpt_prompt_14types/*'
+    dataset_path: '<internal_dataset_root>/nuplan/gpt_prompt_14types/*'
     filelabel: waymo_interactive
     processor:
       train:
@@ -30,7 +30,7 @@ datasets:
         num_classes: 5
   
   traj_align_valid:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/nuplan/test_gpt_prompt_14types/*'
+    dataset_path: '<internal_dataset_root>/nuplan/test_gpt_prompt_14types/*'
     filelabel: waymo_interactive
     processor:
       valid:
@@ -82,7 +82,7 @@ model:
   lora_bias: false
   gameformer_enc: true
   neighbors_to_predict: 0
-  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/epochs_29.pth'
+  gf_encoder_path: '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/epochs_29.pth'
   gf_level: 1 # decoder levels
   num_direction_classes: 5
   gf_encoder_layers: 6
@@ -105,7 +105,7 @@ model:
   # * mistralai/Mistral-7B-Instruct-v0.1
   auto_txt_formatter: True
 run:
-  # resume_ckpt_path: "/ibex/project/c2278/felembaa/models/imotion/dec/template_31dec/checkpoint_last.pth"
+  # resume_ckpt_path: "<internal_model_root>/imotion/dec/template_31dec/checkpoint_last.pth"
   # best_agg_metric: 1000
   # best_epoch: 1.704
   
@@ -157,12 +157,12 @@ run:
   min_lr: 1e-6
   didnt_work_repeat: 0 
   # num_eval_batches: 8
-  # output_dir: /ibex/project/c2278/felembaa/models/imotion/dec/template_31dec #Adjust this
+  # output_dir: <internal_model_root>/imotion/dec/template_31dec #Adjust this
   # job_name: 'template_31dec'
 
-  output_dir: /ibex/project/c2278/felembaa/models/imotion/feb_2025/imotion_02_q_complex_e2e #Adjust this
+  output_dir: <internal_model_root>/imotion/feb_2025/imotion_02_q_complex_e2e #Adjust this
   # resume_ckpt_path: False
-  # resume_ckpt_path: "/ibex/project/c2278/cvpr_rebuttal/imotion08_r8"
+  # resume_ckpt_path: "<internal_experiment_root>/imotion08_r8"
   eval_dir: ''
   job_name: 'imotion_02_q_complex_e2e'
   

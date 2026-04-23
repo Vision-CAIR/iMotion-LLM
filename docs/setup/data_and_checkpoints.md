@@ -63,6 +63,23 @@ You can either:
 - use the Hugging Face model id directly in the config, or
 - download it locally and override `model.llama_model=/absolute/path/to/Llama-2-7b-hf`
 
+Example local download:
+
+```bash
+huggingface-cli login
+huggingface-cli download meta-llama/Llama-2-7b-hf \
+  --local-dir checkpoints/base_models/Llama-2-7b-hf
+```
+
+Then run with:
+
+```bash
+bash scripts/train_imotion_waymo.sh \
+  --options \
+  model.llama_model=checkpoints/base_models/Llama-2-7b-hf \
+  model.gf_encoder_path=checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth
+```
+
 ## Project Checkpoints
 
 This public repo currently ships code and load instructions, but not bundled research checkpoints.
@@ -71,6 +88,22 @@ If you already have local checkpoints:
 
 - place them under the `checkpoints/` tree shown above, or
 - pass explicit paths at runtime with `--options` or env vars
+
+Suggested placement if you are copying checkpoints from an older internal machine:
+
+```bash
+mkdir -p checkpoints/gameformer/waymo/cgf_l1
+mkdir -p checkpoints/gameformer/nuplan/cgf_l1
+mkdir -p checkpoints/imotion_llm/waymo
+mkdir -p checkpoints/mtr/waymo
+
+cp /path/to/old/gameformer_waymo_epoch_29.pth checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth
+cp /path/to/old/gameformer_nuplan_epoch_29.pth checkpoints/gameformer/nuplan/cgf_l1/epochs_29.pth
+cp /path/to/old/imotion_waymo_checkpoint.pth checkpoints/imotion_llm/waymo/checkpoint_last.pth
+cp /path/to/old/mtr_checkpoint_epoch_15.pth checkpoints/mtr/waymo/checkpoint_epoch_15.pth
+```
+
+Project research checkpoints are not bundled in this public repo yet. If no old checkpoints are available locally, use the training commands in [running.md](running.md) to produce fresh ones.
 
 Useful overrides:
 

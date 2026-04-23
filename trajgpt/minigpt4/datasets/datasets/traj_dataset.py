@@ -166,8 +166,8 @@ class TrajAlignDataset(Dataset):
                 _sibling_dir(data_dir, "_synth_npz"),
             )
             self.of_samples_len = len(self.of_samples_llm_files)
-            # self.of_samples_llmdir = "/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov_synth_templateLLM_temp"
-            # self.of_samples_npz = "/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov_synth_templateLLM"
+            # self.of_samples_llmdir = "<internal_dataset_root>/waymo/gameformer/training_28nov_synth_templateLLM_temp"
+            # self.of_samples_npz = "<internal_dataset_root>/waymo/gameformer/training_28nov_synth_templateLLM"
 
 
         self.contrastive = contrastive
@@ -1347,8 +1347,8 @@ class TrajAlignDataset_mtr(Dataset):
     def filter_infos_based_on_gf_data(self, debug):
         # print('loading prompts gameformer mapping jsons')
         # Define the directory containing JSON files
-        ## generated using /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/generate_name_match_with_mtr_data.py
-        # json_dir = "/ibex/project/c2278/felembaa/datasets/waymo/gameformer/gf_mtr_mapping/gf_templatellm_maps/"
+        ## generated using <legacy_repo_root>/gameformer/generate_name_match_with_mtr_data.py
+        # json_dir = "<internal_dataset_root>/waymo/gameformer/gf_mtr_mapping/gf_templatellm_maps/"
         json_dir = _env_or_existing(
             "IMOTION_LLM_MTR_TRAIN_MAPPING_DIR",
             _dataset_dir(self.data_dir).parent / "gf_mtr_mapping" / "gf_templatellm_maps",

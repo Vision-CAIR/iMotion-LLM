@@ -1,4 +1,4 @@
-# python extract_instruct_future_ddp.py --input_folder '/ibex/user/felembaa/waymo_dataset/validation_interactive_original'
+# python extract_instruct_future_ddp.py --input_folder '<internal_user_root>/waymo_dataset/validation_interactive_original'
 import os
 import numpy as np
 import torch
@@ -245,8 +245,8 @@ def main():
     # parser.add_argument("--input_folder", type=str, required=True,
     #                     help="Path to the input dataset directory.")
     parser.add_argument("--input_folder", type=str, required=False,
-                        help="Path to the input dataset directory.", default='/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20')
-    # /ibex/project/c2253/felembaa/waymo_dataset/training_interactive_original_20
+                        help="Path to the input dataset directory.", default='<internal_waymo_dataset_root>/validation_interactive_original_20')
+    # <internal_waymo_dataset_root>/training_interactive_original_20
     # parser.add_argument("--debug", type=str, required=False,
     #                     help="", default=True)
     parser.add_argument("--mp", type=bool, required=False,

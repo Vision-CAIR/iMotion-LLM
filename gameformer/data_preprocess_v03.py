@@ -1509,11 +1509,11 @@ def parallel_process(root_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data Processing Interaction Predictions')
-    parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2253/felembaa/waymo_dataset/training')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2253/felembaa/waymo_dataset/sample_data')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_processes_5mar/')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2253/felembaa/waymo_dataset/training_interactive_processes_5mar/')
+    parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_waymo_dataset_root>/validation_interactive')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_waymo_dataset_root>/training')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_waymo_dataset_root>/sample_data')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_waymo_dataset_root>/validation_interactive_processes_5mar/')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_waymo_dataset_root>/training_interactive_processes_5mar/')
     parser.add_argument('--save_path', type=str, help='path to save processed data', default = '')
     # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '')
     parser.add_argument('--point_path', type=str, help='path to load K-Means Anchors (Currently not included in the pipeline)', default='')

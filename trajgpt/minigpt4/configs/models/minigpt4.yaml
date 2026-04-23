@@ -1,7 +1,7 @@
 model:
   arch: mini_gpt4
   # Vicuna
-  # llama_model: "/ibex/user/felembaa/gpt_datasets/vicuna_weights/"
+  # llama_model: "<internal_user_root>/gpt_datasets/vicuna_weights/"
   llama_model: "meta-llama/Llama-2-7b-hf"
   # llama_model: "meta-llama/Llama-2-70b-hf"
 

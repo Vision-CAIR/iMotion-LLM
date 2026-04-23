@@ -5,7 +5,7 @@ import shutil
 from tqdm import tqdm
 from multiprocessing import Pool, Manager
 
-root_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/'
+root_dir = '<internal_dataset_root>/waymo/gameformer/'
 
 train_dir_full = 'training_full_3jul'
 train_dir_small = 'training_small_1jul'

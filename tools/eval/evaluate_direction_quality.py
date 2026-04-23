@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 import pandas as pd
 
-train_dataset = DrivingData('/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov/*', act=True, full_map=True, ego_act_only=True, nuplan=False, random_drop_act=False, files_with_act_only=True)
+train_dataset = DrivingData('<internal_dataset_root>/waymo/gameformer/training_28nov/*', act=True, full_map=True, ego_act_only=True, nuplan=False, random_drop_act=False, files_with_act_only=True)
 train_loader = DataLoader(train_dataset, batch_size=1, shuffle=True, num_workers=0)
 for sample in train_loader:
     break

@@ -79,7 +79,7 @@ class MiniGPT4(Blip2Base):
         lora_r=64,
         lora_alpha=16,
         lora_dropout=0.05,
-        # discretizer_model_path = '/home/felembaa/projects/trajgpt/KBinsDiscretizer_76.pkl',
+        # discretizer_model_path = '<legacy_trajgpt_repo>/KBinsDiscretizer_76.pkl',
         discretizer_model_path = './KBinsDiscretizer_76.pkl',
         lora_target_modules = 'all',
         lora_bias=False,

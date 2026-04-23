@@ -2,7 +2,7 @@
 import glob
 import sys
 # sys.path.append("..")
-sys.path.append("/home/felembaa/projects/trajgpt/")
+sys.path.append("<legacy_trajgpt_repo>/")
 import argparse
 from multiprocessing import Pool
 import tensorflow as tf
@@ -585,10 +585,10 @@ def parallel_process(root_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data Processing Interaction Predictions')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/home/felembaa/datasets/waymo/training')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data',default='/home/felembaa/datasets/waymo/training_interactive_processed3')
-    parser.add_argument('--load_path', type=str, help='path to dataset files', default='/home/felembaa/datasets/waymo/validation_interactive')
-    parser.add_argument('--save_path', type=str, help='path to save processed data',default='/home/felembaa/datasets/waymo/validation_interactive_processed3')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<local_dataset_root>/waymo/training')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data',default='<local_dataset_root>/waymo/training_interactive_processed3')
+    parser.add_argument('--load_path', type=str, help='path to dataset files', default='<local_dataset_root>/waymo/validation_interactive')
+    parser.add_argument('--save_path', type=str, help='path to save processed data',default='<local_dataset_root>/waymo/validation_interactive_processed3')
     parser.add_argument('--point_path', type=str, help='path to load K-Means Anchors (Currently not included in the pipeline)', default='')
     parser.add_argument('--processes', type=int, help='multiprocessing process num', default=60)
     parser.add_argument('--debug', action="store_true", help='visualize processed data', default=False)

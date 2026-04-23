@@ -5,6 +5,7 @@
 
 
 import sys, os
+from pathlib import Path
 import numpy as np
 import pickle
 import tensorflow as tf
@@ -273,22 +274,15 @@ def create_infos_from_protos(raw_data_path, output_path, num_workers=16):
     
 
 if __name__ == '__main__':
-    # source_dir = '/ibex/project/c2278/felembaa/datasets/waymo'
-    source_dir = '/ibex/project/c2278/felembaa/datasets/waymo'
-    target_dir = '/ibex/project/c2253/felembaa/mtr_dataset_mapping'
+    repo_root = Path(__file__).resolve().parents[4]
+    source_dir = str(repo_root / 'data' / 'raw' / 'waymo')
+    target_dir = str(repo_root / 'data' / 'processed' / 'waymo' / 'mtr_mapping')
     workers = 1
-    # source_dir = '/ibex/project/c2253/felembaa/waymo_dataset'
-    # target_dir = '/ibex/project/c2253/felembaa/waymo_dataset/mtr'
-    # workers = 0
-    # source_dir = '/home/felembaa/datasets/waymo/v_1_1_0/scenario'
-    # source_dir = '/home/felembaa/datasets/waymo/v_1_2/scenario'
-    # target_dir = '/home/felembaa/datasets/waymo/mtr'
-    
-    
 
-    # source_dir = sys.argv[1]
-    # target_dir = sys.argv[2]
-    # workers = int(sys.argv[3])
+    if len(sys.argv) >= 4:
+        source_dir = sys.argv[1]
+        target_dir = sys.argv[2]
+        workers = int(sys.argv[3])
 
     create_infos_from_protos(
         raw_data_path=source_dir,

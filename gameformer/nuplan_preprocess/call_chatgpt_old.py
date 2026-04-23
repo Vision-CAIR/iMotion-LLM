@@ -149,15 +149,15 @@ def main(
 
     
     # filename = 'aab13ca1ad535214_20_31_interest'
-    # root_dir = "/ibex/project/c2278/felembaa/datasets/nuplan/temp_gpt"
+    # root_dir = "<internal_dataset_root>/nuplan/temp_gpt"
 
-    root_dir_ = "/ibex/project/c2278/felembaa/datasets/nuplan/gpt_prompt_14types/*"
+    root_dir_ = "<internal_dataset_root>/nuplan/gpt_prompt_14types/*"
     root_dirs_ = glob.glob(root_dir_)
     root_dirs_ = [i+'/_gpt' for i in root_dirs_]
-    root_dirs_ = ['/ibex/project/c2278/felembaa/datasets/nuplan/gpt_prompt_14types/accelerating_at_crosswalk/gpt']
+    root_dirs_ = ['<internal_dataset_root>/nuplan/gpt_prompt_14types/accelerating_at_crosswalk/gpt']
     for root_dir in root_dirs_:
-        # root_dir = "/ibex/project/c2278/felembaa/datasets/nuplan/gpt_prompt_sample_01_gpt"
-        # save_dir = "/ibex/project/c2278/felembaa/datasets/nuplan/gpt_prompt_sample_01_gpt_output_4o_mini"
+        # root_dir = "<internal_dataset_root>/nuplan/gpt_prompt_sample_01_gpt"
+        # save_dir = "<internal_dataset_root>/nuplan/gpt_prompt_sample_01_gpt_output_4o_mini"
         save_dir = root_dir+'_complex_instruct_reason_data'
         os.makedirs(save_dir, exist_ok=True)
         fig_dirs = f"{root_dir}_figures"
@@ -165,7 +165,7 @@ def main(
         pos_dirs = f"{root_dir}_positive_prompts"
         neg_dirs = f"{root_dir}_negative_prompts"
         meta_dirs = f"{root_dir}_meta_prompts"
-        # root_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/temp'
+        # root_dir = '<internal_dataset_root>/waymo/gameformer/temp'
         # agent_dir = root_dir+'_agentJsons'
         # map_dir = root_dir+'_mapJsons'
 

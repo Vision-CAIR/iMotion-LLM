@@ -4,16 +4,16 @@
  SPDX-License-Identifier: BSD-3-Clause
  For full license text, see the LICENSE_Lavis file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 """
-# torchrun --nproc_per_node 2 /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train.py
-# torchrun --nproc-per-node 4 /home/felembaa/projects/trajgpt/train.py --cfg-path 
-#torchrun --nproc-per-node 2 /home/felembaa/projects/trajgpt/train.py --cfg-path /home/felembaa/projects/trajgpt/train_configs/ibex.yaml
+# torchrun --nproc_per_node 2 <legacy_repo_root>/trajgpt/train.py
+# torchrun --nproc-per-node 4 <legacy_trajgpt_repo>/train.py --cfg-path 
+#torchrun --nproc-per-node 2 <legacy_trajgpt_repo>/train.py --cfg-path <legacy_trajgpt_repo>/train_configs/ibex.yaml
 import os
-os.environ['HF_HOME'] = '/ibex/project/c2253/cache/'
+os.environ['HF_HOME'] = '<internal_cache_root>/'
 
 # os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # for debugging
 import sys
 sys.path.append(".")
-sys.path.append("/home/felembaa/projects/iMotion-LLM-ICLR/")
+sys.path.append("<legacy_repo_root>/")
 from transformers.trainer_callback import TrainerCallback
 from transformers.trainer_utils import get_last_checkpoint
 
@@ -184,8 +184,7 @@ TrainerCallback.on_pre_optimizer_step = custom_on_pre_optimizer_step
 
 
 # from huggingface_hub import login
-# login(token="<huggingface_token>")
-# login(token="IBEX")
+# Set HUGGINGFACE_HUB_TOKEN in the environment if gated model access is required.
 import argparse
 import random
 import wandb
@@ -424,31 +423,31 @@ class CustomTrainer(Trainer):
 def parse_args():
     parser = argparse.ArgumentParser(description="Training")
 
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_iccv_feb_2025/train_imotion_02_q_complex.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_iccv_feb_2025/train_imotion_mtr.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_iccv_feb_2025/train_imotion_e2e_mtr.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_mar_2025/ablation_llms/llama_2_7b_debug.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/nussair_llama_2_7b_contrastive.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_iccv_feb_2025/train_imotion_02_q_complex.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_iccv_feb_2025/train_imotion_mtr.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_iccv_feb_2025/train_imotion_e2e_mtr.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_mar_2025/ablation_llms/llama_2_7b_debug.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/nussair_llama_2_7b_contrastive.yaml', help="path to configuration file.")
     
     # Query Only
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/1_nussair_llama_2_7b_contrastive_query_only.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/1_nussair_llama_2_7b_contrastive_query_only.yaml', help="path to configuration file.")
     
     # 114 KVs and Query
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/2_nussair_llama_2_7b_contrastive_114_kvs_query.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/2_nussair_llama_2_7b_contrastive_114_kvs_query.yaml', help="path to configuration file.")
 
     # 34 KVs and Query
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/3_nussair_llama_2_7b_contrastive_34_actors_query.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/3_nussair_llama_2_7b_contrastive_34_actors_query.yaml', help="path to configuration file.")
 
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/4_nussair_llama_2_7b_contrastive_60_lanes_query.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/4_nussair_llama_2_7b_contrastive_60_lanes_query.yaml', help="path to configuration file.")
 
-   # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/5_nussair_llama_2_7b_contrastive_20_crosswalks_query.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default="/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/llama_2_7b_04_1_epoch_1e5_r32_a16.yaml", help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default="/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/04_llama_2_7b_2_epoch_1e4_01_r32_a16_2_tokens_unfrozengf.yaml", help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default="/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/2_iccv_rebuttal_may_2025/complex/01_c_llama_7b.yaml", help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default="/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/1_nussair_train_configs_april_2025/may_experiments/56_Llama_2_7b_hf_1e5_1e4_1e4_none_r32_a16_2r_25_shared_linear.yaml", help="path to configuration file.")
+   # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/5_nussair_llama_2_7b_contrastive_20_crosswalks_query.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default="<legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/llama_2_7b_04_1_epoch_1e5_r32_a16.yaml", help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default="<legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/ablation_llms/04_llama_2_7b_2_epoch_1e4_01_r32_a16_2_tokens_unfrozengf.yaml", help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default="<legacy_repo_root>/trajgpt/2_iccv_rebuttal_may_2025/complex/01_c_llama_7b.yaml", help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default="<legacy_repo_root>/trajgpt/1_nussair_train_configs_april_2025/may_experiments/56_Llama_2_7b_hf_1e5_1e4_1e4_none_r32_a16_2r_25_shared_linear.yaml", help="path to configuration file.")
     # 
 
-    parser.add_argument("--cfg-path", required=False, default="/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/3_wacv_rebuttal_15_sep_2025/01_c_llama_7b.yaml", help="path to configuration file.")
+    parser.add_argument("--cfg-path", required=False, default="<legacy_repo_root>/trajgpt/3_wacv_rebuttal_15_sep_2025/01_c_llama_7b.yaml", help="path to configuration file.")
     parser.add_argument(
         "--options",
         nargs="+",

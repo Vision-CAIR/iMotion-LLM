@@ -32,7 +32,7 @@ class AttrDict(dict):
         self[key] = value
 
 
-json_path = "/home/felembaa/projects/trajgpt/scenario_id_map.json"
+json_path = "<legacy_trajgpt_repo>/scenario_id_map.json"
 with open(json_path, 'r') as file:
     scenario_ids_list = json.load(file)
 
@@ -40,7 +40,7 @@ with open(json_path, 'r') as file:
 
 args = AttrDict()
 args.options = ['']
-args.cfg_path = '/home/felembaa/projects/trajgpt/train_configs/mar1/exp01.yaml'
+args.cfg_path = '<legacy_trajgpt_repo>/train_configs/mar1/exp01.yaml'
 cfg = Config(args)
 
 device = 'cuda'
@@ -53,7 +53,7 @@ checkpoint = torch.load(cfg.run_cfg.output_dir + "/checkpoint_last.pth", map_loc
 state_dict = checkpoint["model"]
 model.load_state_dict(state_dict, strict=False)
 
-validation_splits = glob.glob('/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_p_29feb_splits/*_json')
+validation_splits = glob.glob('<internal_waymo_dataset_root>/validation_interactive_p_29feb_splits/*_json')
 print(len(validation_splits))
 
 

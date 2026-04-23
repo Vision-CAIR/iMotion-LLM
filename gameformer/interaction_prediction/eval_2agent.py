@@ -627,14 +627,14 @@ def validation_epoch_pkl(valid_data, model, epoch, act=False, two_agent_act=Fals
                     llm_json = "\n".join([json.dumps(j) for j in json_data])  # ✅ Use `json.dumps()` for proper formatting
 
                     # 🔹 Efficient file writing (fewer disk writes)
-                    # templateLLM_filename = f"/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov_synth_templateLLM/{filename}.txt"
-                    templateLLM_filename = f"/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training_synth_templateLLM/{filename}.txt"
+                    # templateLLM_filename = f"<internal_dataset_root>/waymo/gameformer/training_28nov_synth_templateLLM/{filename}.txt"
+                    templateLLM_filename = f"<internal_dataset_root>/waymo/gameformer/feb16_2025/training_synth_templateLLM/{filename}.txt"
                     with open(templateLLM_filename, 'w') as file:
                         file.write(llm_json)
 
                     # 🔹 Efficiently save `.npz` file (no `.cpu()` calls inside loop)
-                    # synth_traj_filename = f"/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov_synth_npz/{filename}.npz"
-                    synth_traj_filename = f"/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training_synth_npz/{filename}.npz"
+                    # synth_traj_filename = f"<internal_dataset_root>/waymo/gameformer/training_28nov_synth_npz/{filename}.npz"
+                    synth_traj_filename = f"<internal_dataset_root>/waymo/gameformer/feb16_2025/training_synth_npz/{filename}.npz"
                     np.savez_compressed(synth_traj_filename, synth_traj=traj_sample_i.numpy()) 
         # if pos1_synth:
         #     found_=0
@@ -672,10 +672,10 @@ def validation_epoch_pkl(valid_data, model, epoch, act=False, two_agent_act=Fals
         #             str({"Instruction": instruct2, "Reasoning": reason, "Decision":"<Accepted>", "Label":"pos", "Direction_cls": agent['direction 0.1to8_cls']}).replace("'", '"')+"\n",
         #             str({"Instruction": instruct3, "Reasoning": reason, "Decision":"<Accepted>", "Label":"pos", "Direction_cls": agent['direction 0.1to8_cls']}).replace("'", '"')+"\n",]
         #             llm_json = "".join(xx)
-        #             templateLLM_filename = f"/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov_synth_templateLLM/{filenames[sample_i]}.txt"
+        #             templateLLM_filename = f"<internal_dataset_root>/waymo/gameformer/training_28nov_synth_templateLLM/{filenames[sample_i]}.txt"
         #             with open(templateLLM_filename, 'w') as file:
         #                 file.write(llm_json)
-        #             synth_traj_filename = f"/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_28nov_synth_npz/{filenames[sample_i]}.npz"
+        #             synth_traj_filename = f"<internal_dataset_root>/waymo/gameformer/training_28nov_synth_npz/{filenames[sample_i]}.npz"
         #             np.savez_compressed(synth_traj_filename, synth_traj=np.array(traj_sample_i.cpu()))
         #         else:
         #             continue
@@ -767,9 +767,9 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, help='training batch sizes', default=32)
     parser.add_argument('--seed', type=int, help='fix random seed', default=3407)
 
-    parser.add_argument('--load_dir', type=str, help='', default='/ibex/project/c2278/felembaa/models/gameformer/sep_14_2025/cgf_l1_2agent_egoInstruct/epochs_29.pth')    
+    parser.add_argument('--load_dir', type=str, help='', default='<internal_model_root>/gameformer/sep_14_2025/cgf_l1_2agent_egoInstruct/epochs_29.pth')    
     parser.add_argument('--train_set', type=str, help='path to train data', default='')
-    parser.add_argument('--valid_set', type=str, help='path to validation data', default='/ibex/project/c2278/felembaa/datasets/waymo/gameformer/validation_11may_fullmap_val')
+    parser.add_argument('--valid_set', type=str, help='path to validation data', default='<internal_dataset_root>/waymo/gameformer/validation_11may_fullmap_val')
     parser.add_argument("--workers", type=int, default=4, help="number of workers used for dataloader")
     parser.add_argument("--level", type=int, help='decoder reasoning levels (K)', default=3) # default: 6
     parser.add_argument("--neighbors_to_predict", type=int, help='neighbors to predict, 1 for Waymo Joint Prediction', default=1)

@@ -20,9 +20,9 @@ tf.config.set_visible_devices([], 'GPU')
 
                     
 
-#   /ibex/project/c2253/felembaa/waymo_dataset/valid_scenario_ids
+#   <internal_waymo_dataset_root>/valid_scenario_ids
 
-data_files = glob.glob('/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive/*')
+data_files = glob.glob('<internal_waymo_dataset_root>/validation_interactive/*')
 scenario_ids = {}
 for data_file in tqdm(data_files):
     dataset = tf.data.TFRecordDataset(data_file)

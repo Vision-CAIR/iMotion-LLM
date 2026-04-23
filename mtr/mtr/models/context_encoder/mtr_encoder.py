@@ -3,7 +3,12 @@
 # Written by Shaoshuai Shi 
 # All Rights Reserved
 import sys
-sys.path.append("/home/felembaa/projects/iMotion-LLM-ICLR/mtr")
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[4]
+MTR_ROOT = REPO_ROOT / "mtr"
+if str(MTR_ROOT) not in sys.path:
+    sys.path.insert(0, str(MTR_ROOT))
 import numpy as np
 import torch
 import torch.nn as nn

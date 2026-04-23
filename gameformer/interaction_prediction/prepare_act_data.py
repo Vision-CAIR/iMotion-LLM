@@ -1,13 +1,13 @@
 # torchrun --nproc-per-node 4 ~/project/gameformer_p/interaction_prediction/train.py --wandb --distributed --name gameformer_temp1
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --wandb --distributed --name gameformer_temp1 --batch_size 8
-# torchrun --nproc-per-node 2 train.py --distributed --workers 8 --batch_size 64 --train_set /ibex/user/felembaa/waymo_dataset/training_interactive_gameformer_10hz_agentorder --valid_set /ibex/user/felembaa/waymo_dataset/validation_interactive_gameformer_10hz --subsample False --future_len 80
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --act --act_dec --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl0_act/ --name gf_4mar_lvl0_act --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 0 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20nvidia-smi
-# torchrun --nproc-per-node 4 /home/felembaa/projects/gameformer_p/interaction_prediction/train.py --save_model /ibex/user/felembaa/gameformer_models/gf_4mar_lvl6_valid/ --name gf_4mar_lvl6_valid --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20 --valid_set /ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_original_20nvidia-smi
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --wandb --distributed --name gameformer_temp1 --batch_size 8
+# torchrun --nproc-per-node 2 train.py --distributed --workers 8 --batch_size 64 --train_set <internal_user_root>/waymo_dataset/training_interactive_gameformer_10hz_agentorder --valid_set <internal_user_root>/waymo_dataset/validation_interactive_gameformer_10hz --subsample False --future_len 80
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --act --act_dec --save_model <internal_user_root>/gameformer_models/gf_4mar_lvl0_act/ --name gf_4mar_lvl0_act --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 0 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20nvidia-smi
+# torchrun --nproc-per-node 4 <legacy_gameformer_repo>/interaction_prediction/train.py --save_model <internal_user_root>/gameformer_models/gf_4mar_lvl6_valid/ --name gf_4mar_lvl6_valid --load_dir '' --wandb --distributed --workers 8 --batch_size 64 --level 6 --modalities 6 --future_len 80 --learning_rate 1e-4 --subsample False --lr_steps '18,21,24,27,30' --training_epochs 30 --train_set <internal_waymo_dataset_root>/validation_interactive_original_20 --valid_set <internal_waymo_dataset_root>/validation_interactive_original_20nvidia-smi
 import torch
 import sys
 sys.path.append('.')
 sys.path.append('..')
-sys.path.append('/home/felembaa/projects/iMotion-LLM-ICLR')
+sys.path.append('<legacy_repo_root>')
 sys.path.append('...')
 import csv
 import argparse
@@ -32,13 +32,13 @@ from tqdm import tqdm
 
 # from exctract_instruct import *
 
-data_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_21aug/*'
+data_dir = '<internal_dataset_root>/waymo/gameformer/training_21aug/*'
 # data_list = glob.glob(data_dir)
 # agentJsons_dir = f"{data_dir[:-2]}_agentJsons"
 # agentJsons_list = glob.glob(f"{agentJsons_dir}/*")
 # out_data = {file_name.split('/')[-1].split('.')[0]:{'act0':'-1', 'act1':'-1'} for file_name in data_list}
 # agentJsons_dir = f"{data_dir[:-2]}_agentJsons"
-template_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_21aug_templateLLM/*'
+template_dir = '<internal_dataset_root>/waymo/gameformer/training_21aug_templateLLM/*'
 data_list = glob.glob(template_dir)
 for file_name in tqdm(data_list):
     with open(file_name) as f:

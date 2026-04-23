@@ -650,13 +650,13 @@ def parallel_process(root_dir, point_path, save_path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data Processing Interaction Predictions')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2253/felembaa/waymo_dataset/tfexample/validation_interactive/')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2253/felembaa/waymo_dataset/tfexample_v_1_2_1/validation_interactive/')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2253/felembaa/waymo_dataset/tfexample_v_1_2_1/training/')
-    parser.add_argument('--load_path', type=str, help='path to dataset files', default='/home/felembaa/datasets/waymo/v_1_2/tf_example/training/')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/home/felembaa/datasets/waymo/v_1_2/tf_example/validation_interactive/')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_waymo_dataset_root>/tfexample/validation_interactive/')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_waymo_dataset_root>/tfexample_v_1_2_1/validation_interactive/')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_waymo_dataset_root>/tfexample_v_1_2_1/training/')
+    parser.add_argument('--load_path', type=str, help='path to dataset files', default='<local_dataset_root>/waymo/v_1_2/tf_example/training/')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<local_dataset_root>/waymo/v_1_2/tf_example/validation_interactive/')
     
-    parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/home/felembaa/datasets/gameformer/training_fullmap')
+    parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<local_dataset_root>/gameformer/training_fullmap')
     parser.add_argument('--point_path', type=str, help='path to load K-Means Anchors (Currently not included in the pipeline)', default='', required=False)
     parser.add_argument('--processes', type=int, help='multiprocessing process num', default=1)
     parser.add_argument('--not_debug', action="store_true", help='visualize processed data', default=True)

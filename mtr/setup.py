@@ -1,7 +1,7 @@
 # Motion Transformer (MTR): https://arxiv.org/abs/2209.13508
 # Published at NeurIPS 2022
 
-# conda create --prefix /ibex/project/c2253/felembaa/envs/ python=3.8 -y
+# conda create --prefix <internal_env_root>/ python=3.8 -y
 
 import os
 import subprocess

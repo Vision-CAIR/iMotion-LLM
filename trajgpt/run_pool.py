@@ -15,4 +15,4 @@
 
 source ~/miniconda3/bin/activate minigpt4
 
-python /home/felembaa/projects/trajgpt/extract_incstuct_future.py --mp True --input_folder '/ibex/project/c2253/felembaa/waymo_dataset/training_interactive_original_20'
+python <legacy_trajgpt_repo>/extract_incstuct_future.py --mp True --input_folder '<internal_waymo_dataset_root>/training_interactive_original_20'

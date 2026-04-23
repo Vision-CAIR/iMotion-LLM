@@ -415,7 +415,7 @@ class ImageTextPretrainTask(BaseTask):
 # #         num_eval_examples=int(num_eval_examples/get_world_size())
 # #         figs = []
 # #         #TODO: fix next line, do this in the model class
-# #         # data_info_path = '/ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/traj_29june/data_info.pt'
+# #         # data_info_path = '<internal_user_root>/gpt_datasets/minigpt4_datasets/traj/traj_29june/data_info.pt'
 # #         # data_info = torch.load(data_info_path)
 # #         # rel_cont_grid = data_info['rel_cont_grid'].to(model.device)
 # #         #TODO: fix next line, do this in the model class
@@ -668,7 +668,7 @@ class ImageTextPretrainTask(BaseTask):
 #         # return evaluation_samples_count, rel_err, traj_err, final_traj_err
     
     
-#         # fig1.save('/ibex/user/felembaa/tst.png')
+#         # fig1.save('<internal_user_root>/tst.png')
 #         # print("Validation example:")
 #         #         # print("")
 #         # print(output_text)
@@ -686,7 +686,7 @@ class ImageTextPretrainTask(BaseTask):
 # #         if not hasattr(data_loader, "__next__"):
 # #             # convert to iterator if not already
 # #             data_loader = iter(data_loader)
-# #         data_info = torch.load('/ibex/user/felembaa/gpt_datasets/minigpt4_datasets/traj/traj_29june/data_info.pt')
+# #         data_info = torch.load('<internal_user_root>/gpt_datasets/minigpt4_datasets/traj/traj_29june/data_info.pt')
 # #         rel_cont_grid = data_info['rel_cont_grid'].to(model.device)
         
 # #         _rel_err=0.0
@@ -815,7 +815,7 @@ class ImageTextPretrainTask(BaseTask):
 
 # #                     # ax1,fig1 = model.plt_grid_and_original_02(grid=pred_traj_gt.cpu(), grid_shape='o',ax1=None,fig1=None, colors_=1, color_alpha=0.5)
 # #                     # ax1,fig1 = model.plt_grid_and_original_02(grid=output_traj.cpu(), grid_shape='s',ax1=ax1,fig1=fig1, colors_=2)
-# #                     # fig1.save('/ibex/user/felembaa/tst.png')
+# #                     # fig1.save('<internal_user_root>/tst.png')
 # #                     # ''
 # #                     # Figure ready to be saved, now lets calculate the metrics
 
@@ -870,7 +870,7 @@ class ImageTextPretrainTask(BaseTask):
 #         # print("#######################")
 #         # ax1,fig1 = model.plt_grid_and_original_02(grid=pred_traj_gt.cpu(), grid_shape='o',ax1=None,fig1=None, colors_=1, color_alpha=0.5)
 #         # ax1,fig1 = model.plt_grid_and_original_02(grid=output_traj.cpu(), grid_shape='s',ax1=ax1,fig1=fig1, colors_=2)
-#         # fig1.save('/ibex/user/felembaa/tst.png')
+#         # fig1.save('<internal_user_root>/tst.png')
 #         # print("Validation example:")
 #         #         # print("")
 #         # print(output_text)

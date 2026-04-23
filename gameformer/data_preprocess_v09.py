@@ -3452,7 +3452,7 @@ class DataProcess(object):
                         # Show the legend
                         plt.legend()
         # if False:
-        # nohup python3 /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/data_preprocess_v08_eval02.py > nohup/zzz.log 2>&1 & disown
+        # nohup python3 <legacy_repo_root>/gameformer/data_preprocess_v08_eval02.py > nohup/zzz.log 2>&1 & disown
         # if figure_center is not None:
         center_x = 0  # Replace with your actual center x-coordinate
         center_y = 0  # Replace with your actual center y-coordinate
@@ -3833,8 +3833,8 @@ def parallel_process(root_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data Processing Interaction Predictions')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/training')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/training')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/feb16_2025/training')
     parser.add_argument('--load_path', type=str, help='path to dataset files', default='data/raw/waymo/validation_interactive')
     parser.add_argument('--save_path', type=str, help='path to save processed data', default='data/processed/waymo/gameformer/val')
     parser.add_argument('--point_path', type=str, help='path to load K-Means Anchors (Currently not included in the pipeline)', default='')

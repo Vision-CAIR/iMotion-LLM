@@ -143,13 +143,13 @@ def mask_dict(dict_in, bool_mask):
 # model_name = 'mar16_04_8c_base_cllm_v2'
 # conditional_model = True
 # epoch = 25
-# root_dir = '/ibex/user/felembaa/llm_models/cgf/'
+# root_dir = '<internal_user_root>/llm_models/cgf/'
 # data_dir = root_dir+model_name+f'/eval{epoch}/data/*'
 modalities = 6
 num_classes=8
 
 print('train data')
-data_dir = '/ibex/project/c2253/felembaa/waymo_dataset/training_interactive_32_small_13mar/*'
+data_dir = '<internal_waymo_dataset_root>/training_interactive_32_small_13mar/*'
 data_list = glob.glob(data_dir)
 print(f'Number of found files: {len(data_list)}')
 

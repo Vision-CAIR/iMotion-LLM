@@ -2,7 +2,7 @@
 ## The four tokens represents the ego and agent-2 tokens from the ego view and agent-2 view
 datasets:
   traj_align:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/training_23aug/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/training_23aug/*'
     filelabel: waymo_interactive
     processor:
       train:
@@ -18,7 +18,7 @@ datasets:
         contrastive: true
         random_select: False
   # traj_align_valid:
-  #   dataset_path: '/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_p_29feb_json/*'
+  #   dataset_path: '<internal_waymo_dataset_root>/validation_interactive_p_29feb_json/*'
   #   # filelabel: waymo_interactive
   #   processor:
   #     valid:
@@ -67,8 +67,8 @@ model:
   rollouts: 6
   lora_bias: false
   gameformer_enc: true
-  # gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
-  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/cgf_23aug/epochs_29.pth'
+  # gf_encoder_path: '<internal_user_root>/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
+  gf_encoder_path: '<internal_model_root>/gameformer/cgf_23aug/epochs_29.pth'
   gf_encoder_layers: 6
   gf_act_enc: False
   gf_act_dec: true
@@ -76,7 +76,7 @@ model:
   caption: true
   
 run:
-  # resume_ckpt_path: "/ibex/user/felembaa/waymo_checkpoints2/exp01_16feb_llm_actAlign/checkpoint_last.pth"
+  # resume_ckpt_path: "<internal_user_root>/waymo_checkpoints2/exp01_16feb_llm_actAlign/checkpoint_last.pth"
   # best_agg_metric: 1000
   # best_epoch: 1.704
   
@@ -119,7 +119,7 @@ run:
   min_lr: 1e-6
   didnt_work_repeat: 0
   # num_eval_batches: 8
-  output_dir: /ibex/project/c2278/felembaa/models/imotion/aug24_cgf_5tokens #Adjust this
+  output_dir: <internal_model_root>/imotion/aug24_cgf_5tokens #Adjust this
   job_name: 'aug24_cgf_5tokens'
   
   wandb_log: true

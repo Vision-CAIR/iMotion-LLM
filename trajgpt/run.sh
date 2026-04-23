@@ -12,4 +12,4 @@ conda activate imotion
 
 module load cuda/12.2
 
-torchrun --nproc-per-node 4 --master_port ${PORT} /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train.py --cfg-path /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/eval05/p.yaml
+torchrun --nproc-per-node 4 --master_port ${PORT} <legacy_repo_root>/trajgpt/train.py --cfg-path <legacy_repo_root>/trajgpt/train_configs_new/eval05/p.yaml

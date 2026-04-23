@@ -15,8 +15,12 @@ from tqdm import tqdm
 import sys
 import os
 import matplotlib.pyplot as plt
-# Add the project path to the system path for importing project-specific modules
-sys.path.append('/home/felembaa/projects/iMotion-LLM-ICLR/gameformer')
+REPO_ROOT = Path(__file__).resolve().parents[1]
+GAMEFORMER_ROOT = REPO_ROOT / "gameformer"
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+if str(GAMEFORMER_ROOT) not in sys.path:
+    sys.path.insert(0, str(GAMEFORMER_ROOT))
 from utils.inter_pred_utils import DrivingData
 import json
 import shutil
@@ -25,10 +29,10 @@ from pathlib import Path
 
 save_figures = True
 generate_json_and_statistics = False
-train_data_dir = '/ibex/project/c2253/felembaa/waymo_dataset/training_interactive_32_full_14mar/'
-valid_data_dir = '/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_32_small_13mar/'
-save_dir = '/ibex/project/c2253/felembaa/waymo_dataset/instructions_samples'
-save_dir_json = '/ibex/project/c2253/felembaa/waymo_dataset/instructions_json/'
+train_data_dir = str(REPO_ROOT / "data" / "processed" / "waymo" / "gameformer" / "train") + "/"
+valid_data_dir = str(REPO_ROOT / "data" / "processed" / "waymo" / "gameformer" / "val") + "/"
+save_dir = str(REPO_ROOT / "outputs" / "instruction_samples")
+save_dir_json = str(REPO_ROOT / "outputs" / "instruction_json") + "/"
 
 if save_figures:
     # Clean up the directory

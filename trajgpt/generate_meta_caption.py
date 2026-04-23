@@ -4,8 +4,8 @@ from tqdm import tqdm
 import time
 import glob
 
-# in_path = "/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_p_29feb_00_json"
-# in_path = "/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_p_29feb_00"
+# in_path = "<internal_waymo_dataset_root>/validation_interactive_p_29feb_00_json"
+# in_path = "<internal_waymo_dataset_root>/validation_interactive_p_29feb_00"
 # files = [f for f in os.listdir(in_path) if os.path.isfile(os.path.join(in_path, f))]
 def list_files_in_dir(in_path):
     # list files in dir
@@ -102,8 +102,8 @@ Because, the current scene information as follows:
 
 if __name__ =="__main__":
     print("...")
-    data_dir = "/ibex/project/c2253/felembaa/waymo_dataset/validation_interactive_p_29feb_json"
-    # data_dir = "/ibex/project/c2253/felembaa/waymo_dataset/training_interactive_p_29feb_json"
+    data_dir = "<internal_waymo_dataset_root>/validation_interactive_p_29feb_json"
+    # data_dir = "<internal_waymo_dataset_root>/training_interactive_p_29feb_json"
     samples_files_names = glob.glob(data_dir+'/*')
     # samples_files_names = list_files_in_dir(in_path=data_dir)
     print("......")

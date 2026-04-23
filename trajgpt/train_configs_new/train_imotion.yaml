@@ -64,7 +64,7 @@ model:
   rollouts: 6
   lora_bias: false
   gameformer_enc: true
-  # gf_encoder_path: '/ibex/user/felembaa/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
+  # gf_encoder_path: '<internal_user_root>/gameformer_models/gf_7may_fullmap_act_smalldata/epochs_last.pth'
   gf_encoder_path: 'gameformer_pretrained/epochs_last.pth'
   gf_encoder_layers: 6
   gf_act_enc: False
@@ -73,7 +73,7 @@ model:
   caption: true
   
 run:
-  # resume_ckpt_path: "/ibex/user/felembaa/waymo_checkpoints2/exp01_16feb_llm_actAlign/checkpoint_last.pth"
+  # resume_ckpt_path: "<internal_user_root>/waymo_checkpoints2/exp01_16feb_llm_actAlign/checkpoint_last.pth"
   # best_agg_metric: 1000
   # best_epoch: 1.704
   

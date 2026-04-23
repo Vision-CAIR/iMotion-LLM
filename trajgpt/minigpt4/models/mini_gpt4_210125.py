@@ -15,7 +15,7 @@ from transformers import AutoConfig
 from transformers import BitsAndBytesConfig
 # from transformers import LlamaForCausalLM
 from minigpt4.models.custom_modeling_llama import LlamaForCausalLM
-# /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/minigpt4/models/custom_modeling_llama.py
+# <legacy_repo_root>/trajgpt/minigpt4/models/custom_modeling_llama.py
 from peft import prepare_model_for_kbit_training
 from peft import LoraConfig, get_peft_model, PeftModel
 # from transformers.models.llama.modeling_llama import LlamaForCausalLM
@@ -153,7 +153,7 @@ class MiniGPT4(LlamaForCausalLM):
         lora_r=64,
         lora_alpha=16,
         lora_dropout=0.05,
-        # discretizer_model_path = '/home/felembaa/projects/trajgpt/KBinsDiscretizer_76.pkl',
+        # discretizer_model_path = '<legacy_trajgpt_repo>/KBinsDiscretizer_76.pkl',
         discretizer_model_path = './KBinsDiscretizer_76.pkl',
         lora_target_modules = 'all',
         lora_bias=False,

@@ -3,7 +3,7 @@ import glob
 import sys
 sys.path.append("..")
 sys.path.append(".")
-sys.path.append("/home/felembaa/projects/iMotion-LLM-ICLR")
+sys.path.append("<legacy_repo_root>")
 import argparse
 from multiprocessing import Pool
 import tensorflow as tf
@@ -3449,7 +3449,7 @@ class DataProcess(object):
                         # Show the legend
                         plt.legend()
         # if False:
-        # nohup python3 /home/felembaa/projects/iMotion-LLM-ICLR/gameformer/data_preprocess_v08_eval02.py > nohup/zzz.log 2>&1 & disown
+        # nohup python3 <legacy_repo_root>/gameformer/data_preprocess_v08_eval02.py > nohup/zzz.log 2>&1 & disown
         # if figure_center is not None:
         center_x = 0  # Replace with your actual center x-coordinate
         center_y = 0  # Replace with your actual center y-coordinate
@@ -3468,14 +3468,14 @@ class DataProcess(object):
 
     def process_data(self, viz=True,test=False):
         # Load each one of those as gt1_meta, pos1_meta, neg1_meta:
-        # '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_gt1.json'
-        # '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_neg1.json'
-        # '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_pos1.json'
-        with open('/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_gt1.json', 'r') as f:
+        # '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_gt1.json'
+        # '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_neg1.json'
+        # '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_pos1.json'
+        with open('<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_gt1.json', 'r') as f:
             gt1_meta = json.load(f)
-        with open('/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_neg1.json', 'r') as f:
+        with open('<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_neg1.json', 'r') as f:
             neg1_meta = json.load(f)
-        with open('/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_pos1.json', 'r') as f:
+        with open('<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation_eval_meta/meta_pos1.json', 'r') as f:
             pos1_meta = json.load(f)
         
         gt1_meta_samples_names = [k.split('_interest')[0] for k in gt1_meta.keys()]
@@ -3915,10 +3915,10 @@ def parallel_process(root_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data Processing Interaction Predictions')
-    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/training')
-    parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/sep14_2025_2agent/validation_complementary_data')
-    parser.add_argument('--load_path', type=str, help='path to dataset files', default='/ibex/project/c2278/felembaa/datasets/waymo/validation_interactive')
-    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_temp')
+    # parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/training')
+    parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/sep14_2025_2agent/validation_complementary_data')
+    parser.add_argument('--load_path', type=str, help='path to dataset files', default='<internal_dataset_root>/waymo/validation_interactive')
+    # parser.add_argument('--save_path', type=str, help='path to save processed data', default = '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_temp')
     parser.add_argument('--point_path', type=str, help='path to load K-Means Anchors (Currently not included in the pipeline)', default='')
     parser.add_argument('--processes', type=int, help='multiprocessing process num', default=8)
     parser.add_argument('--not_debug', action="store_true", help='visualize processed data', default=False)

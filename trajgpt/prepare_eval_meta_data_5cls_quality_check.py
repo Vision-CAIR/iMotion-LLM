@@ -1,6 +1,6 @@
 import sys
 sys.path.append(".")
-sys.path.append("/home/felembaa/projects/iMotion-LLM-ICLR/")
+sys.path.append("<legacy_repo_root>/")
 import os
 import torch
 import logging
@@ -121,7 +121,7 @@ def load_meta_data(file_path):
         return {}
 
 def main():
-    root_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/'
+    root_dir = '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/'
     valid_dir = 'validation'
     
     ## generate all meta data of all categories if it does not exist
@@ -154,7 +154,7 @@ def main():
 
     output_root_dir = root_dir + valid_dir
     # image_dir = root_dir + 'validation_fig/'
-    image_dir = '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation_fig'
+    image_dir = '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation_fig'
 
     # Load meta data for each category JSON file
     meta_data = {category: load_meta_data(category_output_dirs[category]) for category in categories}

@@ -18,7 +18,13 @@ from scipy import stats
 import csv
 import sys
 import matplotlib.cm as cm
-sys.path.append("/home/felembaa/projects/iMotion-LLM-ICLR")
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+if str(REPO_ROOT / "mtr") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "mtr"))
 from instructions.extract_instructions import futureNavigation
 from gameformer.utils.data_utils import *
 # from extract_instruct_v3 import *
@@ -371,10 +377,28 @@ def eval_one_epoch_(cfg, model, dataloader, epoch_id, logger, dist_test=False, s
     # valid_act_mask = gt_act[:,0]!=-1
     # gt_act, pred_act = gt_act[valid_act_mask], pred_act[valid_act_mask]
     # calculate_metrics(gt_act[...,0], pred_act[...,0], hits_stats)
+    debug_metrics_dir = REPO_ROOT / "outputs" / "mtr_eval_debug"
+    debug_metrics_dir.mkdir(parents=True, exist_ok=True)
     if cfg.MODEL.MOTION_DECODER.ACT:
-        save_metrics_to_csv(epoch_metrics=None, epoch_metrics_contrastive= None, hits_stats=hits_stats, filename='/ibex/user/felembaa/mtr_models/cmtr+20_percent_data/run01/', act=True, epoch=30, model_name='baseline')
+        save_metrics_to_csv(
+            epoch_metrics=None,
+            epoch_metrics_contrastive=None,
+            hits_stats=hits_stats,
+            filename=str(debug_metrics_dir / "cmtr_run01") + "/",
+            act=True,
+            epoch=30,
+            model_name='baseline',
+        )
     else:
-        save_metrics_to_csv(epoch_metrics=None, epoch_metrics_contrastive= None, hits_stats=hits_stats, filename='/ibex/user/felembaa/mtr_models/mtr+20_percent_data/run01/', act=False, epoch=30, model_name='baseline')
+        save_metrics_to_csv(
+            epoch_metrics=None,
+            epoch_metrics_contrastive=None,
+            hits_stats=hits_stats,
+            filename=str(debug_metrics_dir / "mtr_run01") + "/",
+            act=False,
+            epoch=30,
+            model_name='baseline',
+        )
     # dict_to_csv(hits_stats, str(result_dir)+f'main_metrics.csv')
     # target_trajs = np.vstack(target_trajs)
     # target_trajs = target_trajs[vehicle_mask]

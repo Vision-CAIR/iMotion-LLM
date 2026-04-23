@@ -11,7 +11,13 @@ import tqdm
 from torch.nn.utils import clip_grad_norm_
 # from extract_instruct_v3 import *
 import sys
-sys.path.append("/home/felembaa/projects/iMotion-LLM-ICLR")
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+if str(REPO_ROOT / "mtr") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "mtr"))
 from instructions.extract_instructions import futureNavigation
 from evaluate_pkl_data_utils import get_act_util
 from gameformer.utils.data_utils import agent_norm

@@ -1,4 +1,4 @@
-# python extract_instruct_future_ddp.py --input_folder '/ibex/user/felembaa/waymo_dataset/validation_interactive_original'
+# python extract_instruct_future_ddp.py --input_folder '<internal_user_root>/waymo_dataset/validation_interactive_original'
 import os
 import numpy as np
 import torch

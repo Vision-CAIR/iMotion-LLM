@@ -1,6 +1,6 @@
 datasets:
   traj_align:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/training/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/feb16_2025/training/*'
     
     filelabel: waymo_interactive
     processor:
@@ -24,7 +24,7 @@ datasets:
         # weighted_sampling: False
   
   traj_align_valid:
-    dataset_path: '/ibex/project/c2278/felembaa/datasets/waymo/gameformer/feb16_2025/validation_more_data/validation/*'
+    dataset_path: '<internal_dataset_root>/waymo/gameformer/feb16_2025/validation_more_data/validation/*'
     filelabel: waymo_interactive
     processor:
       valid:
@@ -70,7 +70,7 @@ model:
   lora_bias: false
   gameformer_enc: true
   neighbors_to_predict: 0
-  gf_encoder_path: '/ibex/project/c2278/felembaa/models/gameformer/feb_18_2025/cgf_l1/epochs_29.pth'
+  gf_encoder_path: '<internal_model_root>/gameformer/feb_18_2025/cgf_l1/epochs_29.pth'
   gf_level: 1 # decoder levels
   num_direction_classes: 5
   gf_encoder_layers: 6
@@ -92,7 +92,7 @@ model:
   # * mistralai/Mistral-7B-Instruct-v0.1
   auto_txt_formatter: True
 run:
-  output_dir: /ibex/project/c2278/felembaa/models/imotion/2_iccv_rebuttal_may_2025/12_llama_7b_e2e
+  output_dir: <internal_model_root>/imotion/2_iccv_rebuttal_may_2025/12_llama_7b_e2e
   
   amp: False
   

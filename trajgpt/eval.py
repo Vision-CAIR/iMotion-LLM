@@ -4,9 +4,9 @@
  SPDX-License-Identifier: BSD-3-Clause
  For full license text, see the LICENSE_Lavis file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 """
-# torchrun --nproc_per_node 2 /home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train.py
-# torchrun --nproc-per-node 4 /home/felembaa/projects/trajgpt/train.py --cfg-path 
-#torchrun --nproc-per-node 2 /home/felembaa/projects/trajgpt/train.py --cfg-path /home/felembaa/projects/trajgpt/train_configs/ibex.yaml
+# torchrun --nproc_per_node 2 <legacy_repo_root>/trajgpt/train.py
+# torchrun --nproc-per-node 4 <legacy_trajgpt_repo>/train.py --cfg-path 
+#torchrun --nproc-per-node 2 <legacy_trajgpt_repo>/train.py --cfg-path <legacy_trajgpt_repo>/train_configs/ibex.yaml
 import os
 import sys
 from pathlib import Path
@@ -21,7 +21,7 @@ from imotion_paths import env_or_default
 os.environ.setdefault("HF_HOME", str(env_or_default("HF_HOME", REPO_ROOT / ".cache" / "huggingface")))
 sys.path.append(".")
 # from huggingface_hub import login
-# login(token="<huggingface_token>")
+# Set HUGGINGFACE_HUB_TOKEN in the environment if gated model access is required.
 import argparse
 import random
 import wandb
@@ -382,28 +382,28 @@ class CustomTrainer(Trainer):
 def parse_args():
     parser = argparse.ArgumentParser(description="Training")
 
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/eval_jul/e03_act_contrastive.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/eval_jul/e01gt1.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/eval_jul/e05/e05_0gt1.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/rebuttal/eval_m07_gt_fulldata_noInstruct.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/rebuttal/train_finetune_m07_nuplan_e2e.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/rebuttal/eval_m07_nuplan.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/rebuttal/train_small_LLM.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/rebuttal/eval_small_LLM.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_new/train_jul/t01_act_contrastive_2agent.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_aug/train_configs_24aug/train_small_gf_predOnly.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_aug/train_configs_24aug/train_small_cgf_predOnly_fewTokens4_cimotion.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_sep/train/sep09_gf_noDecoderHead_4tokens_smallLLM.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_sep/eval_22sep/imotion_2tokens/imotion_2tokens_pred.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_sep/sep30/imotion_2tokens_waymo/train_stage_2/imotion_2tokens_stage2.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_nov/train/train_lisa_like.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_dec/train/train_nuplan_complex_temp.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_dec/train/train_nuplan_complex_26dec.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_dec/eval/eval_base_27dec.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_cvpr_rebuttal/train_imotion08_complex_r8.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_dec/eval/eval_base_27dec.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_iccv_feb_2025/train_imotion_mtr.yaml', help="path to configuration file.")
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_cvpr_rebuttal/train_imotion08_complex_r8.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_new/eval_jul/e03_act_contrastive.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_new/eval_jul/e01gt1.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_new/eval_jul/e05/e05_0gt1.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_new/rebuttal/eval_m07_gt_fulldata_noInstruct.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_new/rebuttal/train_finetune_m07_nuplan_e2e.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_new/rebuttal/eval_m07_nuplan.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_new/rebuttal/train_small_LLM.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_new/rebuttal/eval_small_LLM.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_new/train_jul/t01_act_contrastive_2agent.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_aug/train_configs_24aug/train_small_gf_predOnly.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_aug/train_configs_24aug/train_small_cgf_predOnly_fewTokens4_cimotion.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_sep/train/sep09_gf_noDecoderHead_4tokens_smallLLM.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_sep/eval_22sep/imotion_2tokens/imotion_2tokens_pred.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_sep/sep30/imotion_2tokens_waymo/train_stage_2/imotion_2tokens_stage2.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_nov/train/train_lisa_like.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_dec/train/train_nuplan_complex_temp.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_dec/train/train_nuplan_complex_26dec.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_dec/eval/eval_base_27dec.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_cvpr_rebuttal/train_imotion08_complex_r8.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_dec/eval/eval_base_27dec.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_iccv_feb_2025/train_imotion_mtr.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_cvpr_rebuttal/train_imotion08_complex_r8.yaml', help="path to configuration file.")
     parser.add_argument(
         "--cfg-path",
         required=False,
@@ -415,13 +415,13 @@ def parse_args():
     
     
     
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_dec/train/temp.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_dec/train/temp.yaml', help="path to configuration file.")
     
     
     
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_sep/eval/sep09_gf_clsHeadFinetune_4tokens_smallLLM.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_sep/eval/sep09_gf_clsHeadFinetune_4tokens_smallLLM.yaml', help="path to configuration file.")
     
-    # parser.add_argument("--cfg-path", required=False, default='/home/felembaa/projects/iMotion-LLM-ICLR/trajgpt/train_configs_sep/train/sep09_gf_encFinetune_4tokens_smallLLM.yaml', help="path to configuration file.")
+    # parser.add_argument("--cfg-path", required=False, default='<legacy_repo_root>/trajgpt/train_configs_sep/train/sep09_gf_encFinetune_4tokens_smallLLM.yaml', help="path to configuration file.")
     parser.add_argument(
         "--options",
         nargs="+",
@@ -696,7 +696,7 @@ def main():
     # trainer = SFTTrainer(
     # model,
     # train_dataset=datasets['traj_align']['train'],
-    # args=SFTConfig(output_dir="/ibex/project/c2278/temp"),
+    # args=SFTConfig(output_dir="<internal_temp_root>"),
     # peft_config=loraconfig,
     # )
     # peft_config = LoraConfig(

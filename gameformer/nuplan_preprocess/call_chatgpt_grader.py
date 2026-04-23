@@ -7,17 +7,13 @@ import pickle
 import glob
 from tqdm import tqdm
 
-api_key = os.environ.get("OPENAI_API_KEY", "")
-if not api_key:
-    raise ValueError("Set OPENAI_API_KEY before running this script.")
-openai.api_key = api_key
 # Load the GPT grading prompt template
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GRADING_PROMPT_PATH = REPO_ROOT / "gameformer" / "nuplan_preprocess" / "gpt_grader.txt"
-# GROUND_TRUTH_JSON_PATH = "/ibex/project/c2278/felembaa/datasets/nuplan/test_gpt_prompt_14types/all_types/gpt_data_101124/us-pa-pittsburgh-hazelwood_cda268e846265f33.json"
+# GROUND_TRUTH_JSON_PATH = "<internal_dataset_root>/nuplan/test_gpt_prompt_14types/all_types/gpt_data_101124/us-pa-pittsburgh-hazelwood_cda268e846265f33.json"
 
 # Output directory
-# OUTPUT_JSON_PATH = "/ibex/project/c2278/felembaa/datasets/nuplan/test_gpt_prompt_14types/all_types/gpt_grading_results.json"
+# OUTPUT_JSON_PATH = "<internal_dataset_root>/nuplan/test_gpt_prompt_14types/all_types/gpt_grading_results.json"
 
 def load_file(file_path):
     """ Load a text file and return its content. """
@@ -37,6 +33,10 @@ def load_pkl(file_path):
 
 def call_chatgpt_03(prompt, max_retries=3, delay=5, model="gpt-4o-mini"):
     """ Calls OpenAI GPT model with a given prompt, handling retries. """
+    api_key = os.environ.get("OPENAI_API_KEY", "")
+    if not api_key:
+        raise ValueError("Set OPENAI_API_KEY before running this script.")
+    openai.api_key = api_key
     retries = 0
     while retries < max_retries:
         try:
@@ -101,7 +101,7 @@ def main():
     # Load grading prompt template
     graded_results = []
     grading_template = load_file(GRADING_PROMPT_PATH)
-    evaluated_file = '/ibex/project/c2278/cvpr_rebuttal/complex/r8/checkpoint-3600/result/gt1_eval0/data/*'
+    evaluated_file = '<internal_experiment_root>/complex/r8/checkpoint-3600/result/gt1_eval0/data/*'
     target_files = glob.glob(evaluated_file)
     scores_count, scores = 0, 0
     score_save_path = '/'.join(evaluated_file.split('/')[:-2])+'overall_score.txt'
@@ -187,11 +187,11 @@ if __name__ == "__main__":
 # from concurrent.futures import ProcessPoolExecutor, as_completed
 
 # # Load the GPT grading prompt template
-# GRADING_PROMPT_PATH = "/home/felembaa/projects/iMotion-LLM-ICLR/gameformer/nuplan_preprocess/gpt_grader.txt"
-# GROUND_TRUTH_JSON_PATH = "/ibex/project/c2278/felembaa/datasets/nuplan/test_gpt_prompt_14types/all_types/gpt_data_101124/us-pa-pittsburgh-hazelwood_cda268e846265f33.json"
+# GRADING_PROMPT_PATH = "<legacy_repo_root>/gameformer/nuplan_preprocess/gpt_grader.txt"
+# GROUND_TRUTH_JSON_PATH = "<internal_dataset_root>/nuplan/test_gpt_prompt_14types/all_types/gpt_data_101124/us-pa-pittsburgh-hazelwood_cda268e846265f33.json"
 
 # # Output directory
-# OUTPUT_JSON_PATH = "/ibex/project/c2278/felembaa/datasets/nuplan/test_gpt_prompt_14types/all_types/gpt_grading_results.json"
+# OUTPUT_JSON_PATH = "<internal_dataset_root>/nuplan/test_gpt_prompt_14types/all_types/gpt_grading_results.json"
 
 # def load_file(file_path):
 #     """ Load a text file and return its content. """

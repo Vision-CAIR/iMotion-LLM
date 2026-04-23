@@ -36,10 +36,10 @@ def parse_config():
     parser = argparse.ArgumentParser(description='arg parser')
     
     parser.add_argument('--cfg_file', type=str, default=str(REPO_ROOT / 'configs' / 'release' / 'mtr_waymo_act.yaml'), help='specify the config for training')
-    # parser.add_argument('--cfg_file', type=str, default='/home/felembaa/projects/iMotion-LLM-ICLR/mtr/tools/cfgs/waymo/mtr+20_percent_data_act_debug.yaml', help='specify the config for training')
-    # parser.add_argument('--cfg_file', type=str, default='/home/felembaa/projects/iMotion-LLM-ICLR/mtr/tools/cfgs/waymo/mtr+20_percent_data_act.yaml', help='specify the config for training')
+    # parser.add_argument('--cfg_file', type=str, default='<legacy_repo_root>/mtr/tools/cfgs/waymo/mtr+20_percent_data_act_debug.yaml', help='specify the config for training')
+    # parser.add_argument('--cfg_file', type=str, default='<legacy_repo_root>/mtr/tools/cfgs/waymo/mtr+20_percent_data_act.yaml', help='specify the config for training')
     # parser.add_argument('--act', action='store_true', default=True, help='')
-    # parser.add_argument('--cfg_file', type=str, default='/home/felembaa/projects/iMotion-LLM-ICLR/mtr/tools/cfgs/waymo/mtr+20_percent_data.yaml', help='specify the config for training')
+    # parser.add_argument('--cfg_file', type=str, default='<legacy_repo_root>/mtr/tools/cfgs/waymo/mtr+20_percent_data.yaml', help='specify the config for training')
     parser.add_argument('--act', action='store_true', default=False, help='')
     # parser.add_argument('--act', action='store_true', default=True, help='')
 
@@ -154,7 +154,7 @@ def main():
         common_utils.set_random_seed(666)
 
     output_dir = Path(cfg.DATA_CONFIG.OUTPUT_PATH) / cfg.TAG / args.extra_tag
-    # f'/ibex/user/felembaa/mtr_models/{cfg.TAG}/{args.extra_tag}'
+    # f'<internal_user_root>/mtr_models/{cfg.TAG}/{args.extra_tag}'
     # output_dir = cfg.ROOT_DIR / 'output' / cfg.EXP_GROUP_PATH / cfg.TAG / args.extra_tag
     ckpt_dir = output_dir / 'ckpt'
     output_dir.mkdir(parents=True, exist_ok=True)

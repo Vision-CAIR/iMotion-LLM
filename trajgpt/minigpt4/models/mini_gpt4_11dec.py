@@ -71,7 +71,7 @@ class MiniGPT4(Blip2Base):
         lora_r=64,
         lora_alpha=16,
         lora_dropout=0.05,
-        # discretizer_model_path = '/home/felembaa/projects/trajgpt/KBinsDiscretizer_76.pkl',
+        # discretizer_model_path = '<legacy_trajgpt_repo>/KBinsDiscretizer_76.pkl',
         discretizer_model_path = './KBinsDiscretizer_76.pkl',
         lora_target_modules = 'all',
     ):
@@ -216,7 +216,7 @@ class MiniGPT4(Blip2Base):
         
         # if 'Llama-2' in llama_model:
         self.llama2=True
-        # with open('/home/felembaa/projects/TrajGPT-1/prompts/input_8.txt', 'r') as f:
+        # with open('<legacy_trajgpt_repo>/prompts/input_8.txt', 'r') as f:
         #     input_ = f.read()
         # prompt_template = '[INST] <<SYS>>\nYou are a helpful motion prediction assistant. Your answers should be abstract and accurate. Please ensure that your answer is based on all of the provided initial positions and motion tokens of all the interactive agents.\n<</SYS>>\n\n Predict the next 16 motion tokens of both agents <in_data> [/INST] '
         # prompt_template = '[INST] <<SYS>>\nYou are a helpful motion prediction assistant. Your answers should be abstract and accurate. Please ensure that your answer is based on all of the provided initial positions and motion tokens of all the interactive agents.\n<</SYS>>\n\n Predict the steps from 0 to 18 for both agents <Agent A> and <Agent B>'# You have to add '[/INST] 'to the end of this or what is after it
