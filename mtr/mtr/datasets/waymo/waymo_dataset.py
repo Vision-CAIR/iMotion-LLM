@@ -24,6 +24,18 @@ from gameformer.utils.data_utils import agent_norm
 REPO_ROOT = Path(__file__).resolve().parents[4]
 
 
+def _resolve_release_dir(env_name, candidates):
+    env_value = os.environ.get(env_name)
+    if env_value:
+        return Path(env_value)
+
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+
+    return candidates[0]
+
+
 class WaymoDataset(DatasetTemplate):
     def __init__(self, dataset_cfg, training=True, logger=None, fliter_gf_based=False):
         super().__init__(dataset_cfg=dataset_cfg, training=training, logger=logger)
@@ -41,24 +53,23 @@ class WaymoDataset(DatasetTemplate):
         self.new_eval_mode = None
         if 'eval_mode' in self.dataset_cfg:
             self.new_eval_mode = self.dataset_cfg.eval_mode
-            default_mapping_dir = self.data_root.parent / "gameformer" / "gf_mtr_mapping" / "gf_templatellm_maps"
-            mapping_dir = Path(
-                os.environ.get(
-                    "IMOTION_LLM_MTR_EVAL_MAPPING_DIR",
-                    str(default_mapping_dir),
-                )
+            mapping_dir = _resolve_release_dir(
+                "IMOTION_LLM_MTR_EVAL_MAPPING_DIR",
+                [
+                    self.data_root.parent / "gameformer" / "gf_mtr_mapping" / "gf_templatellm_maps",
+                ],
             )
             with open(mapping_dir / f"{self.new_eval_mode}.json", "r") as f:
                 test_mapping = json.load(f)
             self.selected_data_indexed = self.test_filter_infos_based_on_gf_data(test_mapping)
             print(f'Total scenes after gameformer prompt filters: {len(self.selected_data_indexed)}')
 
-            default_meta_dir = self.data_root.parent / "gameformer" / "validation_eval_meta"
-            meta_dir = Path(
-                os.environ.get(
-                    "IMOTION_LLM_MTR_EVAL_META_DIR",
-                    str(default_meta_dir),
-                )
+            meta_dir = _resolve_release_dir(
+                "IMOTION_LLM_MTR_EVAL_META_DIR",
+                [
+                    self.data_root.parent / "gameformer" / "val_eval_meta",
+                    self.data_root.parent / "gameformer" / "validation_eval_meta",
+                ],
             )
             with open(meta_dir / f"meta_{self.new_eval_mode}.json", "r") as f:
                 self.meta_eval = json.load(f)
@@ -833,5 +844,4 @@ if __name__ == '__main__':
     except:
         yaml_config = yaml.safe_load(open(args.cfg_file))
     dataset_cfg = EasyDict(yaml_config)
-
 

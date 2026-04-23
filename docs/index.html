@@ -3,20 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="description" content="iMotion-LLM: Instruction-Conditioned Trajectory Generation">
-  <meta name="keywords" content="Autonomous Driving, Trajectory Prediction, LLM, Motion Planning, Instruction Following">
+  <meta name="keywords" content="Autonomous Driving, Trajectory Prediction, Motion Generation, LLM, Waymo, nuPlan">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>iMotion-LLM</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -33,128 +29,149 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-
-          <!-- Title -->
           <h1 class="title is-1 publication-title">iMotion-LLM</h1>
-          <h2 class="title is-2 publication-title">Instruction-Conditioned Trajectory Generation</h2>
+          <h2 class="title is-3 publication-title">Instruction-Conditioned Trajectory Generation</h2>
+          <p class="is-size-5">WACV 2026</p>
 
-          <!-- Authors -->
           <div class="is-size-5">
             <span class="author-block">Abdulwahab Felemban</span>,
             <span class="author-block">Nussair Hroub</span>,
             <span class="author-block">Jian Ding</span>,
             <span class="author-block">Eslam Abdelrahman</span>,
             <span class="author-block">Xiaoqian Shen</span>,
-            <span class="author-block">Mohamed Abdullah*</span>,
+            <span class="author-block">Abduallah Mohamed</span>,
             <span class="author-block">Mohamed Elhoseiny</span>
           </div>
 
-          <!-- Affiliations -->
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><b style="color:#008AD7;">▸</b> King Abdullah University of Science and Technology (KAUST)</span>
-            <span class="author-block"><b style="color:#03953b;">▸</b> Meta Reality Labs*</span>
+            <span class="author-block">KAUST</span>
           </div>
 
-          <!-- Links -->
           <br>
           <div class="column has-text-centered">
             <div class="publication-links">
-
               <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://openaccess.thecvf.com/content/WACV2026/papers/Felemban_iMotion-LLM_Instruction-Conditioned_Trajectory_Generation_WACV_2026_paper.pdf" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="ai ai-arxiv"></i></span>
-                  <span>Paper (Coming Soon)</span>
+                  <span>Paper PDF</span>
                 </a>
               </span>
-
+              <span class="link-block">
+                <a href="https://openaccess.thecvf.com/content/WACV2026/html/Felemban_iMotion-LLM_Instruction-Conditioned_Trajectory_Generation_WACV_2026_paper.html" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fa fa-book"></i></span>
+                  <span>Open Access</span>
+                </a>
+              </span>
               <span class="link-block">
                 <a href="https://github.com/Vision-CAIR/iMotion-LLM" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code</span>
                 </a>
               </span>
-
               <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://github.com/Vision-CAIR/iMotion-LLM/blob/main/docs/release/WACV2026_EXPERIMENT_STATUS.md" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fa fa-list"></i></span>
+                  <span>Experiment Status</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/Vision-CAIR/iMotion-LLM/blob/main/docs/setup/running.md" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fa fa-terminal"></i></span>
+                  <span>How To Run</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/Vision-CAIR/iMotion-LLM/blob/main/docs/release/HUGGINGFACE_UPLOAD_MANIFEST.md" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fa fa-database"></i></span>
-                  <span>Datasets (Coming Soon)</span>
+                  <span>Artifact Manifest</span>
                 </a>
               </span>
-
-              <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fa fa-cube"></i></span>
-                  <span>Model (Coming Soon)</span>
-                </a>
-              </span>
-
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Teaser Placeholder -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <img src="static/images/placeholder_teaser.jpg" alt="Teaser Figure (Placeholder)">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Abstract -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
-      <div class="column is-four-fifths has-text-centered">
-        <h2 class="title is-3">Abstract</h2>
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Abstract</h2>
         <div class="content has-text-justified">
-
-<p>
-We introduce <b>iMotion-LLM</b>, a large language model (LLM) integrated with trajectory prediction modules for interactive motion generation. Unlike conventional approaches, it generates feasible, safety-aligned trajectories based on textual instructions, enabling adaptable and context-aware driving behavior. It combines an encoder-decoder multimodal trajectory prediction model with a pre-trained LLM fine-tuned using LoRA, projecting scene features into the LLM input space and mapping special tokens to a trajectory decoder for text-based interaction and interpretable driving. To support this framework, we introduce two datasets: 1) <b>InstructWaymo</b>, an extension of the Waymo Open Motion Dataset with direction-based motion instructions, and 2) <b>Open-Vocabulary InstructNuPlan</b>, which features safety-aligned instruction-caption pairs and corresponding safe trajectory scenarios. Our experiments validate that instruction conditioning enables trajectory generation that follows the intended condition. iMotion-LLM demonstrates strong contextual comprehension, achieving 84\% average accuracy in direction feasibility detection and 96\% average accuracy in safety evaluation of open-vocabulary instructions. This work lays the foundation for text-guided motion generation in autonomous driving, supporting simulated data generation, model interpretability, and robust safety alignment testing for trajectory generation models.
-</p>
-
+          <p>
+            iMotion-LLM is a large language model integrated with trajectory prediction modules for interactive motion generation. It generates feasible, safety-aligned trajectories from textual instructions, enabling context-aware driving behavior and interpretable reasoning about instruction feasibility and safety.
+          </p>
+          <p>
+            The paper introduces two datasets: <b>InstructWaymo</b>, a direction-conditioned extension of the Waymo Open Motion Dataset, and <b>Open-Vocabulary InstructNuPlan</b>, a safety-oriented benchmark with natural-language instructions and justifications.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Coming Soon -->
 <section class="section">
-  <div class="container is-max-desktop has-text-centered">
-    <h2 class="title is-2">🚧 Coming Soon</h2>
-    <p class="is-size-4">
-      Full project page with figures, method, results, demos, datasets,
-      and interactive examples will be released soon.
-    </p>
-    <br>
-    <img src="static/images/coming_soon_placeholder.png" width="50%" style="opacity:0.6;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Release Status</h2>
+        <div class="content">
+          <ul>
+            <li>The cleaned public codebase is available now.</li>
+            <li>The supported public entry surface is documented under <code>scripts/</code>, <code>configs/release/</code>, and <code>docs/setup/</code>.</li>
+            <li>Most paper experiment code is present, but full public reproducibility still requires released checkpoints, evaluation manifests, and the generated Open-Vocabulary InstructNuPlan prompt bundle.</li>
+            <li>The exact paper-table coverage and missing artifacts are tracked in the linked experiment-status and artifact-manifest documents.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- BibTeX -->
-<section class="section" id="BibTeX">
- <div class="container is-max-desktop content">
-   <h2 class="title">BibTeX</h2>
-   <pre><code>
-@inproceedings{felemban2026imotionllm,
-  title={iMotion-LLM: Instruction-Conditioned Trajectory Generation},
-  author={Felemban, Abdulwahab and Hroub, Nussair and Ding, Jian and Abdelrahman, Eslam and Shen, Xiaoqian and Abdullah, Mohamed and Elhoseiny, Mohamed},
-  booktitle={WACV},
-  year={2026}
-}
-   </code></pre>
- </div>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns">
+      <div class="column">
+        <h2 class="title is-4">Users Download</h2>
+        <div class="content">
+          <ul>
+            <li>Waymo raw data</li>
+            <li>nuPlan raw data and maps</li>
+            <li>Base LLM weights such as Llama 2 7B</li>
+          </ul>
+        </div>
+      </div>
+      <div class="column">
+        <h2 class="title is-4">We Release</h2>
+        <div class="content">
+          <ul>
+            <li>Research checkpoints</li>
+            <li>Waymo evaluation manifests</li>
+            <li>GF-MTR mapping metadata</li>
+            <li>Generated NuPlan prompt bundle</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Acknowledgement -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{Felemban_2026_WACV,
+  author    = {Felemban, Abdulwahab and Hroub, Nussair and Ding, Jian and Abdelrahman, Eslam and Shen, Xiaoqian and Mohamed, Abduallah and Elhoseiny, Mohamed},
+  title     = {iMotion-LLM: Instruction-Conditioned Trajectory Generation},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  month     = {March},
+  year      = {2026},
+  pages     = {2710-2720}
+}</code></pre>
+  </div>
+</section>
+
 <section class="section" id="Acknowledgement">
   <div class="container is-max-desktop content">
     <h2 class="title">Acknowledgement</h2>
@@ -162,4 +179,10 @@ We introduce <b>iMotion-LLM</b>, a large language model (LLM) integrated with tr
       This website template is adapted from
       <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
       licensed under a
-      <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons BY-SA 4.0 L
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+</body>
+</html>

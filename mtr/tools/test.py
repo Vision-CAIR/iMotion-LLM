@@ -43,7 +43,7 @@ def parse_config():
     # parser.add_argument('--act', action='store_true', default=False, help='')
     # parser.add_argument('--ckpt', type=str, default='<internal_experiment_root>/mtr_models/mtr_1mar/mtr+20_percent_data/act_mtr/ckpt/checkpoint_epoch_30.pth', help='checkpoint to start from')
     
-    parser.add_argument('--eval_mode', default='pos1', help='')
+    parser.add_argument('--eval_mode', default='gt1', help='Waymo instruction eval mode: gt1, pos1, or neg1')
     parser.add_argument('--batch_size', type=int, default=None, required=False, help='batch size for training')
     parser.add_argument('--workers', type=int, default=4, help='number of workers for dataloader')
     parser.add_argument('--extra_tag', type=str, default='default', help='extra tag for this experiment')

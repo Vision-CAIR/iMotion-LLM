@@ -21,7 +21,12 @@ data/
     │   │   ├── train/
     │   │   ├── train_templateLLM/
     │   │   ├── val/
-    │   │   └── val_templateLLM/
+    │   │   ├── val_eval_meta/
+    │   │   │   ├── meta_gt1.json
+    │   │   │   ├── meta_pos1.json
+    │   │   │   └── meta_neg1.json
+    │   │   ├── val_templateLLM/
+    │   │   └── gf_mtr_mapping/gf_templatellm_maps/
     │   └── mtr/
     │       ├── processed_scenarios_training/
     │       ├── processed_scenarios_validation/
@@ -32,32 +37,51 @@ data/
 
 checkpoints/
 ├── gameformer/
-│   ├── waymo/cgf_l1/epochs_29.pth
-│   └── nuplan/cgf_l1/epochs_29.pth
+│   ├── waymo/
+│   │   ├── gf_l1/epochs_29.pth
+│   │   └── cgf_l1/epochs_29.pth
+│   └── nuplan/
+│       ├── gf_l1/epochs_29.pth
+│       └── cgf_l1/epochs_29.pth
 ├── imotion_llm/
 │   ├── waymo/checkpoint_last.pth
 │   └── nuplan/checkpoint_last.pth
 └── mtr/
-    └── waymo/checkpoint_epoch_15.pth
+    ├── waymo/checkpoint_epoch_15.pth
+    └── waymo_base/checkpoint_epoch_15.pth
 ```
 
-## Official Dataset Sources
+## Users Download These From Official Sources
 
 - Waymo Open Dataset download portal: <https://waymo.com/open/download>
 - Waymo Open Motion Dataset overview: <https://waymo.com/intl/it/open/data/motion/>
 - nuPlan dataset setup docs: <https://nuplan-devkit.readthedocs.io/en/latest/dataset_setup.html>
+- Meta Llama 2 7B model page: <https://huggingface.co/meta-llama/Llama-2-7b-hf>
 
 Tips:
 
-- Download the official raw data first, then run the preprocessing scripts in this repo to create the `data/processed/...` structure expected by the release configs.
-- The Waymo and nuPlan datasets have their own licenses and account requirements; this repo does not mirror them.
-- The old internal `docs/nuplan_download_links_legacy.txt` file is preserved for provenance, but the official links above should be treated as the source of truth.
+- download the official raw data first, then run the preprocessing scripts in this repo to create the `data/processed/...` structure expected by the release configs
+- the Waymo and nuPlan datasets have their own licenses and account requirements; this repo does not mirror them
+- the old internal `docs/nuplan_download_links_legacy.txt` file is preserved for provenance, but the official links above should be treated as the source of truth
+
+## We Should Provide These As Release Artifacts
+
+To make the repo practical for public users, upload these separately from the Git repo:
+
+- research checkpoints
+- Waymo evaluation manifests:
+  - `meta_gt1.json`
+  - `meta_pos1.json`
+  - `meta_neg1.json`
+- GF↔MTR mapping JSONs used by MTR evaluation
+- generated Open-Vocabulary InstructNuPlan prompt / metadata bundle
+- small supporting artifacts such as `KBinsDiscretizer_76.pkl` and `cluster_64_center_dict.pkl`
+
+See [../release/HUGGINGFACE_UPLOAD_MANIFEST.md](../release/HUGGINGFACE_UPLOAD_MANIFEST.md) for the full upload list.
 
 ## Base LLM Weights
 
-The release configs currently default to Meta Llama 2 7B:
-
-- Hugging Face model page: <https://huggingface.co/meta-llama/Llama-2-7b-hf>
+The release configs currently default to Meta Llama 2 7B.
 
 You can either:
 
@@ -93,20 +117,32 @@ If you already have local checkpoints:
 Suggested placement if you are copying checkpoints from an older internal machine:
 
 ```bash
+mkdir -p checkpoints/gameformer/waymo/gf_l1
 mkdir -p checkpoints/gameformer/waymo/cgf_l1
+mkdir -p checkpoints/gameformer/nuplan/gf_l1
 mkdir -p checkpoints/gameformer/nuplan/cgf_l1
 mkdir -p checkpoints/imotion_llm/waymo
 mkdir -p checkpoints/imotion_llm/nuplan
 mkdir -p checkpoints/mtr/waymo
+mkdir -p checkpoints/mtr/waymo_base
 
-cp /path/to/old/gameformer_waymo_epoch_29.pth checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth
-cp /path/to/old/gameformer_nuplan_epoch_29.pth checkpoints/gameformer/nuplan/cgf_l1/epochs_29.pth
+cp /path/to/old/gameformer_waymo_epoch_29.pth checkpoints/gameformer/waymo/gf_l1/epochs_29.pth
+cp /path/to/old/cgameformer_waymo_epoch_29.pth checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth
+cp /path/to/old/gameformer_nuplan_epoch_29.pth checkpoints/gameformer/nuplan/gf_l1/epochs_29.pth
+cp /path/to/old/cgameformer_nuplan_epoch_29.pth checkpoints/gameformer/nuplan/cgf_l1/epochs_29.pth
 cp /path/to/old/imotion_waymo_checkpoint.pth checkpoints/imotion_llm/waymo/checkpoint_last.pth
 cp /path/to/old/imotion_nuplan_checkpoint.pth checkpoints/imotion_llm/nuplan/checkpoint_last.pth
 cp /path/to/old/mtr_checkpoint_epoch_15.pth checkpoints/mtr/waymo/checkpoint_epoch_15.pth
+cp /path/to/old/mtr_base_checkpoint_epoch_15.pth checkpoints/mtr/waymo_base/checkpoint_epoch_15.pth
 ```
 
 Project research checkpoints are not bundled in this public repo yet. If no old checkpoints are available locally, use the training commands in [running.md](running.md) to produce fresh ones.
+
+## NuPlan Prompt Generation Caveat
+
+Open-Vocabulary InstructNuPlan is not a pure raw-data-only pipeline.
+
+Parts of the prompt generation flow under `gameformer/nuplan_preprocess/` use OpenAI-based generation and require `OPENAI_API_KEY` if you regenerate the prompts yourself. For a strict public reproduction package, the generated prompt and metadata bundle should be downloaded from the project release instead of being regenerated from scratch.
 
 Useful overrides:
 
@@ -115,3 +151,5 @@ Useful overrides:
 - `model.mtr_ckpt_path=...`
 - `IMOTION_LLM_MTR_CKPT=...`
 - `IMOTION_LLM_MTR_DATA_ROOT=...`
+- `IMOTION_LLM_MTR_EVAL_META_DIR=...`
+- `IMOTION_LLM_MTR_EVAL_MAPPING_DIR=...`

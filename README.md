@@ -1,15 +1,13 @@
 # iMotion-LLM
 
-Official repository for the paper
-[`iMotion-LLM: Instruction-Conditioned Trajectory Generation`](https://arxiv.org/abs/2406.06211).
+Official repository for the WACV 2026 paper
+[`iMotion-LLM: Instruction-Conditioned Trajectory Generation`](https://openaccess.thecvf.com/content/WACV2026/html/Felemban_iMotion-LLM_Instruction-Conditioned_Trajectory_Generation_WACV_2026_paper.html).
 
-This repository is the cleaned public migration of the original research codebase used for the paper.
-The release keeps the original project website under `docs/`, preserves legacy experiment assets for traceability, and adds a supported public surface for environment setup, preprocessing, training, evaluation, and checkpoint loading.
+This repository is the cleaned public migration of the original research codebase used for the paper. The release keeps legacy experiment assets for traceability, but the supported public surface is now centered on `scripts/`, `configs/release/`, and the setup and release docs under `docs/`.
 
 ## Overview
 
-iMotion-LLM is a language-conditioned trajectory generation framework for autonomous driving.
-The paper combines:
+iMotion-LLM is a language-conditioned trajectory generation framework for autonomous driving. The paper combines:
 
 - instruction-conditioned trajectory generation
 - direction feasibility reasoning on `InstructWaymo`
@@ -19,9 +17,10 @@ The paper combines:
 
 Project links:
 
-- Paper: <https://arxiv.org/abs/2406.06211>
-- PDF: <https://arxiv.org/pdf/2406.06211>
-- Project page: [docs/](docs/)
+- WACV page: <https://openaccess.thecvf.com/content/WACV2026/html/Felemban_iMotion-LLM_Instruction-Conditioned_Trajectory_Generation_WACV_2026_paper.html>
+- WACV PDF: <https://openaccess.thecvf.com/content/WACV2026/papers/Felemban_iMotion-LLM_Instruction-Conditioned_Trajectory_Generation_WACV_2026_paper.pdf>
+- arXiv preprint: <https://arxiv.org/abs/2406.06211>
+- project page: <https://vision-cair.github.io/iMotion-LLM/>
 
 ## Status
 
@@ -31,6 +30,7 @@ Current repository status:
 - public release configs are available under `configs/release/`
 - supported helper scripts are available under `scripts/`
 - setup, data, checkpoint, and running docs are available under `docs/setup/`
+- paper-table coverage and remaining gaps are tracked under `docs/release/`
 - legacy experiment folders are preserved for paper traceability
 
 Supported code areas now in the repo:
@@ -41,11 +41,12 @@ Supported code areas now in the repo:
 - `mtr/` for the Motion Transformer baseline
 - `tools/eval/` for evaluation helpers preserved from the working tree
 
-Supported public runtime note:
+Supported public runtime notes:
 
 - use `scripts/` and `configs/release/` as the supported entry surface
 - release configs now use the public model architecture name `imotion_llm`
 - legacy `minigpt4` module names are still present internally for backward compatibility
+- `ProSim-Instruct` is an external baseline from the paper and is not part of this repository
 
 ## Installation
 
@@ -60,18 +61,27 @@ conda activate imotion-llm
 pip install -e ./mtr
 ```
 
-Full setup notes:
+Full setup and release notes:
 
 - [Installation](docs/setup/installation.md)
 - [Data and checkpoints](docs/setup/data_and_checkpoints.md)
 - [Running](docs/setup/running.md)
+- [WACV 2026 experiment status](docs/release/WACV2026_EXPERIMENT_STATUS.md)
 - [Release audit](docs/release/REPO_AUDIT.md)
 - [Upload manifest](docs/release/HUGGINGFACE_UPLOAD_MANIFEST.md)
 - [Paper reproducibility checklist](docs/release/PAPER_REPRODUCIBILITY_CHECKLIST.md)
 
 ## Quick Start
 
-Train GameFormer:
+Preprocess Waymo:
+
+```bash
+bash scripts/preprocess_waymo_gameformer.sh \
+  --load_path data/raw/waymo/validation_interactive \
+  --save_path data/processed/waymo/gameformer/val
+```
+
+Train conditional GameFormer on Waymo:
 
 ```bash
 bash scripts/train_gameformer_waymo.sh --act --act_dec --level 1
@@ -86,17 +96,26 @@ bash scripts/train_imotion_waymo.sh \
   model.gf_encoder_path=checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth
 ```
 
-Evaluate an existing iMotion-LLM checkpoint:
+Evaluate an existing iMotion-LLM checkpoint on `gt1`:
 
 ```bash
 bash scripts/eval_imotion_waymo.sh \
   --options \
   model.llama_model=meta-llama/Llama-2-7b-hf \
   model.gf_encoder_path=checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth \
-  run.eval_dir=checkpoints/imotion_llm/waymo/checkpoint_last.pth
+  run.eval_dir=checkpoints/imotion_llm/waymo/checkpoint_last.pth \
+  datasets.traj_align_valid.processor.valid.new_eval_mode=gt1
 ```
 
-## Repository Structure
+Evaluate conditional MTR on the `gt1` split:
+
+```bash
+bash scripts/eval_mtr_waymo.sh --ckpt checkpoints/mtr/waymo/checkpoint_epoch_15.pth
+```
+
+For the full paper flow, see [Running](docs/setup/running.md), which documents the `gt1`, `pos1`, `neg1`, `safe_with_context`, `safe_no_context`, `unsafe_with_context`, and `unsafe_no_context` evaluation modes.
+
+## Repository Layout
 
 ```text
 iMotion-LLM/
@@ -125,6 +144,7 @@ iMotion-LLM/
 - [Source audit: iMotion-LLM-ICLR](migration/SOURCE_AUDIT_IMOTION_LLM_ICLR.md)
 - [Paper refactoring requirements](migration/PAPER_REFACTORING_REQUIREMENTS.md)
 - [Paper experiment scope](docs/paper_scope.md)
+- [WACV 2026 experiment status](docs/release/WACV2026_EXPERIMENT_STATUS.md)
 - [Installation](docs/setup/installation.md)
 - [Data and checkpoints](docs/setup/data_and_checkpoints.md)
 - [Running](docs/setup/running.md)
@@ -141,27 +161,27 @@ High-priority TODOs for the repo:
 - [x] Remove critical hard-coded local paths from supported entrypoints
 - [x] Add release configs for Waymo, nuPlan, and MTR
 - [x] Add reproducible install, training, and evaluation instructions
+- [ ] Upload public checkpoints, manifests, and generated NuPlan prompt bundle
+- [ ] Add final table-to-checkpoint reproduction manifests
 - [ ] Prune unsupported duplicate legacy experiment files more aggressively
-- [ ] Upload or link public research checkpoints
-- [ ] Add paper-table specific reproduction manifests and verified outputs
+- [ ] Run a fresh-machine validation using only public assets
 
 ## Availability Checklist
 
 Available now:
 
-- project website assets in `docs/`
 - migrated working code from the protected source repo
 - release configs in `configs/release/`
 - helper scripts in `scripts/`
-- setup/data/checkpoint/run documentation
+- setup, data, checkpoint, and run documentation
 - MTR, GameFormer, iMotion-LLM, and instruction code trees
 
 Still missing:
 
-- bundled public research checkpoints
+- public release checkpoints
+- exact evaluation manifests and generated NuPlan prompt bundle
 - polished per-table reproduction manifests
-- deeper cleanup of archival duplicate experiment files
-- verification on fresh machines and non-local datasets
+- broader fresh-machine validation using only public assets
 
 ## Migration Note
 
@@ -171,8 +191,7 @@ Cleanup and refactoring work happen in this repository only.
 
 ## Acknowledgment
 
-Parts of this codebase are being adapted and cleaned from prior internal research code that was built on top of
-[`Vision-CAIR/MiniGPT-4`](https://github.com/Vision-CAIR/MiniGPT-4).
+Parts of this codebase are being adapted and cleaned from prior internal research code that was built on top of [`Vision-CAIR/MiniGPT-4`](https://github.com/Vision-CAIR/MiniGPT-4).
 
 We acknowledge the MiniGPT-4 repository and its authors as an important upstream foundation for developing portions of the iMotion-LLM codebase.
 
@@ -181,10 +200,12 @@ We acknowledge the MiniGPT-4 repository and its authors as an important upstream
 If you use this work, please cite:
 
 ```bibtex
-@article{felemban2024imotionllm,
-  title={iMotion-LLM: Instruction-Conditioned Trajectory Generation},
-  author={Felemban, Abdulwahab and Hroub, Nussair and Ding, Jian and Abdelrahman, Eslam and Shen, Xiaoqian and Mohamed, Abduallah and Elhoseiny, Mohamed},
-  journal={arXiv preprint arXiv:2406.06211},
-  year={2024}
+@inproceedings{Felemban_2026_WACV,
+  author    = {Felemban, Abdulwahab and Hroub, Nussair and Ding, Jian and Abdelrahman, Eslam and Shen, Xiaoqian and Mohamed, Abduallah and Elhoseiny, Mohamed},
+  title     = {iMotion-LLM: Instruction-Conditioned Trajectory Generation},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  month     = {March},
+  year      = {2026},
+  pages     = {2710-2720}
 }
 ```

@@ -1,23 +1,24 @@
 # Paper Scope
 
-This note maps the paper to the code and experiment surface that this repository is expected to deliver.
+This note maps the final paper to the code and experiment surface that this repository is expected to deliver.
 
 Paper:
 
 - `iMotion-LLM: Instruction-Conditioned Trajectory Generation`
-- arXiv: `2406.06211`
-- arXiv abstract page: <https://arxiv.org/abs/2406.06211>
+- WACV 2026 Open Access page: <https://openaccess.thecvf.com/content/WACV2026/html/Felemban_iMotion-LLM_Instruction-Conditioned_Trajectory_Generation_WACV_2026_paper.html>
+- WACV 2026 PDF: <https://openaccess.thecvf.com/content/WACV2026/papers/Felemban_iMotion-LLM_Instruction-Conditioned_Trajectory_Generation_WACV_2026_paper.pdf>
+- arXiv preprint: <https://arxiv.org/abs/2406.06211>
 
 ## Core Contributions To Support In Code
 
 The paper describes a trajectory-generation system that combines:
 
-- a scene encoder and multimodal trajectory decoder baseline,
-- an LLM with LoRA fine-tuning,
-- a projection from scene features into the LLM token space,
-- a scene mapper back into the motion model space,
-- an instruction mapper that conditions the motion queries,
-- text outputs for feasibility/safety reasoning and justification.
+- a scene encoder and multimodal trajectory decoder baseline
+- an LLM with LoRA fine-tuning
+- a projection from scene features into the LLM token space
+- a scene mapper back into the motion model space
+- an instruction mapper that conditions the motion queries
+- text outputs for feasibility, safety reasoning, and justification
 
 ## Datasets Mentioned In The Paper
 
@@ -56,7 +57,7 @@ Paper setup highlights:
 
 Expected code surface:
 
-- instruction generation/curation pipeline
+- instruction generation / curation pipeline
 - context handling
 - safety evaluation
 - safe-instruction trajectory-following evaluation
@@ -108,7 +109,7 @@ The migrated code should ideally cover:
 
 - class-balanced sampling
 - LLM backbone comparison
-- projection layer depth/configuration
+- projection layer depth / configuration
 - backbone fine-tuning strategy
 
 Selected reference numbers from the paper:
@@ -117,13 +118,19 @@ Selected reference numbers from the paper:
 - LoRA settings in supplementary: rank `32`, alpha `16`, dropout `0.05`, batch size `16`
 - training strategy with the best overall balance: fine-tune trajectory decoder only
 
-## Known Gaps At Bootstrap Time
+## Current Public Coverage
 
-At the time this repository was initialized:
+The cleaned public release now includes:
 
-- no executable iMotion-LLM code had been migrated yet
-- no experiment configs had been recovered yet
-- no dataset scripts had been recovered yet
-- no evaluation scripts had been recovered yet
+- iMotion-LLM training and evaluation entrypoints for Waymo and nuPlan
+- GameFormer / C-GameFormer training on Waymo and public evaluation wrappers for Waymo and nuPlan
+- MTR / C-MTR public train and eval wrappers on Waymo
+- legacy ablation configs kept under `trajgpt/` for paper traceability
 
-These gaps are intentional and tracked so upcoming migration work can be audited against the paper.
+## Known Remaining Gaps
+
+- `ProSim-Instruct` is not part of this repository
+- strict public reproducibility still requires uploaded checkpoints and manifests
+- Open-Vocabulary InstructNuPlan generation is not fully self-contained from raw data because part of the prompt pipeline uses OpenAI-based generation; the generated prompt bundle should therefore be released
+
+See [release/WACV2026_EXPERIMENT_STATUS.md](release/WACV2026_EXPERIMENT_STATUS.md) for the table-by-table status and concrete file paths.

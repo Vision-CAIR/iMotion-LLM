@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CFG_PATH="${IMOTION_MTR_CONFIG:-$ROOT_DIR/configs/release/mtr_waymo_act.yaml}"
+CFG_PATH="${IMOTION_MTR_CONFIG:-$ROOT_DIR/configs/release/mtr_waymo.yaml}"
 EVAL_MODE="${IMOTION_MTR_EVAL_MODE:-gt1}"
 
 cd "$ROOT_DIR"

@@ -2,15 +2,20 @@
 
 This file lists the artifacts that should be uploaded outside the Git repo for a practical public release.
 
-## What Should Not Be Uploaded Here
+## What Users Should Download From Official Sources
 
-Do not mirror these into this repository:
+Users should obtain these directly from the original providers:
 
 - raw Waymo Open Motion Dataset files
 - raw nuPlan dataset files
+- raw nuPlan map files
 - gated base LLM weights such as Meta Llama checkpoints
 
-These should remain external because of licensing, scale, or gated-access constraints.
+These should stay external because of licensing, scale, or gated-access constraints.
+
+## What We Should Upload Ourselves
+
+The release artifacts below are the pieces that make the repo practical and reproducible.
 
 ## Priority 1: Checkpoints To Upload
 
@@ -27,17 +32,19 @@ These are the most important artifacts for immediate public usability.
 
 - `checkpoints/gameformer/waymo/cgf_l1/epochs_29.pth`
   Purpose: conditional GameFormer backbone used by the Waymo release flow
+- `checkpoints/gameformer/waymo/gf_l1/epochs_29.pth`
+  Purpose: unconditional GameFormer baseline row for Table 2
 - `checkpoints/gameformer/nuplan/cgf_l1/epochs_29.pth`
   Purpose: conditional GameFormer backbone used by the NuPlan release flow
+- `checkpoints/gameformer/nuplan/gf_l1/epochs_29.pth`
+  Purpose: unconditional GameFormer NuPlan baseline if released
 
 ### Baseline Checkpoints For Paper Reproduction
 
 - `checkpoints/mtr/waymo/checkpoint_epoch_15.pth`
-  Purpose: released MTR / C-MTR baseline checkpoint
-- optional unconditional GameFormer Waymo checkpoint
-  Purpose: paper-table reproduction for unconditional baseline rows
-- optional unconditional MTR Waymo checkpoint
-  Purpose: paper-table reproduction for unconditional baseline rows
+  Purpose: released conditional MTR baseline checkpoint
+- `checkpoints/mtr/waymo_base/checkpoint_epoch_15.pth`
+  Purpose: unconditional MTR baseline row for Table 2
 
 ## Priority 2: Small Supporting Artifacts To Upload
 
@@ -47,12 +54,17 @@ These are lightweight but important for users who want reproducible behavior.
   Purpose: discretization artifact used by parts of the migrated trajectory pipeline
 - `data/processed/waymo/mtr/output/cluster_64_center_dict.pkl`
   Purpose: MTR intention-point file referenced by the public runtime
-- Waymo evaluation split manifest for the `1,500` balanced examples
-  Suggested format: JSON or CSV with scenario/object identifiers
+- Waymo evaluation manifests for the `1,500` balanced examples
+  Suggested files:
+  - `meta_gt1.json`
+  - `meta_pos1.json`
+  - `meta_neg1.json`
 - NuPlan test split manifest for the `2,078` evaluation examples
   Suggested format: JSON or CSV with scenario identifiers and category labels
 - any GF↔MTR mapping JSONs needed by released evaluation code
   Suggested format: a small `metadata/` bundle rather than embedding them in large processed datasets
+- generated Open-Vocabulary InstructNuPlan prompt and metadata bundle
+  Purpose: deterministic public reuse of the benchmark without requiring OpenAI-based regeneration
 
 ## Priority 3: Config Bundle To Upload Alongside Checkpoints
 
@@ -62,29 +74,37 @@ These config files should be uploaded or duplicated in the model card release as
 - `configs/release/imotion_waymo_eval.yaml`
 - `configs/release/imotion_nuplan_train.yaml`
 - `configs/release/imotion_nuplan_eval.yaml`
+- `configs/release/mtr_waymo.yaml`
 - `configs/release/mtr_waymo_act.yaml`
 
 Also include the public helper scripts or link the exact Git commit that contains them:
 
+- `scripts/train_gameformer_waymo.sh`
+- `scripts/eval_gameformer_waymo.sh`
 - `scripts/train_imotion_waymo.sh`
 - `scripts/eval_imotion_waymo.sh`
+- `scripts/train_gameformer_nuplan.sh`
+- `scripts/eval_gameformer_nuplan.sh`
 - `scripts/train_imotion_nuplan.sh`
 - `scripts/eval_imotion_nuplan.sh`
-- `scripts/train_gameformer_waymo.sh`
+- `scripts/train_mtr_waymo_base.sh`
+- `scripts/eval_mtr_waymo_base.sh`
 - `scripts/train_mtr_waymo.sh`
 - `scripts/eval_mtr_waymo.sh`
 
 ## Recommended Hugging Face Layout
-
-One practical layout is:
 
 ```text
 imotion-llm-release/
 ├── README.md
 ├── configs/
 ├── metadata/
-│   ├── instructwaymo_eval_split.json
+│   ├── instructwaymo_eval/
+│   │   ├── meta_gt1.json
+│   │   ├── meta_pos1.json
+│   │   └── meta_neg1.json
 │   ├── nuplan_eval_split.json
+│   ├── nuplan_prompt_bundle/
 │   └── mtr_mapping/
 ├── checkpoints/
 │   ├── imotion_llm/
@@ -97,7 +117,7 @@ imotion-llm-release/
 
 ## Still To Decide Before Upload
 
-- whether processed prompt/caption datasets can be redistributed under Waymo / nuPlan terms
+- whether the generated NuPlan prompt bundle is released as standalone metadata or as part of a larger processed-data package
 - whether to release only final checkpoints or also intermediate ablation checkpoints
 - whether to store all checkpoints in one HF repo or split them into:
   - `Vision-CAIR/iMotion-LLM-checkpoints`
@@ -109,10 +129,14 @@ If time is limited, upload at least:
 
 - main Waymo iMotion-LLM checkpoint
 - Waymo conditional GameFormer checkpoint
+- Waymo unconditional GameFormer checkpoint
 - NuPlan iMotion-LLM checkpoint
 - NuPlan conditional GameFormer checkpoint
 - MTR checkpoint
+- unconditional MTR checkpoint
 - `KBinsDiscretizer_76.pkl`
 - `cluster_64_center_dict.pkl`
 - the `configs/release/` files
-- the exact evaluation split manifests
+- the exact Waymo evaluation manifests
+- the GF↔MTR mapping JSONs
+- the NuPlan evaluation metadata and generated prompt bundle
