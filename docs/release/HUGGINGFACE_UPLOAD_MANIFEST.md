@@ -1,5 +1,31 @@
 # Hugging Face Upload Manifest
 
+## Status: datasets published, checkpoints outstanding
+
+**Published (2026-10-13)** — under the `KAUST` org:
+
+| Repo | Contents |
+|---|---|
+| [`KAUST/InstructNuPlan`](https://huggingface.co/datasets/KAUST/InstructNuPlan) | Open-Vocabulary InstructNuPlan: LLM-generated instructions with reasoning and safety labels over 14 nuPlan scenario types; prompts and scenario metadata for provenance |
+| [`KAUST/InstructWaymo`](https://huggingface.co/datasets/KAUST/InstructWaymo) | InstructWaymo instruction/reasoning/decision records; the exact evaluation manifests (`meta_gt1.json`, `meta_pos1.json`, `meta_neg1.json`, `eval_meta.json`); GameFormer-to-MTR index mappings |
+
+Fetch with `tools/instruct_data/download_instruct_data.py`.
+
+Both are stored as gzipped JSONL shards rather than the original millions of
+per-scene files, so they load in one pass; `_source` on every row preserves the
+original path and `--expand` rebuilds the original tree (raw-text files come
+back byte-identical).
+
+**Deliberately not uploaded** — reproducible from code in this repo:
+
+- `npz` scenario tensor caches: ~912 GiB (nuPlan) + ~432 GiB (Waymo)
+- rendered scenario figures (~22 GiB of `.png`)
+
+**Still outstanding** — the checkpoints listed under Priority 1 below.
+
+---
+
+
 This file lists the artifacts that should be uploaded outside the Git repo for a practical public release.
 
 ## What Users Should Download From Official Sources

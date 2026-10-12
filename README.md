@@ -22,6 +22,29 @@ Project links:
 - arXiv preprint: <https://arxiv.org/abs/2406.06211>
 - project page: <https://vision-cair.github.io/iMotion-LLM/>
 
+## Datasets
+
+The paper's instruction annotations are published on the Hugging Face Hub:
+
+| Dataset | Hub |
+|---|---|
+| Open-Vocabulary InstructNuPlan | <https://huggingface.co/datasets/KAUST/InstructNuPlan> |
+| InstructWaymo | <https://huggingface.co/datasets/KAUST/InstructWaymo> |
+
+```bash
+pip install huggingface_hub
+python tools/instruct_data/download_instruct_data.py --dest data/processed --expand
+```
+
+Both carry annotations only — instruction text, reasoning and evaluation
+manifests keyed to scene tokens, with no Waymo or nuPlan sensor data. Obtain
+the raw datasets from their official sources; see
+[`docs/setup/data_and_checkpoints.md`](docs/setup/data_and_checkpoints.md).
+
+Scenario tensor caches (`npz`) are not mirrored because this repo's
+preprocessing regenerates them deterministically. Details and the prompt
+regeneration scripts: [`tools/instruct_data/`](tools/instruct_data/).
+
 ## Status
 
 Current repository status:
@@ -161,7 +184,8 @@ High-priority TODOs for the repo:
 - [x] Remove critical hard-coded local paths from supported entrypoints
 - [x] Add release configs for Waymo, nuPlan, and MTR
 - [x] Add reproducible install, training, and evaluation instructions
-- [ ] Upload public checkpoints, manifests, and generated NuPlan prompt bundle
+- [x] Publish the generated NuPlan prompt bundle and evaluation manifests (`KAUST/InstructNuPlan`, `KAUST/InstructWaymo`)
+- [ ] Upload public checkpoints
 - [ ] Add final table-to-checkpoint reproduction manifests
 - [ ] Prune unsupported duplicate legacy experiment files more aggressively
 - [ ] Run a fresh-machine validation using only public assets
@@ -175,11 +199,13 @@ Available now:
 - helper scripts in `scripts/`
 - setup, data, checkpoint, and run documentation
 - MTR, GameFormer, iMotion-LLM, and instruction code trees
+- published instruction datasets: `KAUST/InstructNuPlan`, `KAUST/InstructWaymo`
+- exact evaluation manifests (`meta_gt1.json`, `meta_pos1.json`, `meta_neg1.json`)
+- NuPlan prompt construction scripts under `tools/instruct_data/`
 
 Still missing:
 
 - public release checkpoints
-- exact evaluation manifests and generated NuPlan prompt bundle
 - polished per-table reproduction manifests
 - broader fresh-machine validation using only public assets
 

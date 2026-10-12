@@ -51,6 +51,33 @@ checkpoints/
     └── waymo_base/checkpoint_epoch_15.pth
 ```
 
+## Published Instruction Annotations
+
+The paper's two instruction datasets are on the Hugging Face Hub:
+
+| Dataset | Hub | Size |
+|---|---|---|
+| Open-Vocabulary InstructNuPlan | [`KAUST/InstructNuPlan`](https://huggingface.co/datasets/KAUST/InstructNuPlan) | ~8 MB |
+| InstructWaymo | [`KAUST/InstructWaymo`](https://huggingface.co/datasets/KAUST/InstructWaymo) | ~4 GB |
+
+```bash
+pip install huggingface_hub
+python tools/instruct_data/download_instruct_data.py --dest data/processed --expand
+```
+
+This populates `data/processed/nuplan/gpt_prompt_14types/` and
+`data/processed/waymo/gameformer/{train,val}_templateLLM/`, plus the evaluation
+manifests under `val_eval_meta/`, matching the layout above.
+
+Both repositories carry **annotations only** — instruction text and reasoning
+keyed to scene tokens. They contain no Waymo or nuPlan sensor data, maps or
+logs, so you still need the raw datasets below.
+
+The `npz` scenario tensor caches are deliberately **not** published: they are
+deterministic output of this repo's preprocessing scripts (~1.3 TiB), so they
+are rebuilt locally from the raw data instead of mirrored. See
+[`tools/instruct_data/README.md`](../../tools/instruct_data/README.md).
+
 ## Users Download These From Official Sources
 
 - Waymo Open Dataset download portal: <https://waymo.com/open/download>
