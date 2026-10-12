@@ -58,7 +58,7 @@ The paper's two instruction datasets are on the Hugging Face Hub:
 | Dataset | Hub | Size |
 |---|---|---|
 | Open-Vocabulary InstructNuPlan | [`KAUST/InstructNuPlan`](https://huggingface.co/datasets/KAUST/InstructNuPlan) | ~8 MB |
-| InstructWaymo | [`KAUST/InstructWaymo`](https://huggingface.co/datasets/KAUST/InstructWaymo) | ~4 GB |
+| InstructWaymo | [`KAUST/InstructWaymo`](https://huggingface.co/datasets/KAUST/InstructWaymo) | ~640 MB |
 
 ```bash
 pip install huggingface_hub

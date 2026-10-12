@@ -9,6 +9,13 @@
 | [`KAUST/InstructNuPlan`](https://huggingface.co/datasets/KAUST/InstructNuPlan) | Open-Vocabulary InstructNuPlan: LLM-generated instructions with reasoning and safety labels over 14 nuPlan scenario types; prompts and scenario metadata for provenance |
 | [`KAUST/InstructWaymo`](https://huggingface.co/datasets/KAUST/InstructWaymo) | InstructWaymo instruction/reasoning/decision records; the exact evaluation manifests (`meta_gt1.json`, `meta_pos1.json`, `meta_neg1.json`, `eval_meta.json`); GameFormer-to-MTR index mappings |
 
+Row counts: InstructWaymo carries 45,011,552 training instruction records
+(from 3,616,562 source files), 359,308 validation records, 910,782 synthetic
+variants and 5,000 index mappings, in 26 gzipped shards totalling 0.61 GiB.
+InstructNuPlan carries 7,119 LLM responses and 88,133 template records in
+~8 MB. The evaluation manifests are published verbatim as plain JSON under
+`eval_meta/`.
+
 Fetch with `tools/instruct_data/download_instruct_data.py`.
 
 Both are stored as gzipped JSONL shards rather than the original millions of
