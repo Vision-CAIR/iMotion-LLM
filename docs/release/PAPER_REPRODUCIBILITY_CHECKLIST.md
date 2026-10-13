@@ -8,6 +8,24 @@ Paper:
 - WACV 2026 Open Access paper
 - arXiv preprint: `2406.06211`
 
+## 0. Preprocessing Import Chain
+
+`gameformer/data_preprocess_v09.py` (and 30 sibling scripts) import the template
+builders as `from chatgpt_instruct_v02 import *`. That module is provided at the
+repository root and re-exports
+`tools/instruct_data/build_nuplan_prompts_v02.py`, so the Waymo and nuPlan
+preprocessing entrypoints resolve from a clean checkout.
+
+Verified: regenerating a `*_templateLLM/*.txt` record through
+`generate_template_json` reproduces the published `InstructWaymo` text
+byte-for-byte. The generator is pure string templating with no RNG and no API
+call, so the Waymo instruction text is deterministic given the raw scenario
+protos.
+
+Raw inputs are not redistributed here. Waymo preprocessing requires the Waymo
+Open Motion Dataset scenario protos (`validation_interactive`, `training`)
+obtained from Waymo under their licence.
+
 ## 1. Canonical Public Entry Surface
 
 Use these as the intended public release entrypoints:
